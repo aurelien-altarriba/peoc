@@ -1,0 +1,94 @@
+#contenu
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+	height: 89vh;
+}
+
+#colonneGauche
+{
+	height: 85vh;
+
+	border: 1px solid grey;
+	border-radius: 1em;
+	padding: 1em;
+	margin: 1em;
+
+	background-color: #FAFAFA;
+
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+
+	flex: 1;
+}
+
+#colonneDroite
+{
+	height: 85vh;
+
+	padding: 1em;
+	padding-bottom: 0;
+	padding-top: 0.5em;
+
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+
+	flex: 4;
+}
+
+#filtres h3
+{
+	border-bottom: 1px solid grey;
+	padding-bottom: 0.3em;
+}
+
+#resParcours h3
+{
+	border-bottom: 1px solid grey;
+	margin-top: 1em;
+	padding-bottom: 0.3em;
+	margin-bottom: 0.5em;
+}
+
+#resParcours ul
+{
+	overflow-y: scroll;
+	max-height: 30vh;
+	min-height: 15em;
+}
+
+#resParcours ul li
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#description
+{
+	text-align: center;
+	font-family: Calibri, Arial;
+
+	max-height: 5vh;
+}
+
+#description h2
+{
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 0;
+}
+
+#map
+{
+	width: 100%;
+	height: 77vh;
+
+	box-shadow: 0px 0px 3px black;
+	border-radius: 3px;
+}
