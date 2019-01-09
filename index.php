@@ -4,7 +4,7 @@
 	<title>PE-OC</title>
 	<meta charset="utf-8">
 
-	<!-- CSS test modif -->
+	<!-- CSS modif 2 -->
 	<link rel="stylesheet" type="text/css" href="css/header.css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
