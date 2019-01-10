@@ -23,7 +23,10 @@ function mapLoad() {
 	// CRÉATION DE LA MAP
 	map = L.map('map', {
 	    layers: [OpenTopoMap]
-	}).setView([43.7, 2.5], 8);
+	});
+
+	// Coordonnées à l'initialisation de la map
+	map.setView([43.7, 2.5], 8);
 
 	// Pour modifier les crédits en bas à droite de la map
 	// map.attributionControl.setPrefix('Données cartographiques &copy; Contributeurs d\'<a href="http://openstreetmap.org">OpenStreetMap</a>, <a  href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>');
