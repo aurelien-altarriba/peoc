@@ -8,7 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="css/header.css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
-
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/leaflet.css">
 
@@ -18,7 +17,7 @@
 	<script type="text/javascript" src="js/leaflet.js"></script>
 	<script type="text/javascript" src="js/leaflet.active-layers.min.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
+	<script async type="text/javascript" src="js/index.js"></script>
 
 	<script type="text/javascript">
 		// Quand le document est prêt
