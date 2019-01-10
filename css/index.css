@@ -65,7 +65,6 @@
 #resParcours ul
 {
 	overflow-y: scroll;
-	max-height: 75%;
 }
 
 #resParcours ul li
@@ -78,7 +77,7 @@
 
 #resParcours
 {
-	height: 30vh;
+	margin-top: 1em;
 }
 
 #description
