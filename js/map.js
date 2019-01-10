@@ -1,4 +1,4 @@
-function mapLoad() {
+$(document).ready(function() {
 
 	// CARTES
 	var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -28,14 +28,6 @@ function mapLoad() {
 	// Coordonnées à l'initialisation de la map
 	map.setView([43.7, 2.5], 8);
 
-	// Pour modifier les crédits en bas à droite de la map
-	// map.attributionControl.setPrefix('Données cartographiques &copy; Contributeurs d\'<a href="http://openstreetmap.org">OpenStreetMap</a>, <a  href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>');
-
-	// Pour créer une zone de zoom en haut à droite
-	// L.control.zoom({
-	//      position:'topright'
-	// }).addTo(map);
-
 	// Pour appliquer la cartes et les calques sélectionnés
 	L.control.activeLayers(cartes).addTo(map);
-}
+});
