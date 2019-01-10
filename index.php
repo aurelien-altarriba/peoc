@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PE-OC</title>
+	<title>PÉ-OC</title>
 	<meta charset="utf-8">
 
 	<!-- CSS -->
@@ -84,7 +84,30 @@
 						Porta ac consectetur ac
 						<span class="badge badge-primary badge-pill">0 💬</span>
 					</li>
-
+					<li class="list-group-item list-group-item-danger">
+						Porta ac consectetur ac
+						<span class="badge badge-primary badge-pill">15 💬</span>
+					</li>
+					<li class="list-group-item list-group-item-warning">
+						Morbi leo risus
+						<span class="badge badge-primary badge-pill">5 💬</span>
+					</li>
+					<li class="list-group-item list-group-item-warning">
+						Porta ac consectetur ac
+						<span class="badge badge-primary badge-pill">7 💬</span>
+					</li>
+					<li class="list-group-item list-group-item-success">
+						Vestibulum at eros
+						<span class="badge badge-primary badge-pill">2 💬</span>
+					</li>
+					<li class="list-group-item list-group-item-danger">
+						Cras justo odio
+						<span class="badge badge-primary badge-pill">24 💬</span>
+					</li>
+					<li class="list-group-item list-group-item-success">
+						Dapibus ac facilisis in
+						<span class="badge badge-primary badge-pill">6 💬</span>
+					</li>
 				</ul>
 			</div>
 		</div>
