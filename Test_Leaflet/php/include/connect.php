@@ -2,7 +2,7 @@
 	function connect(){
 		//database login info
 		$host='10.11.159.20';
-		$port='5432'; 
+		$port='5432';
 		$user='postgres';
 		$pwd='postgres';
 		$dbname='peoc_test';
