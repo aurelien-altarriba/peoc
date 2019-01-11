@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---        Script Postgre 
+--        Script Postgre
 ------------------------------------------------------------
 
 
@@ -14,7 +14,7 @@ CREATE TABLE public.departement(
 
 
 ------------------------------------------------------------
--- Table: pays   
+-- Table: pays
 ------------------------------------------------------------
 CREATE TABLE public.pays(
 	id_pays_pa			VARCHAR (40) NOT NULL ,
@@ -71,7 +71,7 @@ CREATE TABLE public.cavalier(
 CREATE TABLE public.info_connexion(
 	login_ic          	VARCHAR (50) NOT NULL ,
 	id_membre_ic	  	INT  NOT NULL UNIQUE ,
-	mdp_ic            	VARCHAR (40) NOT NULL ,
+	mdp_ic            	VARCHAR (255) NOT NULL ,
 	dt_inscription_ic  	DATE  NOT NULL ,
 	dt_der_connexion_ic	DATE   ,
 	CONSTRAINT prk_constraint_info_connexion PRIMARY KEY (login_ic)
@@ -306,4 +306,3 @@ ALTER TABLE public.effectue 		ADD CONSTRAINT FK_effectue_id_parcours_e 			FOREIG
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_centre_pr 				FOREIGN KEY (id_centre_pr) 		REFERENCES public.centre_equestre(id_centre_ce);
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_parcours_pr 			FOREIGN KEY (id_parcours_pr) 	REFERENCES public.parcours(id_parcours_p);
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_service_pr 			FOREIGN KEY (id_service_pr) 	REFERENCES public.service(id_service_s);
-
