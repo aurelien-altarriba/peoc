@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---        Script Postgre 
+--        Script Postgre
 ------------------------------------------------------------
 
 
@@ -14,7 +14,7 @@ CREATE TABLE public.departement(
 
 
 ------------------------------------------------------------
--- Table: pays   
+-- Table: pays
 ------------------------------------------------------------
 CREATE TABLE public.pays(
 	id_pays_pa			VARCHAR (40) NOT NULL ,
@@ -91,7 +91,7 @@ CREATE TABLE public.centre_equestre(
 	tel_ce        		VARCHAR (15) NOT NULL ,
 	mail_ce       		VARCHAR (50) ,
 	nb_cheval_ce  		INT ,
-	id_membre_ce   		INT  NOT NULL ,
+	id_membre_ce   		INT ,
 	url_ce        		VARCHAR (2000)   ,
 	logo_ce       		VARCHAR (2000)   ,
 	CONSTRAINT prk_constraint_centre_equestre PRIMARY KEY (id_centre_ce)
@@ -306,4 +306,3 @@ ALTER TABLE public.effectue 		ADD CONSTRAINT FK_effectue_id_parcours_e 			FOREIG
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_centre_pr 				FOREIGN KEY (id_centre_pr) 		REFERENCES public.centre_equestre(id_centre_ce);
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_parcours_pr 			FOREIGN KEY (id_parcours_pr) 	REFERENCES public.parcours(id_parcours_p);
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_service_pr 			FOREIGN KEY (id_service_pr) 	REFERENCES public.service(id_service_s);
-

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---        Script Postgre 
+--        Script Postgre
 ------------------------------------------------------------
 
 --- LISTES CODIFICATION
@@ -322,9 +322,9 @@ INSERT INTO pays VALUES('EH','Sahara occidental');
 INSERT INTO pays VALUES('YE','Yémen');
 INSERT INTO pays VALUES('ZM','Zambie');
 INSERT INTO pays VALUES('ZW','Zimbabwe');
-	
-	
----- DATA 	
+
+
+---- DATA
 INSERT INTO membre VALUES(1,'FORSTER','Frank','1990-01-01','90 rue du bar','11000','Carcassonne','11','FR','0102030405','fh@test.fr');
 INSERT INTO membre VALUES(2,'ALTARRIBA','Aurélien','2000-01-01','100 avenue de la brasserie','11100','NARBONNE','11','FR','0102030405','aa@test.fr');
 INSERT INTO membre VALUES(3,'REY','Benoît','1980-01-01','80 chemin de la taverne','11000','Carcassonne','11','FR','0102030405','fh@test.fr');
@@ -337,7 +337,7 @@ INSERT INTO info_connexion VALUES('AA',2,MD5('testAA'),'2018-01-01',NULL);
 INSERT INTO info_connexion VALUES('BR',3,MD5('testBR'),'2019-01-01',NULL);
 
 INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','./../images/logos/1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
-INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,1,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
+INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
 
 INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,1,NULL,'test description');
 INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,1,1,'test description');
@@ -357,5 +357,3 @@ INSERT INTO point_vigilance VALUES(1,1,1,'2019-01-05','2019-01-05','2019-01-05',
 INSERT INTO propose VALUES(1,1,1,'2019-01-05',2,10,'Service de test sur le parcours 1');
 
 INSERT INTO effectue VALUES(1,1,'2019-01-05',10,5,'Notation de test du parcours 1');
-
-
