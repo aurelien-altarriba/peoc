@@ -1,3 +1,9 @@
+<?php
+	ini_set('display_errors', 1);
+	session_start();
+	require_once('./include/connect.php');
+?>
+
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="header">
 	<a class="navbar-brand" href="./">
 		<img src="./images/logo_peoc.png" height="60" style="margin-right: 0.5em;">
