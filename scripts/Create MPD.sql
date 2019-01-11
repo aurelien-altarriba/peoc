@@ -71,7 +71,7 @@ CREATE TABLE public.cavalier(
 CREATE TABLE public.info_connexion(
 	login_ic          	VARCHAR (50) NOT NULL ,
 	id_membre_ic	  	INT  NOT NULL UNIQUE ,
-	mdp_ic            	VARCHAR (40) NOT NULL ,
+	mdp_ic            	VARCHAR (255) NOT NULL ,
 	dt_inscription_ic  	DATE  NOT NULL ,
 	dt_der_connexion_ic	DATE   ,
 	CONSTRAINT prk_constraint_info_connexion PRIMARY KEY (login_ic)
