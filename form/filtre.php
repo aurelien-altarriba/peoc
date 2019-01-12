@@ -1,5 +1,4 @@
 <form>
-
 	<!-- Nom -->
 	<div class="form-group">
 		<label for="nomParcours">Nom du parcours</label>
@@ -9,43 +8,47 @@
 	<!-- Difficulté -->
 	<div class="form-group">
 		<label>Difficulté du parcours :</label>
-
 		<div class="form_row">
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" id="level1" value="1">
-				<label class="form-check-label" for="level1">Facile</label>
-			</div>
-
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" id="level2" value="2">
-				<label class="form-check-label" for="level2">Moyen</label>
-			</div>
-
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" id="level3" value="3">
-				<label class="form-check-label" for="level3">Difficile</label>
-			</div>
+			<?php
+				$sql='select id_niveau_ne, nom_ne from niveau_equestre order by id_niveau_ne;';
+				$rs=pg_exec($idc,$sql);
+				while($ligne=pg_fetch_assoc($rs)){
+					print('<div class="form-check">'."\n");
+					print('<input class="form-check-input" type="checkbox" id="level'.$ligne['id_niveau_ne'].'" value="'.$ligne['id_niveau_ne'].'">'."\n");
+					print('<label class="form-check-label" for="level'.$ligne['id_niveau_ne'].'">'.$ligne['nom_ne'].'</label>'."\n");
+					print('</div>'."\n");
+				}
+			?>
 		</div>
+	</div>
+
+	<!-- Centre équestre -->
+	<div class="form-group">
+		<label for="departement">Centre équestre</label>
+		<select class="form-control" id="centre">
+			<?php
+				$sql='select id_centre_ce, nom_ce from centre_equestre order by nom_ce;';
+				$rs=pg_exec($idc,$sql);
+				print('<option value="0">Tous les centres</option>'."\n");
+				while($ligne=pg_fetch_assoc($rs)){
+					print('<option value="'.$ligne['id_centre_ce'].'">'.$ligne['nom_ce'].'</option>'."\n");
+				}
+			?>
+		</select>
 	</div>
 
 	<!-- Département -->
 	<div class="form-group">
 		<label for="departement">Département</label>
 		<select class="form-control" id="departement">
-			<option>Tous les départements</option>
-			<option>Ariège</option>
-			<option>Aude</option>
-			<option>Aveyron</option>
-			<option>Gard</option>
-			<option>Haute-Garonne</option>
-			<option>Hautes-Pyrénées</option>
-			<option>Hérault</option>
-			<option>Gers</option>
-			<option>Lot</option>
-			<option>Lozère</option>
-			<option>Pyrénées-Orientales</option>
-			<option>Tarn</option>
-			<option>Tarn-et-Garonne</option>
+			<?php
+				$sql='select id_departement_d, nom_d from departement order by nom_d;';
+				$rs=pg_exec($idc,$sql);
+				print('<option value="0">Tous les départements</option>'."\n");
+				while($ligne=pg_fetch_assoc($rs)){
+					print('<option value="'.$ligne['id_departement_d'].'">'.$ligne['nom_d'].'</option>'."\n");
+				}
+			?>
 		</select>
 	</div>
 
