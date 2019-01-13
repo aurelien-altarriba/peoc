@@ -46,6 +46,7 @@
 				}
 				else {
 					document.getElementById("div_cavalier").style="visibility: hidden;";
+					vider('c');
 				}
 			}
 			else if (op=='r'){
@@ -54,6 +55,7 @@
 				}
 				else {
 					document.getElementById("div_centre").style="visibility: hidden;";
+					vider('t');
 				}
 			}
 			else if (op=='m'){
@@ -73,6 +75,9 @@
 				document.getElementById("id_num_licence_c").value="";
 				document.getElementById("id_dt_exp_licence_c").value="";
 				document.getElementById("id_nom_ne").value="";
+    		}
+			if (op=='t'){
+				document.getElementById("id_nom_ce").value="";
     		}
       	}
 	</script>
@@ -98,8 +103,8 @@
   			<?php
 	          	// A récupérer de la page qui appelle
 				//$id_membre = $_SESSION['zs_XXXXXXXX']);
-	          	//$id_membre = 1;
-				$id_membre = '';
+	          	$id_membre = 1;
+				//$id_membre = '';
 
 				// Initialisation ds variables du formulaire à vide
 				$id_membre_m='';
@@ -259,7 +264,7 @@
 						}
 						$sql=$sql.'order by nom_ce;';
 						$rs=pg_exec($idc,$sql);
-						print('<select name="zs_nom_ce">'."\n");
+						print('<select name="zs_nom_ce" id="id_nom_ce">'."\n");
 						print('<option value=""></option>'."\n");
 						while($ligne=pg_fetch_assoc($rs)){
 							if ($ligne['id_centre_ce']==$id_centre_ce){
