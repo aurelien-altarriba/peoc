@@ -17,6 +17,15 @@ var geojsonTroncons = {
 
 $(document).ready(function() {
 
+	displayMap();
+
+	//Retrieves data from BDD
+	getData();
+});
+
+
+
+function displayMap(){
 	// CARTES
 	var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; Contributeurs d\'<a href="http://openstreetmap.org/copyright">OSM</a> - <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
@@ -46,12 +55,18 @@ $(document).ready(function() {
 	map.setView([43.7, 2.5], 8);
 
 	// Pour appliquer la cartes et les calques sélectionnés
-	L.control.activeLayers(cartes).addTo(map);
+	//L.control.activeLayers(cartes).addTo(map);
+	layersControl = L.control.layers(cartes,{}).addTo(map);
 
+	//remove existing map layers
+	map.eachLayer(function(layer){
+		//if not the tile layer
+		if (typeof layer._url == "undefined"){
+			map.removeLayer(layer);
+		}
+	});
+}
 
-	//Retrieves data from BDD
-	getData();
-});
 
 
 function getData(){
@@ -139,11 +154,12 @@ function mapData(data,typeData){
 };
 
 
-
 function displayData(typeData){
 	console.log(geojsonCentres.features);
 
+	// Initialisation du style de la représentation graphique de chaque élément géographique
 	function styleCentre(feature, latlng) {
+		/*
 		var markerStyle = {
 			fillColor: "#CC9900",
 			color: "#FFF",
@@ -152,9 +168,24 @@ function displayData(typeData){
 			weight: 1,
 			radius: 8
 		};
-		return L.circleMarker(latlng, markerStyle);
+		*/
+
+		var redIcon = L.icon({
+			iconUrl: './images/leaf-red.png',
+			shadowUrl: './images/leaf-shadow.png',
+			iconSize:     [38, 95], // size of the icon
+			shadowSize:   [50, 64], // size of the shadow
+			iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+			shadowAnchor: [4, 62],  // the same for the shadow
+			popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+			});
+
+		//return L.circleMarker(latlng, markerStyle);
+		return L.marker(latlng, {icon: redIcon});
 	}
 
+
+	// Initialisation de la popup sur chaque élément géographique
 	function onEachFeatureCentre(feature, layer) {
 		var html = "";
 		for (prop in feature.properties){
@@ -178,23 +209,23 @@ function displayData(typeData){
 	}
 
 
-
+	// Affichage des données
 	if (typeData == 'C'){
-		var pointLayer = L.geoJson(geojsonCentres, {
+		var centreLayer = L.geoJson(geojsonCentres, {
 			pointToLayer: styleCentre,
 			onEachFeature: onEachFeatureCentre
 		});
-		map.addLayer(pointLayer);
+		map.addLayer(centreLayer);
 		//map.fitBounds(pointLayer.getBounds());
-		//layersControl.addOverlay(pointLayer,"Points");
+		layersControl.addOverlay(centreLayer,"Centres équestres");
 	}
 	else if (typeData == 'T'){
-		var ligneLayer = L.geoJson(geojsonTroncons, {
+		var tronconLayer = L.geoJson(geojsonTroncons, {
 			style : styleTroncon,
 			onEachFeature: onEachFeatureTroncon
 		});
-		map.addLayer(ligneLayer);
+		map.addLayer(tronconLayer);
 		//map.fitBounds(ligneLayer.getBounds());
-		//layersControl.addOverlay(ligneLayer,"Lignes");	
+		layersControl.addOverlay(tronconLayer,"Parcours");	
 	}
 };
