@@ -7,11 +7,12 @@
 		$pwd='postgres';
 		$dbname='peoc';
 
-		$idc=pg_connect('host='.$host.' port='.$port.' user='.$user.' password='.$pwd.' dbname='.$dbname);
-		if(!$idc){
-			echo "Not connected :".pg_error();
-			exit;
+		try {
+			$idc=pg_connect("host=$host port=$port user=$user password=$pwd dbname=$dbname options='--client_encoding=UTF8'");
+			return($idc);
+		} catch(Exception $e) {
+			$erreur = ("Erreur : ". $e ." <br> ". pg_error());
+			return($erreur);
 		}
-		return($idc);
 	}
 ?>

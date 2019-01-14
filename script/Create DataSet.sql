@@ -332,9 +332,9 @@ INSERT INTO membre VALUES(3,'REY','Benoît','1980-01-01','80 chemin de la tavern
 INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'./../images/photos/1.png');
 INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'./../images/photos/2.png');
 
-INSERT INTO info_connexion VALUES('FF',1,MD5('testFF'),'2019-01-01',NULL);
-INSERT INTO info_connexion VALUES('AA',2,MD5('testAA'),'2018-01-01',NULL);
-INSERT INTO info_connexion VALUES('BR',3,MD5('testBR'),'2019-01-01',NULL);
+INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.SoodlQYsDVKvD7eTYR.8cQC','2019-01-01',NULL);
+INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
+INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3qjmCVyaEm3brv37jyF4G4ge','2019-01-01',NULL);
 
 INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','./../images/logos/1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
 INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
@@ -352,8 +352,8 @@ INSERT INTO troncon VALUES(4,1,4,1,1,1,3,ST_GeomFromText( 'LINESTRING(2.899 43.2
 INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 3857));
 INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 3857));
 
-INSERT INTO troncon VALUES(1,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 3857));
-INSERT INTO troncon VALUES(2,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 3857));
+INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 3857));
+INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 3857));
 
 INSERT INTO point_interet VALUES(1,1,1,1,NULL,NULL,E'Point d\'intérêt de test',ST_GeomFromText('POINT(2.8723 43.2671)', 3857));
 

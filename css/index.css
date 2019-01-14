@@ -18,6 +18,7 @@
 	font-size: 0.9em;
 
 	height: 100%;
+	max-width: 30vw;
 
 	background-color: #FAFAFA;
 
@@ -59,7 +60,14 @@
 .form_row
 {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-around;
+}
+
+.form_row .form-check
+{
+	display: flex;
+	margin-left: 1em;
 }
 
 #resParcours ul

@@ -2,6 +2,26 @@
 	ini_set('display_errors', 1);
 	session_start();
 	require_once('./include/connect.php');
+
+	$_SESSION['membre']['id'] = 2;
+
+	// Récupération des données du membre connecté dans un tableau 'membre'
+	if(isset($_SESSION['membre']['id'])) {
+		if(!isset($_SESSION['membre']['id_membre_m'])) {
+			try {
+				$bdd = connect();
+				$res = pg_query_params($bdd, 'SELECT * FROM membre WHERE id_membre_m = $1', array($_SESSION['membre']['id']));
+			} catch(Exception $e) {
+				echo('erreur : '. $e);
+			}
+
+			$res = pg_fetch_all($res);
+
+			foreach ($res[0] as $key => $value) {
+				$_SESSION['membre'][$key] = $value;
+			}
+		}
+	}
 ?>
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="header">
@@ -19,9 +39,11 @@
 				<a class="nav-link" href="./">Accueil</a>
 			</li>
 
-			<li class="nav-item">
+			<?php if(isset($_SESSION['id_membre'])) { ?>
+				<li class="nav-item">
 				<a class="nav-link" href="./">Mon compte</a>
-			</li>
+				</li>
+			<?php } ?>
 		</ul>
 
 		<div class="mr-auto mt-2">
@@ -29,10 +51,14 @@
 		</div>
 
 		<div class="mt-2 mt-lg-0">
-			<button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#connexion">
-				Connexion
-			</button>
-			<button type="button" class="btn btn-lg btn-danger">Inscription</button>
+			<?php if(isset($_SESSION['id_membre'])) {
+				echo("<h2>Bienvenue </h2>");
+			} else { ?>
+				<button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#connexion">
+					Connexion
+				</button>
+				<button type="button" class="btn btn-lg btn-danger">Inscription</button>
+			<?php } ?>
 		</div>
 
 	</div>
