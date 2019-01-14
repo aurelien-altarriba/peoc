@@ -1,1 +1,0 @@
-<div id="footer">© Copyright G.P.M.M. 2018</div>
