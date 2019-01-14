@@ -20,12 +20,12 @@
 	<script async type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-	<?php
- 	 	include('./include/connect.php');
- 	    $idc=connect();
- 	 ?>
+
 	<!-- HEADER -->
-	<?php require_once('include/header.php'); ?>
+	<?php
+		require_once('include/header.php');
+		$idc = connect();
+	?>
 
 	<div id="contenu">
 

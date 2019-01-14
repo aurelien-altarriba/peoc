@@ -6,7 +6,7 @@
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="header">
 	<a class="navbar-brand" href="./">
-		<img src="./images/logo_peoc.png" height="60" style="margin-right: 0.5em;">
+		<img src="./image/logo_peoc.png" height="60" style="margin-right: 0.5em;">
 	</a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLiens" aria-controls="navLiens" aria-expanded="false">
