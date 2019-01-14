@@ -21,11 +21,50 @@
 </head>
 <body>
 
-	<!-- HEADER -->
 	<?php
-		require_once('include/header.php');
-		$idc = connect();
+	 include('./include/connect.php');
+	 $idc=connect();
 	?>
+
+	<script type="text/javascript">
+	 // Se déclenche une fois le document chargé : charge l'ensemble des parcours
+		$(document).ready(function(){
+			getDataFiltre(null,null,null,null);
+		});
+
+		// Exécute la requête de chargement des parcours
+		function getDataFiltre(nom_p,niveau_p,centre_p,dep_p){
+			//liste des parcours
+			$.ajax("./fonction/recup_data_filtre.php",{
+				data:{
+					table: "parcours",
+					fields: ["id_parcours_p","nom_p"]
+				}
+				,
+				success: function(data){
+					displayDataFiltre(data);
+				}
+			})
+		}
+
+		// Affiche la liste des parcours
+		function displayDataFiltre(data){
+			var dataTab = data.split(", ;");
+			dataTab.pop();
+
+			dataTab.forEach(function(d){
+				var d = d.split(", ");
+				$("#resParcours .list-group").append(
+				'<li class="list-group-item list-group-item-warning" id="parcours'+ d[0] +'">'+
+					d[1] +
+					'<span class="badge badge-primary badge-pill">7 💬</span>'+
+				'</li>');
+			});
+		}
+	</script>
+
+	<!-- HEADER -->
+	<?php require_once('include/header.php'); ?>
 
 	<div id="contenu">
 
@@ -42,7 +81,6 @@
 			<div id="resParcours">
 				<h3>PARCOURS</h3>
 				<ul class="list-group">
-
 				</ul>
 			</div>
 		</div>

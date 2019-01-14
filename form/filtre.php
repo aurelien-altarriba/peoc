@@ -5,7 +5,7 @@
 		<input type="text" class="form-control" id="nomParcours" placeholder="Rechercher avec un nom">
 	</div>
 
-	<!-- Difficulté -->
+	<!-- Difficulté / Niveau équestre du parcours -->
 	<div class="form-group">
 		<label>Difficulté du parcours :</label>
 		<div class="form_row">
@@ -53,7 +53,7 @@
 	</div>
 
 	<!-- Bouton "Rechercher" -->
-	<button type="submit" class="btn btn-warning btn-block" id="btRechercher"
+	<button type="submit" class="btn btn-warning btn-block" id="btRechercher onclick="getDataFiltre()";"
 		style="margin-top: 1em;">
 		Rechercher
 	</button>

@@ -33,7 +33,7 @@
 			}
 
 			var val = document.getElementById("id_membre_m");
-			if (val != '' & val == null){
+			if (val != '' & val != null){
 				document.getElementById("bt_submit").value="Modifier";
 			}
 		});
@@ -79,18 +79,19 @@
 			if (op=='t'){
 				document.getElementById("id_nom_ce").value="";
     		}
-      	}
+    }
+
+
 	</script>
 </head>
 <body>
+	<?php
+	 include('./../include/connect.php');
+	 $idc=connect();
+	?>
+
 	<!-- HEADER -->
 	<?php //require_once('./../include/header.php'); ?>
-
-	 <?php
-	 	include('./../include/connect.php');
-	    $idc=connect();
-	 ?>
-
 
 	<!-- CONTENU -->
 	<div id="contenu">
@@ -103,7 +104,7 @@
   			<?php
 	          	// A récupérer de la page qui appelle
 				//$id_membre = $_SESSION['zs_XXXXXXXX']);
-	          	$id_membre = 1;
+	      $id_membre = 1;
 				//$id_membre = '';
 
 				// Initialisation ds variables du formulaire à vide
@@ -186,7 +187,7 @@
 							print('<input type="checkbox" name="cc_cavalier" id="id_cavalier" checked="checked" onclick="visible(\'c\')">Cavalier<br/>'."\n");
 						}
 						else {
-							print('<input type="checkbox" name="cc_cavalier" id="id_cavalier" onclick="visible(\'c\')">Cavalier<br/>'."\n");	
+							print('<input type="checkbox" name="cc_cavalier" id="id_cavalier" onclick="visible(\'c\')">Cavalier<br/>'."\n");
 						}
 						if ($id_centre_ce!=''){
 							print('<input type="checkbox" name="cc_centre" id="id_centre" checked="checked" onclick="visible(\'r\')">Responsable d\'un centre équestre<br/>'."\n");
@@ -238,9 +239,9 @@
 						print('Téléphone : <input type="text" name="zs_tel_m" value="'.$tel_m.'"/><br/>'."\n");
 						print('Mail : <input type="text" name="zs_mail_m" value="'.$mail_m.'"/><br/>'."\n");
 					?>
-				</div>			
+				</div>
 				<div id="div_cavalier">
-					<?php		
+					<?php
 						print('Photo : <input type="text" name="zs_photo_c" id="id_photo_c" value="'.$photo_c.'"/><br/>'."\n");
 						print('Numéro de licence : <input type="text" name="zs_num_licence_c" id="id_num_licence_c" value="'.$num_licence_c.'"/><br/>'."\n");
 						print('Date expiration licence : <input type="text" name="zs_dt_exp_licence_c" id="id_dt_exp_licence_c" value="'.$dt_exp_licence_c.'"/><br/>'."\n");

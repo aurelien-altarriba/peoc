@@ -20,7 +20,7 @@ $(document).ready(function() {
 	displayMap();
 
 	//Retrieves data from BDD
-	getData();
+	getDataMap();
 });
 
 
@@ -68,8 +68,7 @@ function displayMap(){
 }
 
 
-
-function getData(){
+function getDataMap(){
 
 	//Centres équestre
 	$.ajax("./fonction/recup_data_map.php",{
@@ -80,7 +79,7 @@ function getData(){
 		}
 		,
 		success: function(data){
-			mapData(data,'C');
+			dataMap(data,'C');
 		}
 	})
 
@@ -93,13 +92,13 @@ function getData(){
 		}
 		,
 		success: function(data){
-			mapData(data,'T');
+			dataMap(data,'T');
 		}
 	})
 }
 
 
-function mapData(data,typeData){
+function dataMap(data,typeData){
 	console.log("data : " + data);
 
 	//create geojson container object
@@ -150,11 +149,11 @@ function mapData(data,typeData){
 	});
 
 	//Display data to map
-	displayData(typeData);
+	displayDataMap(typeData);
 };
 
 
-function displayData(typeData){
+function displayDataMap(typeData){
 	console.log(geojsonCentres.features);
 
 	// Initialisation du style de la représentation graphique de chaque élément géographique
