@@ -70,7 +70,7 @@ function displayMap(){
 
 
 function getData(){
-	
+
 	//Centres équestre
 	$.ajax("./fonction/recup_data_map.php",{
 		data:{
@@ -112,7 +112,7 @@ function mapData(data,typeData){
 	var dataArray = data.split(", ;");
 	dataArray.pop();
 
-	
+
 	//build geojson features
 	dataArray.forEach(function(d){
 		d = d.split(", ");
@@ -125,20 +125,20 @@ function mapData(data,typeData){
 		else if (typeData == 'T'){
 			fields = fields_t;
 		}
-	
+
 		var feature = {
 				"type": "Feature",
 				"properties": {}, //properties object container
 				"geometry": JSON.parse(d[fields.length]) //parse geometry
 			};
-		
+
 		for (var i=0; i<fields.length; i++){
 			feature.properties[fields[i]] = d[i];
 		}
-		
+
 		geojson.features.push(feature);
 		//console.log(geojson);
-		console.log(geojson.features);	
+		console.log(geojson.features);
 
 
 		if (typeData == 'C'){
@@ -171,8 +171,8 @@ function displayData(typeData){
 		*/
 
 		var redIcon = L.icon({
-			iconUrl: './images/leaf-red.png',
-			shadowUrl: './images/leaf-shadow.png',
+			iconUrl: './image/leaf-red.png',
+			shadowUrl: './image/leaf-shadow.png',
 			iconSize:     [38, 95], // size of the icon
 			shadowSize:   [50, 64], // size of the shadow
 			iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
@@ -226,6 +226,6 @@ function displayData(typeData){
 		});
 		map.addLayer(tronconLayer);
 		//map.fitBounds(ligneLayer.getBounds());
-		layersControl.addOverlay(tronconLayer,"Parcours");	
+		layersControl.addOverlay(tronconLayer,"Parcours");
 	}
 };
