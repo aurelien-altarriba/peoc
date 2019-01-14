@@ -37,7 +37,7 @@ if(!empty($login) && !empty($mdp)) {
 
         // MAIL
         if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-
+        
         } else { $erreur = 'Veuillez rentrer un mail valide'; }
 
       } else { $erreur = 'Les mots de passe ne correspondent pas'; }

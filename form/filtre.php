@@ -14,7 +14,7 @@
 				$rs=pg_exec($idc,$sql);
 				while($ligne=pg_fetch_assoc($rs)){
 					print('<div class="form-check">'."\n");
-					print('<input class="form-check-input" type="checkbox" id="level'.$ligne['id_niveau_ne'].'" value="'.$ligne['id_niveau_ne'].'">'."\n");
+					print('<input class="form-check-input" type="checkbox" id="level'.$ligne['id_niveau_ne'].'" value="'.$ligne['id_niveau_ne'].'" checked>'."\n");
 					print('<label class="form-check-label" for="level'.$ligne['id_niveau_ne'].'">'.$ligne['nom_ne'].'</label>'."\n");
 					print('</div>'."\n");
 				}
