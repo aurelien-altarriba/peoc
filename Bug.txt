@@ -1,0 +1,6 @@
+profil.php : 	Quand cache bloc cavalier ou centre équestre laisse un vide
+
+
+
+
+index.php :	A chaque click bouton rajoute les parcours sans supprimer les précédents
