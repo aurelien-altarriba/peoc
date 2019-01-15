@@ -1,7 +1,6 @@
 <?php
 	ini_set('display_errors',1);
-
-	include('./../include/connect.php');
+	require_once('./../include/connect.php');
 	$idc=connect();
 
 	//get the table and fields data
