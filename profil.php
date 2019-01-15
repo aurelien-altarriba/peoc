@@ -32,7 +32,7 @@
 				document.getElementById("div_mdp").style="visibility: hidden;";
 			}
 
-			var val = document.getElementById("id_membre_m");
+			var val = document.getElementById("id_membre_m").value;
 			if (val != '' & val != null){
 				document.getElementById("bt_submit").value="Modifier";
 			}
