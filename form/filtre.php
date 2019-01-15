@@ -1,4 +1,4 @@
-<form>
+<form name="frm">
 	<!-- Nom -->
 	<div class="form-group">
 		<label for="nomParcours">Nom du parcours</label>
@@ -7,8 +7,8 @@
 
 	<!-- Difficulté / Niveau équestre du parcours -->
 	<div class="form-group">
-		<label>Difficulté du parcours :</label>
-		<div class="form_row">
+		<label>Niveau équestre du parcours :</label>
+		<div class="form_row" id="niveau">
 			<?php
 				$sql='select id_niveau_ne, nom_ne from niveau_equestre order by id_niveau_ne;';
 				$rs=pg_exec($idc,$sql);
@@ -53,8 +53,7 @@
 	</div>
 
 	<!-- Bouton "Rechercher" -->
-	<button type="submit" class="btn btn-warning btn-block" id="btRechercher onclick="getDataFiltre()";"
-		style="margin-top: 1em;">
+	<button type="button" class="btn btn-warning btn-block" id="btRechercher" onclick="getDataFiltre();" style="margin-top: 1em;">
 		Rechercher
 	</button>
 </form>

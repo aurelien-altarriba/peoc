@@ -29,16 +29,36 @@
 	<script type="text/javascript">
 	 // Se déclenche une fois le document chargé : charge l'ensemble des parcours
 		$(document).ready(function(){
-			getDataFiltre(null,null,null,null);
+			getDataFiltre();
 		});
 
 		// Exécute la requête de chargement des parcours
-		function getDataFiltre(nom_p,niveau_p,centre_p,dep_p){
+		function getDataFiltre(){
+			var nom_p = document.getElementById('nomParcours').value;
+			
+			var niveau_p = '';
+			var cpt=0;
+
+			$('#niveau input[type=checkbox]:checked').each(function() {
+				if (cpt == 0) {
+					niveau_p = $(this).val();
+				}
+				else{
+					niveau_p = niveau_p + " ," + $(this).val();
+				}
+				cpt++;
+			});
+
+			var centre_p = document.getElementById('centre').value;
+			var dep_p = document.getElementById('departement').value;
+
 			//liste des parcours
 			$.ajax("./fonction/recup_data_filtre.php",{
 				data:{
-					table: "parcours",
-					fields: ["id_parcours_p","nom_p"]
+					nom: nom_p,
+					niveau : niveau_p,
+					centre : centre_p,
+					departement: dep_p
 				}
 				,
 				success: function(data){
@@ -49,6 +69,7 @@
 
 		// Affiche la liste des parcours
 		function displayDataFiltre(data){
+			//$("#resParcours .list-group").empty();
 			var dataTab = data.split(", ;");
 			dataTab.pop();
 
