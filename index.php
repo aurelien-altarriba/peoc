@@ -22,8 +22,8 @@
 <body>
 
 	<?php
-	 include('./include/connect.php');
-	 $idc=connect();
+		require_once('./include/connect.php');
+	 	$idc=connect();
 	?>
 
 	<script type="text/javascript">
