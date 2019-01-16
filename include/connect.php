@@ -1,12 +1,14 @@
 <?php
 	function connect(){
-		//database login info
-		$host='10.11.159.20';
+		
+		// Informations de connexion
+		$host='postgresql-peoc.alwaysdata.net';
 		$port='5432';
-		$user='postgres';
+		$user='peoc_postgres';
 		$pwd='postgres';
-		$dbname='peoc';
+		$dbname='peoc_bdd';
 
+		// Connexion
 		try {
 			$idc=pg_connect("host=$host port=$port user=$user password=$pwd dbname=$dbname options='--client_encoding=UTF8'");
 			return($idc);
