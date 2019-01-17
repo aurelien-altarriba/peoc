@@ -339,8 +339,8 @@ INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3
 INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','./../images/logos/1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
 INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
 
-INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,1,NULL,'test description');
-INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,1,1,'test description');
+INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,'11',1,NULL,'test description');
+INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,'11',1,1,'test description');
 
 INSERT INTO zone_allure VALUES(1,1,1,ST_GeomFromText( 'LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 3857));
 INSERT INTO zone_allure VALUES(2,1,3,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 3857));
@@ -349,9 +349,6 @@ INSERT INTO troncon VALUES(1,1,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(2.8876 43.
 INSERT INTO troncon VALUES(2,1,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(2.8525 43.2748, 2.8765 43.2533)', 3857));
 INSERT INTO troncon VALUES(3,1,3,1,3,1,5,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 3857));
 INSERT INTO troncon VALUES(4,1,4,1,1,1,3,ST_GeomFromText( 'LINESTRING(2.899 43.2753, 2.8876 43.2845)', 3857));
-INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 3857));
-INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 3857));
-
 INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 3857));
 INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 3857));
 

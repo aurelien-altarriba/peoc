@@ -109,7 +109,8 @@ CREATE TABLE public.parcours(
 	visible_p          	BOOL  NOT NULL ,
 	dt_publication_p 	DATE  NOT NULL ,
 	id_niveau_p       	INT  NOT NULL ,
-	id_membre_p        	INT  NOT NULL ,
+	id_departement_p 	VARCHAR (6) NOT NULL ,
+	id_membre_p        	INT ,
 	id_centre_p       	INT ,
 	description_p      	VARCHAR (2000)   ,
 	CONSTRAINT prk_constraint_parcours PRIMARY KEY (id_parcours_p)
@@ -290,6 +291,7 @@ ALTER TABLE public.centre_equestre 	ADD CONSTRAINT FK_centre_equestre_id_departe
 ALTER TABLE public.parcours 		ADD CONSTRAINT FK_parcours_id_membre_p 				FOREIGN KEY (id_membre_p) 		REFERENCES public.cavalier(id_membre_c);
 ALTER TABLE public.parcours 		ADD CONSTRAINT FK_parcours_id_centre_p 				FOREIGN KEY (id_centre_p) 		REFERENCES public.centre_equestre(id_centre_ce);
 ALTER TABLE public.parcours 		ADD CONSTRAINT FK_parcours_id_niveau_p 				FOREIGN KEY (id_niveau_p) 		REFERENCES public.niveau_equestre(id_niveau_ne);
+ALTER TABLE public.parcours 		ADD CONSTRAINT FK_parcours_id_departement_p 		FOREIGN KEY (id_departement_p) 	REFERENCES public.departement(id_departement_d);
 ALTER TABLE public.point_interet 	ADD CONSTRAINT FK_point_interet_id_parcours_pi 		FOREIGN KEY (id_parcours_pi) 	REFERENCES public.parcours(id_parcours_p);
 ALTER TABLE public.point_interet 	ADD CONSTRAINT FK_point_interet_id_categorie_pi 	FOREIGN KEY (id_categorie_pi) 	REFERENCES public.categorie_pi(id_categorie_pic);
 ALTER TABLE public.point_vigilance 	ADD CONSTRAINT FK_point_vigilance_id_membre_pv 		FOREIGN KEY (id_membre_pv) 		REFERENCES public.membre(id_membre_m);
@@ -306,3 +308,6 @@ ALTER TABLE public.effectue 		ADD CONSTRAINT FK_effectue_id_parcours_e 			FOREIG
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_centre_pr 				FOREIGN KEY (id_centre_pr) 		REFERENCES public.centre_equestre(id_centre_ce);
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_parcours_pr 			FOREIGN KEY (id_parcours_pr) 	REFERENCES public.parcours(id_parcours_p);
 ALTER TABLE public.propose 			ADD CONSTRAINT FK_propose_id_service_pr 			FOREIGN KEY (id_service_pr) 	REFERENCES public.service(id_service_s);
+
+
+--ALTER TABLE table_y DROP CONSTRAINT id_x_fk, ADD CONSTRAINT id_x_fk FOREIGN KEY (id_x) REFERENCES table_x (id) ON DELETE CASCADE;
