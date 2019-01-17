@@ -9,6 +9,7 @@ body
 {
 	box-shadow: 0px 0px 2px black;
 	margin-bottom: 0.5vh;
+	text-align: center;
 
 	height: 4em;
 }
@@ -29,4 +30,29 @@ body
 {
 	font-size: 1.2em;
 	color: #111;
+}
+
+#msg_bienvenue
+{
+	margin-right: 1em;
+}
+
+#bt_inscription
+{
+	background-color: #F40;
+	color: white;
+}
+
+#bt_inscription:hover
+{
+	background-color: #930;
+}
+
+#erreur_login
+{
+	color: red;
+	font-weight: bold;
+	font-size: 0.9em;
+
+	margin-bottom: 1em;
 }

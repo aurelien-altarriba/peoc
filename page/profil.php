@@ -104,7 +104,7 @@
   			<?php
 	          	// A récupérer de la page qui appelle
 				//$id_membre = $_SESSION['zs_XXXXXXXX']);
-	      $id_membre = 1;
+	      $id_membre = $_SESSION['membre']['id_membre_m'];
 				//$id_membre = '';
 
 				// Initialisation ds variables du formulaire à vide

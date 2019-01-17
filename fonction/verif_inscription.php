@@ -28,7 +28,7 @@ $responsable_CE = htmlspecialchars($_POST['zs_nom_ce']);
 
 // LOGIN
 if(!empty($login) && !empty($mdp)) {
-  if((strlen($login) > 3) && (strlen($login) < 50)) {
+  if((strlen($login) => 3) && (strlen($login) =< 50)) {
     if(!preg_match('#[^a-zA-Z0-9_]#', $login)) {
 
       // MOT DE PASSE
@@ -37,7 +37,7 @@ if(!empty($login) && !empty($mdp)) {
 
         // MAIL
         if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-        
+
         } else { $erreur = 'Veuillez rentrer un mail valide'; }
 
       } else { $erreur = 'Les mots de passe ne correspondent pas'; }

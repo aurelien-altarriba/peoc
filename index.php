@@ -17,15 +17,9 @@
 	<script type="text/javascript" src="js/leaflet.js"></script>
 	<script type="text/javascript" src="js/leaflet.active-layers.min.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
-	<script async type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/index.js" async></script>
 </head>
 <body>
-
-	<?php
-		require_once('./include/connect.php');
-	 	$idc=connect();
-	?>
-
 	<script type="text/javascript">
 	 // Se déclenche une fois le document chargé : charge l'ensemble des parcours
 		$(document).ready(function(){
@@ -35,7 +29,7 @@
 		// Exécute la requête de chargement des parcours
 		function getDataFiltre(){
 			var nom_p = document.getElementById('nomParcours').value;
-			
+
 			var niveau_p = '';
 			var cpt=0;
 
@@ -85,7 +79,10 @@
 	</script>
 
 	<!-- HEADER -->
-	<?php require_once('include/header.php'); ?>
+	<?php
+		require_once('include/header.php');
+		$idc = connect();
+	?>
 
 	<div id="contenu">
 
