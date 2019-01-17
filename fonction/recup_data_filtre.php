@@ -24,10 +24,9 @@
 	if ($centre != '' & $centre != Null & $centre != 0){
 		$sql = $sql." and id_centre_p = ".$centre; 
 	}
-	//else if ($departement != '' & $departement != Null & $departement != 0){
-	//	$sql = $sql." and departement_p = ".$centre; 
-	//}
-
+	else if ($departement != '' & $departement != Null & $departement != 0){
+		$sql = $sql." and id_departement_p = '".$departement."'";  
+	}
 
 	if (!$rs=pg_exec($idc,$sql)){
 		echo "A query error occured.\n";
