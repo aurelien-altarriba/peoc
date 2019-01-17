@@ -42,8 +42,8 @@
 		<label for="departement">Département</label>
 		<select class="form-control" id="departement">
 			<?php
-				$sql='select id_departement_d, nom_d from departement order by nom_d;';
-				$rs=pg_exec($idc,$sql);
+				$sql = 'select id_departement_d, nom_d from departement order by nom_d;';
+				$rs = pg_exec($idc,$sql);
 				print('<option value="0">Tous les départements</option>'."\n");
 				while($ligne=pg_fetch_assoc($rs)){
 					print('<option value="'.$ligne['id_departement_d'].'">'.$ligne['nom_d'].'</option>'."\n");
