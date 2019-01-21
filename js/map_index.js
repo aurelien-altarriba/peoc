@@ -13,16 +13,24 @@ $(document).ready(function() {
 		attribution: '&copy; Contributeurs d\'<a href="https://openstreetmap.org/copyright">OSM</a> & © <a href="http://opentopomap.org">OpenTopoMap</a> - <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
 	});
 
+	// CENTRES ÉQUESTRES
+	centres_equestres = new L.LayerGroup();
+
 	// MENU DES CARTES
 	var cartes = {
-	    'Plan': OpenStreetMap,
-	    'Satellite': Satellite,
-	    'Relief': OpenTopoMap
+    'Plan': OpenStreetMap,
+    'Satellite': Satellite,
+    'Relief': OpenTopoMap
+	};
+
+	// MENU DES CENTRES ÉQUESTRES
+	var menu_data = {
+		'Centres équestres': centres_equestres
 	};
 
 	// CRÉATION DE LA MAP
 	map = L.map('map', {
-	    layers: [Satellite]
+    layers: [Satellite, centres_equestres]
 	});
 
 	// Coordonnées à l'initialisation de la map
@@ -30,14 +38,38 @@ $(document).ready(function() {
 
 	// Pour appliquer la cartes et les calques sélectionnés
 	//L.control.activeLayers(cartes).addTo(map);
-	layersControl = L.control.layers(cartes,{}).addTo(map);
+	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
 	//Retrieves data from BDD
 	getDataMap();
 });
 
-
 function getDataMap(){
+
+	// On récupère les valeurs en POST
+	$.post('fonction/recup_data_centres_equestres.php',
+		function(data) {
+			var listeCE = JSON.parse(data);
+
+			// Pour chaque centre équestre
+			$.each(listeCE, function(index, CE) {
+
+				// On récupère les coordonnées du marqueur
+				var coord = JSON.parse(CE['st_asgeojson'])['coordinates'];
+
+				// On créé le marqueur
+				var marqueur_CE = new L.marker([coord[1], coord[0]]);
+
+				var popup_contenu = '<div style="text-align: center;">'+
+				'<h3>'+ CE['nom_ce'] +'</h3>'+
+				'</div>';
+
+				marqueur_CE.bindPopup(popup_contenu);
+
+				centres_equestres.addLayer(marqueur_CE);
+			});
+		}
+	);
 
 	//Centres équestre
 	$.ajax("../fonction/recup_data_map.php",{
@@ -45,12 +77,11 @@ function getDataMap(){
 			table: "centre_equestre",
 			//fields: fields_centres
 			fields: ["id_centre_ce","nom_ce","geom_ce"]
-		}
-		,
+		},
 		success: function(data){
 			dataMap(data,'C');
 		}
-	})
+	});
 
 	//Tronçons
 	$.ajax("../fonction/recup_data_map.php",{
@@ -63,7 +94,7 @@ function getDataMap(){
 		success: function(data){
 			dataMap(data,'T');
 		}
-	})
+	});
 }
 
 
