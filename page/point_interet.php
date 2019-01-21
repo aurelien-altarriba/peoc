@@ -119,8 +119,8 @@
 						}
 						print('</select><br/>'."\n");
 						print('Url site : <input type="text" name="zs_url_pi" id="zs_url_pi" value="'.$url_pi.'"/><br/>'."\n");
-	          print('Photo : <input type="file" name="zs_photo_pi"/>');
-						print('<img src="'.$photo_pi.'" width="60" alt="Point d\'intérêt" /><br/>'."\n");
+	          print('Photo : <input type="file" name="zs_photo_up"/>');
+						print('<img src="'.$photo_pi.'" name="zs_photo_pi" width="60" alt="Point d\'intérêt" /><br/>'."\n");
 	          print('Description : <input type="text" name="zs_description_pi" id="zs_description_pi" value="'.$description_pi.'"/><br/>'."\n");
 					?>
 				</div>
