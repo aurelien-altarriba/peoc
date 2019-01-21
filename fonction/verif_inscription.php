@@ -57,6 +57,8 @@ if(!empty($login) && !empty($mdp)) {
                       // TÉLÉPHONE
                       if(preg_match('/[^0-9]/', $tel)) {
 
+// A compléter ici avec insert update delete
+
                       } else { $erreur = 'Votre numéro de téléphone ne doit contenir que des chiffres'; }
                     } else { $erreur = 'La ville doit faire au maximum 80 caractères'; }
                   } else { $erreur = 'L\'adresse doit faire au maximum 100 caractères'; }
