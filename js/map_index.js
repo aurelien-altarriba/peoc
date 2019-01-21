@@ -1,31 +1,5 @@
-//global variables
-var map;
-var layersControl;
-
-var fields_ce = ["id","libelle"];
-var fields_t = ["id"];
-
-var geojsonCentres = {
-	"type": "FeatureCollection",
-	"features": []
-};
-var geojsonTroncons = {
-	"type": "FeatureCollection",
-	"features": []
-};
-
-
 $(document).ready(function() {
 
-	displayMap();
-
-	//Retrieves data from BDD
-	getDataMap();
-});
-
-
-
-function displayMap(){
 	// CARTES
 	var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; Contributeurs d\'<a href="http://openstreetmap.org/copyright">OSM</a> - <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
@@ -48,7 +22,7 @@ function displayMap(){
 
 	// CRÉATION DE LA MAP
 	map = L.map('map', {
-	    layers: [OpenTopoMap]
+	    layers: [Satellite]
 	});
 
 	// Coordonnées à l'initialisation de la map
@@ -58,14 +32,9 @@ function displayMap(){
 	//L.control.activeLayers(cartes).addTo(map);
 	layersControl = L.control.layers(cartes,{}).addTo(map);
 
-	//remove existing map layers
-	map.eachLayer(function(layer){
-		//if not the tile layer
-		if (typeof layer._url == "undefined"){
-			map.removeLayer(layer);
-		}
-	});
-}
+	//Retrieves data from BDD
+	getDataMap();
+});
 
 
 function getDataMap(){

@@ -1,7 +1,7 @@
 <?php
 	ini_set('display_errors', 1);
 	session_start();
-	require_once('include/connect.php');
+	require_once('connect.php');
 
 	// Si le membre est connecté
 	if(isset($_SESSION['membre']['id'])) {
@@ -28,7 +28,7 @@
 
 <!-- HEADER -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="header">
-	<a class="navbar-brand" href="./">
+	<a class="navbar-brand" href="/">
 
 		<!-- LOGO -->
 		<img src="image/logo_peoc.png" height="60" style="margin-right: 0.5em;">
@@ -38,18 +38,18 @@
 	<div class="collapse navbar-collapse" id="navLiens">
 		<ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="navigation">
 			<li class="nav-item active">
-				<a class="nav-link" href="./">Accueil</a>
+				<a class="nav-link" href="/">Accueil</a>
 			</li>
 
 			<li class="nav-item active">
-				<a class="nav-link" href="./">Liste des parcours</a>
+				<a class="nav-link" href="/">Liste des parcours</a>
 			</li>
 
 			<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
 				<li class="nav-item">
 
 					<?php // TODO: Page mon compte ?>
-					<a class="nav-link" href="../">Mon compte</a>
+					<a class="nav-link" href="/">Mon compte</a>
 				</li>
 			<?php } ?>
 		</ul>
