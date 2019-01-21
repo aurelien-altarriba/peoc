@@ -47,7 +47,7 @@
 			var dep_p = document.getElementById('departement').value;
 
 			//liste des parcours
-			$.ajax("./fonction/recup_data_filtre.php",{
+			$.ajax("fonction/recup_data_filtre.php",{
 				data:{
 					nom: nom_p,
 					niveau : niveau_p,
