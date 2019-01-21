@@ -8,16 +8,16 @@
 	<meta charset="utf-8">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./../css/header.css">
-	<link rel="stylesheet" type="text/css" href="./../css/footer.css">
-	<link rel="stylesheet" type="text/css" href="./../css/index.css">
+	<link rel="stylesheet" type="text/css" href="../css/header.css">
+	<link rel="stylesheet" type="text/css" href="../css/footer.css">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
 
-	<link rel="stylesheet" type="text/css" href="./../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./../css/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/leaflet.css">
 
 	<!-- JS -->
-	<script type="text/javascript" src="./../js/jquery.min.js"></script>
-	<script type="text/javascript" src="./../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
 		// Se déclenche une fois le document chargé : cache certaines div selon si checkbox cochée ou non
@@ -86,7 +86,7 @@
 </head>
 <body>
 	<?php
-		require_once('./../include/connect.php');
+		require_once('../include/connect.php');
 	 	$idc=connect();
 	?>
 

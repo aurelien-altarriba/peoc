@@ -1,7 +1,7 @@
 <?php
 	ini_set('display_errors', 1);
 	session_start();
-	require_once('./include/connect.php');
+	require_once('../include/connect.php');
 
 	// Si le membre est connecté
 	if(isset($_SESSION['membre']['id'])) {
@@ -31,7 +31,7 @@
 	<a class="navbar-brand" href="./">
 
 		<!-- LOGO -->
-		<img src="./image/logo_peoc.png" height="60" style="margin-right: 0.5em;">
+		<img src="../image/logo_peoc.png" height="60" style="margin-right: 0.5em;">
 	</a>
 
 	<!-- LIENS MENU -->
@@ -49,7 +49,7 @@
 				<li class="nav-item">
 
 					<?php // TODO: Page mon compte ?>
-					<a class="nav-link" href="./">Mon compte</a>
+					<a class="nav-link" href="../">Mon compte</a>
 				</li>
 			<?php } ?>
 		</ul>
@@ -64,7 +64,7 @@
 			if(isset($_SESSION['membre']['id_membre_m'])) { ?>
 
 				<div id="msg_bienvenue">Bienvenue <?php echo($_SESSION['membre']['prenom_m']); ?></div>
-				<a href="./fonction/deconnexion.php">
+				<a href="../fonction/deconnexion.php">
 					<button type="button" class="btn btn-lg btn-danger">
 						Déconnexion
 					</button>
@@ -128,7 +128,7 @@
 $(document).ready(function(){
 	$("#bt_connexion").on("click", function(e) {
 		$.post(
-			'./fonction/verif_connexion.php',
+			'../fonction/verif_connexion.php',
 			{
 				login : $("#login").val(),
 				mdp : $("#mdp").val()
