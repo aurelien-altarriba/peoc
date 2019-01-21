@@ -54,23 +54,44 @@
 			?>
 
 				<form>
+					<!-- Zone de saisie du nom du parcours -->
 					<div>
 						<label for="zs_nom_p">Nom </label> : <input type="text" name="zs_nom_p" id="zs_nom_p">
 					</div>
+					<!-- Zone de saisie de la description du parcours -->
 					<div>
 						<label for="description_p">Description </label> <textarea name="description_p" id="description_p"></textarea>
 					</div>
-
-					<p>test</p>
+					<!-- Choix des services proposés par le centre équestre du parcours -->
 					<div style="display: flex; flex-direction: column;justify-content: center;">
 						<div>
-							<input type="checkbox" name="service 1" id="nom_s"><label for="nom_s">Services </label>
+							<p>Services</p>
+							<input type="checkbox" name="service 1" id="nom_s" ><label for="nom_s">Services </label>
 						</div>
-
 						<div>
 							<input type="checkbox" name="service 1" id="nom_s"><label for="nom_s">Services </label>
 						</div>
 					</div>
+					<!-- Choix de rendre le parcours visible au public -->
+					<div style="display: flex; flex-direction: column;justify-content: center;">
+						<div>
+							<p>Rendre le parcours public</p>
+							<input type="radio" name="visible_p" id="visible_p" ><label for="visible_p">Oui </label>
+						</div>
+						<div>
+							<input type="radio" name="visible_p" id="visible_p"><label for="visible_p">Non </label>
+						</div>
+				  </div>
+					<!-- Le parcours est-il faisable en autonomie ou pas -->
+					<div style="display: flex; flex-direction: column;justify-content: center;">
+						<div>
+							<p>Parcours autonome</p>
+							<input type="radio" name="autonomie_p" id="autonomie_p" ><label for="autonomie_p">Oui </label>
+						</div>
+						<div>
+							<input type="radio" name="autonomie_p" id="autonomie_p"><label for="autonomie_p">Non </label>
+						</div>
+				  </div>
 
 
 				</form>
