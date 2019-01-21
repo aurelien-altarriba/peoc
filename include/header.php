@@ -1,7 +1,7 @@
 <?php
 	ini_set('display_errors', 1);
 	session_start();
-	require_once('../include/connect.php');
+	require_once('include/connect.php');
 
 	// Si le membre est connecté
 	if(isset($_SESSION['membre']['id'])) {
