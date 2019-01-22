@@ -40,8 +40,9 @@ $(document).ready(function() {
 	//L.control.activeLayers(cartes).addTo(map);
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
-	// Charge sur la carte les données des centres équestres
+	// Charge les données sur la carte
 	getDataCE();
+	getDataParcoursAll();
 });
 
 

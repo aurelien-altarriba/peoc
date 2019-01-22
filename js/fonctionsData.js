@@ -49,6 +49,7 @@ function getDataCE(){
 	);
 }
 
+// TODO: Récupération BDD avec code de Benoît + affichage carte (récup) + création liens parcours liste
 function getDataParcoursAll() {
-  // TODO: Récupération BDD avec code de Benoît + affichage carte (récup) + création liens parcours liste
+  
 }
