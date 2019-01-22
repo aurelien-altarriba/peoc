@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/leaflet.js"></script>
 	<script type="text/javascript" src="js/leaflet.active-layers.min.js"></script>
+	<script type="text/javascript" src="js/fonctionsData.js"></script>
 	<script type="text/javascript" src="js/map_index.js"></script>
 	<script type="text/javascript" src="js/index.js" async></script>
 </head>
