@@ -110,3 +110,27 @@
 	box-shadow: 0px 0px 3px black;
 	border-radius: 3px;
 }
+
+/*** POPUP CENTRE ÉQUESTRE ***/
+.popup_CE
+{
+	text-align: center;
+}
+
+.popup_CE img
+{
+	max-width: 80%;
+	max-height: 15em;
+	margin-bottom: 1em;
+}
+
+.popup_CE h2
+{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.popup_CE hr
+{
+	margin: 0.5em;
+}

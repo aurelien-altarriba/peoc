@@ -38,7 +38,7 @@ INSERT INTO categorie_pi VALUES(1,'Culturel');
 INSERT INTO categorie_pi VALUES(2,'Architecture');
 INSERT INTO categorie_pi VALUES(3,'Point de vue');
 INSERT INTO categorie_pi VALUES(4,'Faune Flore');
-INSERT INTO categorie_pi VALUES(5,E'Point d\'eau');
+INSERT INTO categorie_pi VALUES(5,'Point d\'eau');
 INSERT INTO categorie_pi VALUES(6,'Aire broutage');
 INSERT INTO categorie_pi VALUES(7,'Ravitaillement');
 INSERT INTO categorie_pi VALUES(8,'Gite étape');
@@ -329,8 +329,8 @@ INSERT INTO membre VALUES(1,'FORSTER','Frank','1990-01-01','90 rue du bar','1100
 INSERT INTO membre VALUES(2,'ALTARRIBA','Aurélien','2000-01-01','100 avenue de la brasserie','11100','NARBONNE','11','FR','0102030405','aa@test.fr');
 INSERT INTO membre VALUES(3,'REY','Benoît','1980-01-01','80 chemin de la taverne','11000','Carcassonne','11','FR','0102030405','fh@test.fr');
 
-INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'./../images/photos/1.png');
-INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'./../images/photos/2.png');
+INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'1.png');
+INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'2.png');
 
 INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.SoodlQYsDVKvD7eTYR.8cQC','2019-01-01',NULL);
 INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
