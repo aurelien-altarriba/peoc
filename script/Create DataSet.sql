@@ -38,7 +38,7 @@ INSERT INTO categorie_pi VALUES(1,'Culturel');
 INSERT INTO categorie_pi VALUES(2,'Architecture');
 INSERT INTO categorie_pi VALUES(3,'Point de vue');
 INSERT INTO categorie_pi VALUES(4,'Faune Flore');
-INSERT INTO categorie_pi VALUES(5,'Point d\'eau');
+INSERT INTO categorie_pi VALUES(5,E'Point d\'eau');
 INSERT INTO categorie_pi VALUES(6,'Aire broutage');
 INSERT INTO categorie_pi VALUES(7,'Ravitaillement');
 INSERT INTO categorie_pi VALUES(8,'Gite étape');
