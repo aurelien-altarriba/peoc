@@ -34,22 +34,24 @@ INSERT INTO type_terrain VALUES(10,'Relief rocailleux');
 INSERT INTO type_terrain VALUES(11,'Cordon dunaire');
 INSERT INTO type_terrain VALUES(12,'Vallonnée');
 
-INSERT INTO categorie_pi VALUES(1,'Culturel');
-INSERT INTO categorie_pi VALUES(2,'Architecture');
-INSERT INTO categorie_pi VALUES(3,'Point de vue');
-INSERT INTO categorie_pi VALUES(4,'Faune Flore');
-INSERT INTO categorie_pi VALUES(5,E'Point d\'eau');
-INSERT INTO categorie_pi VALUES(6,'Aire broutage');
-INSERT INTO categorie_pi VALUES(7,'Ravitaillement');
-INSERT INTO categorie_pi VALUES(8,'Gite étape');
-INSERT INTO categorie_pi VALUES(9,'Ferronnier');
-INSERT INTO categorie_pi VALUES(10,'Médical');
+INSERT INTO categorie_pi VALUES(1,'Divers');
+INSERT INTO categorie_pi VALUES(2,'Culturel');
+INSERT INTO categorie_pi VALUES(3,'Architecture');
+INSERT INTO categorie_pi VALUES(4,'Point de vue');
+INSERT INTO categorie_pi VALUES(5,'Faune Flore');
+INSERT INTO categorie_pi VALUES(6,E'Point d\'eau');
+INSERT INTO categorie_pi VALUES(7,'Aire broutage');
+INSERT INTO categorie_pi VALUES(8,'Ravitaillement');
+INSERT INTO categorie_pi VALUES(9,'Gite étape');
+INSERT INTO categorie_pi VALUES(10,'Ferronnier');
+INSERT INTO categorie_pi VALUES(11,'Médical');
 
-INSERT INTO categorie_pv VALUES(1,'Eboulis');
-INSERT INTO categorie_pv VALUES(2,'Inondation');
-INSERT INTO categorie_pv VALUES(3,'Passage bloqué');
-INSERT INTO categorie_pv VALUES(4,'Risque incendie');
-INSERT INTO categorie_pv VALUES(5,'Arbre tombé');
+INSERT INTO categorie_pi VALUES(1,'Divers');
+INSERT INTO categorie_pv VALUES(2,'Eboulis');
+INSERT INTO categorie_pv VALUES(3,'Inondation');
+INSERT INTO categorie_pv VALUES(4,'Passage bloqué');
+INSERT INTO categorie_pv VALUES(5,'Risque incendie');
+INSERT INTO categorie_pv VALUES(6,'Arbre tombé');
 
 INSERT INTO type_allure VALUES(1,'Pas');
 INSERT INTO type_allure VALUES(2,'Trot');
@@ -329,15 +331,15 @@ INSERT INTO membre VALUES(1,'FORSTER','Frank','1990-01-01','90 rue du bar','1100
 INSERT INTO membre VALUES(2,'ALTARRIBA','Aurélien','2000-01-01','100 avenue de la brasserie','11100','NARBONNE','11','FR','0102030405','aa@test.fr');
 INSERT INTO membre VALUES(3,'REY','Benoît','1980-01-01','80 chemin de la taverne','11000','Carcassonne','11','FR','0102030405','fh@test.fr');
 
-INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'1.png');
-INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'2.png');
+INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'./../images/photos/1.png');
+INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'./../images/photos/2.png');
 
 INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.SoodlQYsDVKvD7eTYR.8cQC','2019-01-01',NULL);
 INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
 INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3qjmCVyaEm3brv37jyF4G4ge','2019-01-01',NULL);
 
-INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
-INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
+INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','./../images/logos/1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
+INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
 
 INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,'11',1,NULL,'test description');
 INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,'11',1,1,'test description');
