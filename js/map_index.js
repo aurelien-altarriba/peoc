@@ -16,6 +16,9 @@ $(document).ready(function() {
 	// CENTRES ÉQUESTRES
 	centres_equestres = new L.LayerGroup();
 
+	// PARCOURS
+	parcours = new L.LayerGroup();
+
 	// MENU DES CARTES
 	var cartes = {
     'Plan': OpenStreetMap,
@@ -23,17 +26,18 @@ $(document).ready(function() {
     'Relief': OpenTopoMap
 	};
 
-	// MENU DES CENTRES ÉQUESTRES
+	// MENU DES DATAS
 	var menu_data = {
-		'Centres équestres': centres_equestres
+		'Centres équestres': centres_equestres,
+		'Parcours': parcours
 	};
 
 	// CRÉATION DE LA MAP
 	map = L.map('map', {
-    layers: [OpenTopoMap, centres_equestres]
+    layers: [Satellite, centres_equestres, parcours]
 	});
 
-	// Coordonnées à l'initialisation de la map
+	// Coordonnées à l'initialisation de la map (Occitanie)
 	map.setView([43.7, 2.5], 8);
 
 	// Pour appliquer la cartes et les calques sélectionnés

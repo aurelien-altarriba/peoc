@@ -49,7 +49,44 @@ function getDataCE(){
 	);
 }
 
-// TODO: Récupération BDD avec code de Benoît + affichage carte (récup) + création liens parcours liste
+// TODO: affichage carte (récup) + création liens parcours liste
 function getDataParcoursAll() {
-  
+	parcours.clearLayers();
+
+	$.post(
+		'fonction/recup_data_parcours_all.php',
+		function(data) {
+			var liste_parcours = JSON.parse(data);
+
+			// Pour chaque parcours
+			$.each(liste_parcours, function(index, parcours) {
+
+				// On ajoute le parcours à la liste
+				$("#resParcours .list-group").append(
+				'<li class="list-group-item list-group-item-warning" id="parcours'+ parcours['id_parcours_p'] +'">'+
+					parcours['nom_p'] +
+					'<span class="badge badge-primary badge-pill">7 💬</span>'+
+				'</li>');
+
+				// Tableau contenant les coordonnées des tronçons
+				var trace_parcours = [];
+
+				// Pour chaque troncon dans le parcours
+				$.each(parcours['troncons'], function(index2, troncon) {
+
+					// On récupère les coordonnées du troncon
+					var coords = JSON.parse(troncon['st_asgeojson'])['coordinates'];
+
+					// Pour chaque coordonnées dans le troncon
+					$.each(coords, function(index3, ligne) {
+
+						// On la stocke dans le tableau
+						trace_parcours.push([ligne[1], ligne[0]]);
+					});
+
+					var polyline = L.polyline(trace_parcours, {color:'red'}).addTo(map);
+				});
+			});
+		}
+	);
 }
