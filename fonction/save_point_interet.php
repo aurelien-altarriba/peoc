@@ -2,14 +2,14 @@
   session_start();
   ini_set('display_errors', 1);
 
-  // Include
-  include('../fonction/verif_upload_image.php');
+  //Include
+  require_once('../fonction/verif_upload_image.php');
 
-  // Connexion BDD
+  //Connexion BDD
   require_once('../include/connect.php');
   $idc = connect();
 
-  // Récupération des données du formulaire
+  //Récupération des données du formulaire
   $id_point = '';
   $parcours = '';
   if (isset($_SESSION['point_interet'])){
@@ -23,7 +23,7 @@
   $url = pg_escape_string($_POST['zs_url_pi']);
   $description = pg_escape_string($_POST['zs_description_pi']);
 
-  // Récupération de la photo actuelle du point
+  //Récupération de la photo actuelle du point
   $photo_old='';
   if (!empty($id_point)){
     $sql='select photo_pi from point_interet where id_interet_pi = '.$id_point.';';
@@ -32,20 +32,17 @@
     $photo_old=$ligne['photo_pi'];
   }
 
+
+  //Vérification du format des données
+  //URL saisie à tester ???
+
+
+  //Vérification du format du fichier à uploader
   $fichier_a_charger = 0;
   $fichier_dossier_dest = '../image/photo_pi/';
   $fichier_temp = '';
   $photo_new='';
 
-  $msg = '';
-  $action = '';
-
-
-  // Vérification du format des données
-
-  // URL à tester ???
-
-  // Vérification du format du fichier à uploader
   if(!empty($_FILES['zs_photo_up']['name'])){
     $fichier_temp = $_FILES['zs_photo_up']['tmp_name'];
     $res_verif = verif_upload_image($fichier_temp);
@@ -64,8 +61,11 @@
   }
 
 
-  // Récupération de l'action à réaliser selon le bouton exécuté
+  //Récupération de l'action à réaliser selon le bouton exécuté
   //bouton création/modification
+  $msg = '';
+  $action = '';
+
   if (isset ($_POST['bt_submit_CM'])){
     $action = $_POST['bt_submit_CM'];
   }
@@ -75,7 +75,7 @@
   }
 
 
-  //Suppression
+  //Delete
   if ($action=="Supprimer"){
     // Suppression du point en base
     $sql='delete from point_interet where id_interet_pi = '.$id_point.';';
@@ -88,24 +88,24 @@
     }
   }
   else{
-    //insertion
+    //Insert
     if ($action=="Créer"){
-      // test si tous les champs obligatoires ont bien été renseigné
+      //Test si tous les champs obligatoires ont bien été renseigné
       if (!empty($parcours) & !empty($num_point) & !empty($id_categorie)) {
-        // Insertion du point en base
+        //Insertion du point en base
         $sql='insert into point_interet (id_parcours_pi,num_point_pi,id_categorie_pi,url_pi,description_pi) values('.$parcours.','.$num_point.','.$id_categorie.',\''.$url.'\',\''.$description.'\') returning id_interet_pi';
         $rs=pg_exec($idc,$sql);
         $msg = "Insertion ok";
 
         $ligne=pg_fetch_assoc($rs);
-        $id_point=$ligne['id_interet_pi'];
-        $photo_new = $fichier_dossier_dest.$id_point.".".$fichier_ext;
+        $id_point_new=$ligne['id_interet_pi'];
+        $photo_new = $fichier_dossier_dest.$id_point_new.".".$fichier_ext;
 
-        // Copie du fichier sélectionné sur le serveur
+        //Copie photo sélectionnée sur le serveur
         if ($fichier_a_charger = 1 & !empty($photo_new)){
           if(move_uploaded_file($fichier_temp, $photo_new)){
             $msg=$msg." / "."Fichier uploadé";
-            $sql='update point_interet set photo_pi = \''.$photo_new.'\' where id_interet_pi = '.$id_point.';';
+            $sql='update point_interet set photo_pi = \''.$photo_new.'\' where id_interet_pi = '.$id_point_new.';';
             $rs=pg_exec($idc,$sql);
           }
           else $msg=$msg." / "."Le fichier n'a pas pu être uploadé";
@@ -115,9 +115,9 @@
         }
       }
     }
-  //update
-  else {
-    // test si tous les champs obligatoires ont bien été renseigné
+  //Update
+  else if ($action=="Modifier") {
+    //Test si tous les champs obligatoires ont bien été renseigné
     if (!empty($parcours) & !empty($num_point) & !empty($id_categorie) & !empty($id_point)){
       
       //suppression ancienne photo du serveur
@@ -125,7 +125,7 @@
         if (!empty($photo_old)){
           unlink($photo_old);
         }
-        // nouvelle photo
+        //Nouvelle photo
         $photo_new = $fichier_dossier_dest.$id_point.".".$fichier_ext;
       }
 
@@ -133,7 +133,7 @@
       $rs=pg_exec($idc,$sql);
       $msg = "Modification ok";
 
-      // Copie du fichier sélectionné sur le serveur
+      //Copie photo sélectionnée sur le serveur
       if ($fichier_a_charger == 1 && !empty($photo_new)){
         if(move_uploaded_file($fichier_temp, $photo_new)){
           $msg=$msg." / "."Fichier uploadé";
@@ -142,6 +142,9 @@
       }
     }
     else $msg = "Tous les champs obligatoires doivent être saisis";
+  }
+  else {
+    $msg = "Aucune action réalisée";
   }
 }
 
