@@ -44,9 +44,9 @@
 		</div>
 
 		<div id="colonneDroite">
-  			<?php
+  		<?php
 				//Test
-  			$_SESSION['point_interet'] = 1;
+  			$_SESSION['point_interet'] = 2;
   			$_SESSION['parcours'] = 1;
 
        // A récupérer de la page qui appelle
@@ -55,7 +55,7 @@
 				 $id_point = $_SESSION['point_interet'];
 				}
 
-				// Initialisation ds variables du formulaire à vide
+				//Initialisation ds variables du formulaire à vide
 				$id_interet_pi = '';
 				$id_parcours_pi = '';
 				$nom_p = '';
@@ -66,17 +66,17 @@
 				$photo_pi = '';
 				$description_pi = '';
 
-				// Statut création :
+				//Statut création :
 				if (empty($id_point)){
-					// récupérer le numéro du parcours qui appelle la page
+					//Récupérer le numéro du parcours qui appelle la page
 					if (isset($_SESSION['parcours'])){
 						$id_parcours_pi = $_SESSION['parcours'];
 					}
 
 				}
-				// Statut visualisation /modification / suppression du point
+				//Statut visualisation /modification / suppression du point
 				else {
-	      	// Récupération des informations
+	      	//Récupération des informations du point en base
 					$sql='select id_interet_pi, id_parcours_pi, nom_p, num_point_pi, id_categorie_pi, nom_pic, url_pi, photo_pi, description_pi ';
 					$sql=$sql.'from point_interet ';
 					$sql=$sql.'inner join parcours on id_parcours_p = id_parcours_pi ';
@@ -97,10 +97,10 @@
 					$description_pi = $ligne['description_pi'];
 				}
 			?>
-				<form name="frm"  action="../fonction/save_point_interet.php" method="POST" enctype="multipart/form-data">
+			<form name="frm"  action="../fonction/save_point_interet.php" method="POST" enctype="multipart/form-data">
 				<div id="div_point">
 					<?php
-						// Génération du code html
+						//Génération du code html
 						// !!! Sous firefox pb positionnement des listes de valeur sur la valeur par défaut
 						print('Numéro du point d\'intérêt : <input type="text" name="zs_interet_pi" id="zs_interet_pi" value="'.$id_interet_pi.'" disabled="disabled"/><br/>'."\n");
 						print('Parcours: <input type="text" name="zs_parcours_pi" value="'.$id_parcours_pi.'" disabled="disabled"/><input type="text" name="zs_nom_p" value="'.$nom_p.'" disabled="disabled"/><br/>'."\n");
@@ -118,7 +118,7 @@
 								}
 						}
 						print('</select><br/>'."\n");
-						print('Url site : <input type="text" name="zs_url_pi" id="zs_url_pi" value="'.$url_pi.'"/><br/>'."\n");
+						print('Url site : <input type="url" name="zs_url_pi" id="zs_url_pi" value="http://'.$url_pi.'"/><br/>'."\n");
 	          print('Photo : <input type="file" name="zs_photo_up"/>');
 						print('<img src="'.$photo_pi.'" name="zs_photo_pi" width="60" alt="Point d\'intérêt" /><br/>'."\n");
 	          print('Description : <input type="text" name="zs_description_pi" id="zs_description_pi" value="'.$description_pi.'"/><br/>'."\n");
