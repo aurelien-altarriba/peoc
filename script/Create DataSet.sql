@@ -336,8 +336,8 @@ INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.
 INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
 INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3qjmCVyaEm3brv37jyF4G4ge','2019-01-01',NULL);
 
-INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','./../images/logos/1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
-INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
+INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
+INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
 
 INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,'11',1,NULL,'test description');
 INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,'11',1,1,'test description');
