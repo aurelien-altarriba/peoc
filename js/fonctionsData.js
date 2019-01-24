@@ -49,44 +49,100 @@ function getDataCE(){
 	);
 }
 
-// TODO: affichage carte (récup) + création liens parcours liste
-function getDataParcoursAll() {
-	parcours.clearLayers();
 
+// Affiche tout les parcours
+function getDataParcoursAll() {
 	$.post(
 		'fonction/recup_data_parcours_all.php',
 		function(data) {
-			var liste_parcours = JSON.parse(data);
-
-			// Pour chaque parcours
-			$.each(liste_parcours, function(index, parcours) {
-
-				// On ajoute le parcours à la liste
-				$("#resParcours .list-group").append(
-				'<li class="list-group-item list-group-item-warning" id="parcours'+ parcours['id_parcours_p'] +'">'+
-					parcours['nom_p'] +
-					'<span class="badge badge-primary badge-pill">7 💬</span>'+
-				'</li>');
-
-				// Tableau contenant les coordonnées des tronçons
-				var trace_parcours = [];
-
-				// Pour chaque troncon dans le parcours
-				$.each(parcours['troncons'], function(index2, troncon) {
-
-					// On récupère les coordonnées du troncon
-					var coords = JSON.parse(troncon['st_asgeojson'])['coordinates'];
-
-					// Pour chaque coordonnées dans le troncon
-					$.each(coords, function(index3, ligne) {
-
-						// On la stocke dans le tableau
-						trace_parcours.push([ligne[1], ligne[0]]);
-					});
-
-					var polyline = L.polyline(trace_parcours, {color:'red'}).addTo(map);
-				});
-			});
+			displayDataParcours(data);
 		}
 	);
+}
+
+
+// Affiche les parcours selon les filtres sélectionnés
+function getDataParcoursFiltre() {
+
+	// Récupération des valeurs du filtre
+	var nom_p = document.getElementById('nom_parcours').value;
+	var centre_p = document.getElementById('centre').value;
+	var dep_p = document.getElementById('departement').value;
+
+	// Initialisation
+	var niveau_p = '';
+	var cpt = 0;
+
+	// Pour chaque checkbox cochée
+	$('#niveau input[type=checkbox]:checked').each(function() {
+		if (cpt == 0) {
+			niveau_p = $(this).val();
+		}
+		else{
+			niveau_p = niveau_p + " ," + $(this).val();
+		}
+		cpt++;
+	});
+
+	// Récupération des parcours avec le filtre
+	$.post("fonction/recup_data_filtre.php", {
+
+		// Valeur des filtres de recherche
+		data: {
+			nom: nom_p,
+			niveau : niveau_p,
+			centre : centre_p,
+			departement: dep_p
+		},
+
+		function(data){
+			test = data;
+			displayDataParcours(data);
+		}
+	});
+}
+
+
+// Fonction d'affichage des parcours
+function displayDataParcours(data) {
+
+	// Vide la liste des parcours (innerHTML en JQuery)
+	$("#resParcours .list-group").html("");
+
+	// Récupération des données en JSON
+	var liste_parcours = JSON.parse(data);
+
+	// Pour chaque parcours
+	$.each(liste_parcours, function(index, un_parcours) {
+
+		// On ajoute le parcours à la liste
+		$("#resParcours .list-group").append(
+		'<li class="list-group-item list-group-item-warning" id="parcours'+ un_parcours['id_parcours_p'] +'">'+
+			un_parcours['nom_p'] +
+			'<span class="badge badge-primary badge-pill">'+ un_parcours['comment'] +' 💬</span>'+
+		'</li>');
+
+		// Tableau contenant les coordonnées des tronçons
+		var trace_parcours = [];
+
+		// Pour chaque troncon dans le parcours
+		$.each(un_parcours['troncons'], function(index2, troncon) {
+
+			// On récupère les coordonnées du troncon
+			var coords = JSON.parse(troncon['st_asgeojson'])['coordinates'];
+
+			// Pour chaque coordonnées dans le troncon
+			$.each(coords, function(index3, ligne) {
+
+				// On la stocke dans le tableau
+				trace_parcours.push([ligne[1], ligne[0]]);
+			});
+
+			// Création du polyline du parcours
+			var polyline = L.polyline(trace_parcours, {color:'red'});
+
+			// Ajout du polyline à la liste des parcours
+			parcours.addLayer(polyline);
+		});
+	});
 }

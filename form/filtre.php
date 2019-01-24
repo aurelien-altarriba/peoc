@@ -1,8 +1,8 @@
 <form name="frm">
 	<!-- Nom -->
 	<div class="form-group">
-		<label for="nomParcours">Nom du parcours</label>
-		<input type="text" class="form-control" id="nomParcours" placeholder="Rechercher avec un nom">
+		<label for="nom_parcours">Nom du parcours</label>
+		<input type="text" class="form-control" id="nom_parcours" placeholder="Rechercher avec un nom">
 	</div>
 
 	<!-- Difficulté / Niveau équestre du parcours -->
@@ -53,7 +53,7 @@
 	</div>
 
 	<!-- Bouton "Rechercher" -->
-	<button type="button" class="btn btn-warning btn-block" id="btRechercher" onclick="getDataFiltre();" style="margin-top: 1em;">
+	<button type="button" class="btn btn-warning btn-block" id="btRechercher" onclick="getDataParcoursFiltre();" style="margin-top: 1em;">
 		Rechercher
 	</button>
 </form>

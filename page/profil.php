@@ -65,6 +65,7 @@
 				$mdp_ic='';
 				$id_centre_ce='';
 				$nom_ce='';
+				$fichier_dossier_dest = '../image/photo/';
 
 				// Statut non inscrit : création du profil (inscription en bdd donc id membre affecté)
 				if ($id_membre == ''){
@@ -175,6 +176,9 @@
 				<div id="div_cavalier">
 					<?php
 						print('Photo : <input type="file" name="zs_photo_up"/>');
+						if (!empty($photo_c)){
+							$photo_c = $fichier_dossier_dest.$photo_c;
+						}
 						print('<img src="'.$photo_c.'" name="zs_photo_c" width="60" alt="Photo d\'identité" /><br/>'."\n");
 						print('Numéro de licence : <input type="text" name="zs_num_licence_c" id="zs_num_licence_c" value="'.$num_licence_c.'"/><br/>'."\n");
 						print('Date expiration licence : <input type="date" name="zs_dt_exp_licence_c" id="zs_dt_exp_licence_c" value="'.$dt_exp_licence_c.'"/><br/>'."\n");

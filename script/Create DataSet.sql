@@ -2,8 +2,25 @@
 --        Script Postgre
 ------------------------------------------------------------
 
---- LISTES CODIFICATION
+--- REINITILISATION DES SEQUENCES
+ALTER SEQUENCE membre_id_membre_m_seq RESTART WITH 1;
+ALTER SEQUENCE niveau_equestre_id_niveau_ne_seq RESTART WITH 1;
+ALTER SEQUENCE centre_equestre_id_centre_ce_seq RESTART WITH 1;
+ALTER SEQUENCE parcours_id_parcours_p_seq RESTART WITH 1;
+ALTER SEQUENCE categorie_pi_id_categorie_pic_seq RESTART WITH 1;
+ALTER SEQUENCE point_interet_id_interet_pi_seq RESTART WITH 1;
+ALTER SEQUENCE categorie_pv_id_categorie_pvc_seq RESTART WITH 1;
+ALTER SEQUENCE point_vigilance_id_vigilance_pv_seq RESTART WITH 1;
+ALTER SEQUENCE type_allure_id_type_ta_seq RESTART WITH 1;
+ALTER SEQUENCE zone_allure_id_zone_za_seq RESTART WITH 1;
+ALTER SEQUENCE hierarchie_id_hierarchie_h_seq RESTART WITH 1;
+ALTER SEQUENCE type_terrain_id_type_tt_seq RESTART WITH 1;
+ALTER SEQUENCE niveau_terrain_id_niveau_nt_seq RESTART WITH 1;
+ALTER SEQUENCE troncon_id_troncon_t_seq RESTART WITH 1;
+ALTER SEQUENCE service_id_service_s_seq RESTART WITH 1;
 
+
+--- LISTES CODIFICATION
 INSERT INTO niveau_equestre VALUES(1,'Débutant');
 INSERT INTO niveau_equestre VALUES(2,'Intermédiaire');
 INSERT INTO niveau_equestre VALUES(3,'Confirmé');
@@ -331,15 +348,15 @@ INSERT INTO membre VALUES(1,'FORSTER','Frank','1990-01-01','90 rue du bar','1100
 INSERT INTO membre VALUES(2,'ALTARRIBA','Aurélien','2000-01-01','100 avenue de la brasserie','11100','NARBONNE','11','FR','0102030405','aa@test.fr');
 INSERT INTO membre VALUES(3,'REY','Benoît','1980-01-01','80 chemin de la taverne','11000','Carcassonne','11','FR','0102030405','fh@test.fr');
 
-INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'./../images/photos/1.png');
-INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'./../images/photos/2.png');
+INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'1.png');
+INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'2.png');
 
 INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.SoodlQYsDVKvD7eTYR.8cQC','2019-01-01',NULL);
 INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
 INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3qjmCVyaEm3brv37jyF4G4ge','2019-01-01',NULL);
 
-INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','./../images/logos/1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
-INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','./../imgaes/logos/2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
+INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
+INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
 
 INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,'11',1,NULL,'test description');
 INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,'11',1,1,'test description');
