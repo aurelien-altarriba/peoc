@@ -6,7 +6,7 @@ require_once('../fonction/verif_upload_image.php');
 
 // Connexion BDD
 require_once('../include/connect.php');
-$bdd = connect();
+$idc = connect();
 
 //Récupération des variables membre depuis le formulaire
 $mail = htmlspecialchars($_POST['zs_mail_m']);
@@ -33,6 +33,7 @@ $niveau_equestre = htmlspecialchars($_POST['zl_nom_ne']);
 //Récupération des variables responsable de centre équestre
 $responsable_CE = htmlspecialchars($_POST['zl_nom_ce']);
 
+$erreur = '';
 
 // LOGIN
 if(!empty($login) && !empty($mdp)) {
@@ -45,7 +46,7 @@ if(!empty($login) && !empty($mdp)) {
 
         // MAIL
         if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-          $res = pg_query_params($bdd, "SELECT count(mail_m) FROM membre WHERE mail_m = $1", array($mail));
+          $res = pg_query_params($idc, "SELECT count(mail_m) FROM membre WHERE mail_m = $1", array($mail));
           $mail_existe = pg_fetch_all($res)[0]['count'];
           if($mail_existe == 0) {
 
@@ -56,14 +57,15 @@ if(!empty($login) && !empty($mdp)) {
               if(strlen($prenom) <= 30) {
 
                 // DATE DE NAISSANCE
-                if(checkdate($date_naissance)) {
+                $td=date_parse($date_naissance);
+                if(checkdate($td['month'],$td['day'],$td['year'])) {
 
                   // ADRESSE
                   if(strlen($adresse) <= 100) {
                     if(strlen($ville) <= 80) {
 
                       // TÉLÉPHONE
-                      if(preg_match('/[^0-9]/', $tel)) {
+                      if(!preg_match('/[^0-9]/', $tel)) {
 
                         // id_membre à récupérer par session
                         $id_membre ='';
@@ -77,20 +79,29 @@ if(!empty($login) && !empty($mdp)) {
                         $td=getdate($t);
                         $today= '\''.$td['year'].'-'.$td['mon'].'-'.$td['mday'].'\'';
 
+
+                        //Gestion des photos
+                        $fichier_a_charger = 0;
+                        $fichier_dossier_dest = '../image/photo/';
+                        $fichier_temp = '';
+                        $photo_new='';
+
                         //Récupération de la photo actuelle du point
                         $photo_old='';
                         if (!empty($id_membre)){
-                          $sql='select photo_pc from cavalier where id_membre_c = '.$id_membre.';';
+                          $sql='SELECT photo_c FROM cavalier WHERE id_membre_c = '.$id_membre.';';
                           $rs=pg_exec($idc,$sql);
                           $ligne=pg_fetch_assoc($rs);
-                          $photo_old=$ligne['photo_pi'];
+                          if (!empty($ligne['photo_c'])){
+                            $photo_old=$fichier_dossier_dest.$ligne['photo_c'];
+                          }
                         }
 
                         //Vérification du format du fichier à uploader
                         if(!empty($_FILES['zs_photo_up']['name'])){
                           $fichier_temp = $_FILES['zs_photo_up']['tmp_name'];
                           $res_verif = verif_upload_image($fichier_temp);
-                            
+
                           //format ok
                           if ($res_verif[0]=='OK'){
                             $fichier_a_charger = 1;
@@ -106,29 +117,23 @@ if(!empty($login) && !empty($mdp)) {
 
                         //Récupération de l'action à réaliser selon le bouton exécuté
                         //bouton création/modification
-                        $msg = '';
                         $action = '';
-                        if (isset ($_POST['bt_submit_CM'])){
+                        if (isset($_POST['bt_submit_CM'])){
                           $action = $_POST['bt_submit_CM'];
                         }
                         //bouton suppression
-                        else if(isset ($_POST['bt_submit_S'])){
+                        else if(isset($_POST['bt_submit_S'])){
                           $action = $_POST['bt_submit_S'];
                         }
-
-
-                        // !!!!! photo et format date à traiter dans le code des insert et update
-
 
                         //Delete
                         if ($action=="Supprimer"){
                           // Suppression du membre et des enregistrements associés
-                          $sql='delete from membre where id_membre_m = '.$id_membre.';';
+                          $sql='DELETE FROM membre WHERE id_membre_m = '.$id_membre.';';
                           $rs=pg_exec($idc,$sql);
-                          $msg = "Suppression ok";
 
                           //Update du centre equestre
-                          $sql='update centre_equestre set id_membre_ce = null where id_membre_ce = '.$id_membre;
+                          $sql='UPDATE centre_equestre SET id_membre_ce = null WHERE id_membre_ce = '.$id_membre;
                           $rs=pg_exec($idc,$sql);
 
                           //Suppression photo du serveur
@@ -138,85 +143,104 @@ if(!empty($login) && !empty($mdp)) {
                         }
                         else{
                           //Insert
-                          if ($action=="Créer"){
+                          if ($action=="S'inscrire"){
+                            $statut = 1;
                             //Test si tous les champs obligatoires ont bien été renseigné
-                            if (!empty($nom) & !empty($prenom) & !empty($date_naissance) & !empty($pays) & !empty($mai) $ !empty($login) & !empty($mdp)){
+                            if (!empty($nom) && !empty($prenom) && !empty($date_naissance) && !empty($pays) && !empty($mai) && !empty($login) && !empty($mdp)){
+                              if (isset ($_POST['cc_cavalier'])){
+                                if (!empty($licence) && !empty($expiration_licence) && !empty($niveau_equestre)){
+                                }
+                                else{
+                                  $erreur = 'Tous les champs obligatoires doivent être complétés';
+                                  $statut = 0;
+                                }
+                              }
+                              if (isset ($_POST['cc_centre'])){
+                                if (!empty($responsable_CE)){
+                                }
+                                else{
+                                  $erreur = 'Tous les champs obligatoires doivent être complétés';
+                                  $statut = 0;
+                                }
+                              }
+                            }
+                            else{
+                              $erreur = 'Tous les champs obligatoires doivent être complétés';
+                              $statut = 0;
+                            }
+
+                            if ($statut == 1){
                               //Insertion du membre
-                              $sql='insert into membre (nom_m,prenom_m,dt_naissance_m,adresse_m,cp_m,ville_m,id_departement_m,id_pays_m,tel_m,mail_m) values(\''.$nom.'\',\''.$prenom.'\',\''.$date_naissance.'\',\''.$adresse.'\',\''.$CP.'\',\''.$ville.'\',\''.$departement.'\',\''.$pays.'\',\''.$tel.'\',\''.$mail.'\') returning id_membre_m';
+                              $sql='INSERT INTO membre (nom_m,prenom_m,dt_naissance_m,adresse_m,cp_m,ville_m,id_departement_m,id_pays_m,tel_m,mail_m)
+                                    VALUES(\''.$nom.'\',\''.$prenom.'\',\''.$date_naissance.'\',\''.$adresse.'\',\''.$CP.'\',\''.$ville.'\',\''.$departement.'\',\''.$pays.'\',\''.$tel.'\',\''.$mail.'\')
+                                    returning id_membre_m';
+                              echo $sql;
                               $rs=pg_exec($idc,$sql);
-                              $msg = "Insertion ok";
 
                               //Récupération de l'id_membre affecté automatiquement au nouvel enregistrement
                               $ligne=pg_fetch_assoc($rs);
                               $id_membre_new=$ligne['id_membre_m'];
 
                               //Insertion des infos de connexion
-                              $date = date("d-m-Y");
-                              $sql='insert into info_connexion (login_ic,mdp_ic,id_membre_ic,dt_inscription_ic) values(\''.$login.'\',\''.$mdp.'\',\''.$id_membre_new.'\',\''.$today.'\'))';
+                              $sql='INSERT INTO info_connexion (login_ic,mdp_ic,id_membre_ic,dt_inscription_ic)
+                                    VALUES(\''.$login.'\',\''.$mdp.'\',\''.$id_membre_new.'\',\''.$today.'\'))';
                               $rs=pg_exec($idc,$sql);
-                              $msg = "Insertion ok";
 
                               //Insertion du cavalier
                               if (isset ($_POST['cc_cavalier'])){
-                                $cc_cavalier = $_POST['cc_cavalier'];
-                                echo $cc_cavalier;
-                                //Test si tous les champs obligatoires ont bien été renseigné
-                                if (!empty($id_membre_new) & !empty($licence) & !empty($expiration_licence) & !empty($niveau_equestre)){
-                                  $sql='insert into cavalier (id_membre_c,num_licence_c,dt_exp_licence_c,id_niveau_c,photo_c) values('.$id_membre_new.',\''.$licence.'\',\''.$expiration_licence.'\','.$niveau_equestre.',\''.$photo.'\')';
+                                if (!empty($id_membre_new)){
+                                  $sql='INSERT INTO cavalier (id_membre_c,num_licence_c,dt_exp_licence_c,id_niveau_c,photo_c)
+                                        VALUES('.$id_membre_new.',\''.$licence.'\',\''.$expiration_licence.'\','.$niveau_equestre.',\''.$photo.'\')';
                                   $rs=pg_exec($idc,$sql);
-                                  $msg = "Insertion ok";
-                             
+
                                   //Copie photo sélectionnée sur le serveur
-                                  if ($fichier_a_charger = 1 & !empty($photo_new)){
-                                    $photo_new = $fichier_dossier_dest.$id_membre_new.".".$fichier_ext;
-                                    if(move_uploaded_file($fichier_temp, $photo_new)){
-                                      $sql='update cavalier set photo_pc = \''.$photo_new.'\' where id_membre_c = '.$id_membre_new.';';
+                                  if ($fichier_a_charger == 1 && !empty($photo_new)){
+                                    $photo_new = $id_membre_new.".".$fichier_ext;
+                                    if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
+                                      $sql='UPDATE cavalier SET photo_pc = \''.$photo_new.'\' WHERE id_membre_c = '.$id_membre_new.';';
                                       $rs=pg_exec($idc,$sql);
                                     }
-                                    else $msg=$msg." / "."Le fichier n'a pas pu être uploadé";
                                   }
                                 }
                               }
 
                               //Mise à jour du centre équestre avec le responsable
                               if (isset ($_POST['cc_centre'])){
-                                $cc_centre = $_POST['centre'];
-                                echo $cc_centre;
-                                //Test si tous les champs obligatoires ont bien été renseigné
-                                if (!empty($responsable_CE) & !empty($id_membre_new)){
-                                  $sql='update centre_equestre set id_membre_ce = '.$id_membre_new.' where id_centre_ce = '.$responsable_CE;
+                                if (!empty($id_membre_new)){
+                                  $sql='UPDATE centre_equestre SET id_membre_ce = '.$id_membre_new.' WHERE id_centre_ce = '.$responsable_CE;
                                   $rs=pg_exec($idc,$sql);
-                                  $msg = "Insertion ok";
                                 }
                               }
+
+                              echo 'OK';
                             }
                           }
                           //update
                           else if ($action=="Modifier"){
                             //Test si tous les champs obligatoires ont bien été renseigné
-                            if (!empty($id_membre) & !empty($nom) & !empty($prenom) & !empty($date_naissance) & !empty($pays) & !empty($mai)){
+                            if (!empty($id_membre) && !empty($nom) && !empty($prenom) && !empty($date_naissance) && !empty($pays) && !empty($mai)){
                               // Mise à jour du membre
-                              $sql='update membre set nom_m = \''.$nom.'\',prenom_m = \''.$prenom.'\',dt_naissance_m = \''.$date_naissance.'\',adresse_m = \''.$adresse.'\',cp_m = \''.$CP.'\',ville_m = \''.$ville.'\',id_departement_m = \''.$departement.'\',id_pays_m = \''.$pays.'\',tel_m = \''.$tel.'\',mail_m = \''.$mail.'\' where id_membre_m = '.$id_membre;
+                              $sql="UPDATE membre
+                                    SET nom_m = \''.$nom.'\', prenom_m = \''.$prenom.'\', dt_naissance_m = \''.$date_naissance.'\',adresse_m = \''.$adresse.'\',cp_m = \''.$CP.'\',ville_m = \''.$ville.'\',id_departement_m = \''.$departement.'\',id_pays_m = \''.$pays.'\',tel_m = \''.$tel.'\',mail_m = \''.$mail.'\'
+                                    WHERE id_membre_m = '.$id_membre.'\'";
                               $rs=pg_exec($idc,$sql);
-                              $msg = "update ok";
                             }
 
                             //Mise à jour du mot de passe
                             if (isset ($_POST['cc_mdp'])){
                                 $cc_mdp = $_POST['cc_mdp'];
                                 echo $cc_mdp;
-                                if (!empty($mdp) & !empty($id_membre)){
-                                  $sql='update info_connexion set mdp_ic = \''.$mdp.'\' where id_membre_ic = '.$id_membre;
+                                if (!empty($mdp) && !empty($id_membre)){
+                                  $sql='UPDATE info_connexion SET mdp_ic = \''.$mdp.'\' WHERE id_membre_ic = '.$id_membre;
                                 }
                             }
 
                             //Mise à jour du cavalier
                             if (isset ($_POST['cc_cavalier'])){
                               $cc_cavalier = $_POST['cc_cavalier'];
-                              echo $cc_cavalier;
                               //Test si tous les champs obligatoires ont bien été renseigné
-                              if (!empty($id_membre) & !empty($licence) & !empty($expiration_licence) & !empty($niveau_equestre)){
-                                $sql='select count(*) as nb from cavalier where id_membre_c = '.$id_membre;
+                              if (!empty($id_membre) && !empty($licence) && !empty($expiration_licence) && !empty($niveau_equestre)){
+                                $sql='SELECT count(*) AS nb FROM cavalier WHERE id_membre_c = '.$id_membre;
                                 $rs=pg_exec($idc,$sql);
                                 $ligne=pg_fetch_assoc($rs);
                                 $nb=$ligne['nb'];
@@ -229,36 +253,34 @@ if(!empty($login) && !empty($mdp)) {
                                       unlink($photo_old);
                                     }
                                     //Nouvelle photo
-                                    $photo_new = $fichier_dossier_dest.$id_membre.".".$fichier_ext;
+                                    $photo_new = $id_membre.".".$fichier_ext;
                                   }
-                                  
-                                  $sql='update cavalier set num_licence_c= \''.$licence.'\',dt_exp_licence_c = \''.$expiration_licence.'\' ,id_niveau_c = '.$niveau_equestre.', photo_c= \''.$photo_new.'\' where id_membre_c = '.$id_membre;
+
+                                  $sql='UPDATE cavalier
+                                        SET num_licence_c= \''.$licence.'\',dt_exp_licence_c = \''.$expiration_licence.'\' ,id_niveau_c = '.$niveau_equestre.', photo_c= \''.$photo_new.'\'
+                                        WHERE id_membre_c = '.$id_membre;
                                   $rs=pg_exec($idc,$sql);
-                                  $msg = "Update ok";
 
                                   //Copie photo sélectionnée sur le serveur
                                   if ($fichier_a_charger == 1 && !empty($photo_new)){
-                                    if(move_uploaded_file($fichier_temp, $photo_new)){
-                                      $msg=$msg." / "."Fichier uploadé";
+                                    if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
                                     }
-                                    else $msg=$msg." / "."Le fichier n'a pas pu être uploadé";
                                   }
                                 }
-                                
+
                                 //Pas d'enregistrement déjà existant donc insert des infos
                                 else{
-                                  $sql='insert into cavalier (id_membre_c,num_licence_c,dt_exp_licence_c,id_niveau_c,photo_c) values('.$id_membre.',\''.$licence.'\',\''.$expiration_licence.'\','.$niveau_equestre.',\''.$photo.'\')';
+                                  $sql='INSERT INTO cavalier (id_membre_c,num_licence_c,dt_exp_licence_c,id_niveau_c,photo_c)
+                                  VALUES('.$id_membre.',\''.$licence.'\',\''.$expiration_licence.'\','.$niveau_equestre.',\''.$photo.'\')';
                                   $rs=pg_exec($idc,$sql);
-                                  $msg = "Insertion ok";
 
                                   //Copie photo sélectionnée sur le serveur
-                                  if ($fichier_a_charger = 1 & !empty($photo_new)){
-                                    $photo_new = $fichier_dossier_dest.$id_membre.".".$fichier_ext;
-                                    if(move_uploaded_file($fichier_temp, $photo_new)){
-                                      $sql='update cavalier set photo_pc = \''.$photo_new.'\' where id_membre_c = '.$id_membre.';';
+                                  if ($fichier_a_charger == 1 && !empty($photo_new)){
+                                    $photo_new = $id_membre.".".$fichier_ext;
+                                    if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
+                                      $sql='UPDATE cavalier SET photo_pc = \''.$photo_new.'\' where id_membre_c = '.$id_membre.';';
                                       $rs=pg_exec($idc,$sql);
                                     }
-                                    else $msg=$msg." / "."Le fichier n'a pas pu être uploadé";
                                   }
                                 }
                               }
@@ -267,22 +289,22 @@ if(!empty($login) && !empty($mdp)) {
                             // Mise à jour du centre équestre avec le responsable
                             if (isset ($_POST['cc_centre'])){
                               $cc_centre = $_POST['centre'];
-                              echo $cc_centre;
                               //Test si tous les champs obligatoires ont bien été renseigné
-                              if (!empty($responsable_CE) & !empty($id_membre)){
+                              if (!empty($responsable_CE) && !empty($id_membre)){
                                 //Mise à null du responsable sur l'ancien centre
                                 $sql='update centre_equestre set id_membre_ce = null where id_membre_ce = '.$id_membre;
                                 $rs=pg_exec($idc,$sql);
                                 //Affection du responsable au nouveau centre sélectionné
                                 $sql='update centre_equestre set id_membre_ce = '.$id_membre.' where id_centre_ce = '.$responsable_CE;
                                 $rs=pg_exec($idc,$sql);
-                                $msg = "Insertion ok";
                               }
                             }
+
+                            echo 'OK';
                           }
                           else {
                             $erreur = "Aucune action réalisée";
-                          } 
+                          }
                         }
 
                       } else { $erreur = 'Votre numéro de téléphone ne doit contenir que des chiffres'; }

@@ -46,7 +46,7 @@
 		<div id="colonneDroite">
   		<?php
 				//Test
-  			$_SESSION['point_interet'] = 2;
+  			$_SESSION['point_interet'] = 3;
   			$_SESSION['parcours'] = 1;
 
        // A récupérer de la page qui appelle
@@ -65,6 +65,7 @@
 				$url_pi = '';
 				$photo_pi = '';
 				$description_pi = '';
+				$fichier_dossier_dest = '../image/photo_pi/';
 
 				//Statut création :
 				if (empty($id_point)){
@@ -118,8 +119,11 @@
 								}
 						}
 						print('</select><br/>'."\n");
-						print('Url site : <input type="url" name="zs_url_pi" id="zs_url_pi" value="http://'.$url_pi.'"/><br/>'."\n");
+						print('Url site : <input type="text" name="zs_url_pi" id="zs_url_pi" value="'.$url_pi.'"/><br/>'."\n");
 	          print('Photo : <input type="file" name="zs_photo_up"/>');
+						if (!empty($photo_pi)){
+							$photo_pi = $fichier_dossier_dest.$photo_pi;
+						}
 						print('<img src="'.$photo_pi.'" name="zs_photo_pi" width="60" alt="Point d\'intérêt" /><br/>'."\n");
 	          print('Description : <input type="text" name="zs_description_pi" id="zs_description_pi" value="'.$description_pi.'"/><br/>'."\n");
 					?>
