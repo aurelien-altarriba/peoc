@@ -17,7 +17,7 @@ $(document).ready(function() {
 	centres_equestres = new L.LayerGroup();
 
 	// PARCOURS
-	parcours = new L.LayerGroup();
+	parcours = new L.featureGroup();
 
 	// MENU DES CARTES
 	var cartes = {

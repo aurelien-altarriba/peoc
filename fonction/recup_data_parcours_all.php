@@ -1,16 +1,13 @@
 <?php
 	require_once('../include/connect.php');
 
-  try {
-    $bdd = connect();
+  $bdd = connect();
 
-		// Requête de récupération des parcours
-    $requete = "SELECT * FROM parcours";
-    $res = pg_query($bdd, $requete);
-  } catch(Exception $e) {
-    echo('erreur : '. $e);
-  }
+	// Requête de récupération des parcours
+	$requete = "SELECT * FROM parcours";
 
+	// Exécution de la requête et récupération des données
+	$res = pg_query($bdd, $requete);
   $liste_parcours = pg_fetch_all($res);
 
   // Pour chaque parcours
@@ -23,15 +20,25 @@
                 WHERE id_parcours_t = ". $value['id_parcours_p'];
 
     $res = pg_query($bdd, $requete);
-
     $liste_troncons = pg_fetch_all($res);
 
     // Pour chaque tronçon du parcours
     foreach ($liste_troncons as $key2 => $value2) {
 
-      // On ajoute le tronçon dans un tableau de la liste des parcours
+      // On ajoute le tronçon dans un tableau dans le parcours de la liste des parcours
       $liste_parcours[$key]['troncons'][$value2['num_position_t']] = $value2;
     }
+
+		// Requête de récupération du nombre de commentaires
+		$requete_comment = "SELECT count(commentaire_e)
+												FROM effectue
+												WHERE id_parcours_e = ". $value['id_parcours_p'];
+
+		$res_comment = pg_query($bdd, $requete_comment);
+		$nb_comment = pg_fetch_assoc($res_comment)['count'];
+
+		// On ajoute le nombre de commentaires dans le parcours de la liste des parcours
+		$liste_parcours[$key]['comment'] = $nb_comment;
   }
 
 	// On renvoie le résultat dans un tableau encodé en JSON

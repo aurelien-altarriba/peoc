@@ -21,64 +21,6 @@
 	<script type="text/javascript" src="js/index.js" async></script>
 </head>
 <body>
-	<script type="text/javascript">
-	 // Se déclenche une fois le document chargé : charge l'ensemble des parcours
-		$(document).ready(getDataFiltre());
-
-		// Exécute la requête de chargement des parcours
-		function getDataFiltre(){
-			var nom_p = document.getElementById('nomParcours').value;
-
-			var niveau_p = '';
-			var cpt=0;
-
-			$('#niveau input[type=checkbox]:checked').each(function() {
-				if (cpt == 0) {
-					niveau_p = $(this).val();
-				}
-				else{
-					niveau_p = niveau_p + " ," + $(this).val();
-				}
-				cpt++;
-			});
-
-			var centre_p = document.getElementById('centre').value;
-			var dep_p = document.getElementById('departement').value;
-
-			//liste des parcours
-			$.ajax("fonction/recup_data_filtre.php",{
-				data:{
-					nom: nom_p,
-					niveau : niveau_p,
-					centre : centre_p,
-					departement: dep_p
-				}
-				,
-				success: function(data){
-					displayDataFiltre(data);
-				}
-			})
-		}
-
-		// Affiche la liste des parcours
-		function displayDataFiltre(data){
-			// Vide la liste des parcours
-			// innerHTML en JQuery
-			$("#resParcours .list-group").html("");
-
-			//$("#resParcours .list-group").empty();
-			var dataTab = data.split(", ;");
-			dataTab.pop();
-			dataTab.forEach(function(d){
-				var d = d.split(", ");
-				$("#resParcours .list-group").append(
-				'<li class="list-group-item list-group-item-warning" id="parcours'+ d[0] +'">'+
-					d[1] +
-					'<span class="badge badge-primary badge-pill">7 💬</span>'+
-				'</li>');
-			});
-		}
-	</script>
 
 	<!-- HEADER -->
 	<?php
