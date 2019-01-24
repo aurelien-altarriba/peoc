@@ -19,14 +19,11 @@
 	<script type="text/javascript" src="js/fonctionsData.js"></script>
 	<script type="text/javascript" src="js/map_index.js"></script>
 	<script type="text/javascript" src="js/index.js" async></script>
-	<script type="text/javascript" src="js/list.js"></script>
 </head>
 <body>
-	<!-- <script type="text/javascript">
+	<script type="text/javascript">
 	 // Se déclenche une fois le document chargé : charge l'ensemble des parcours
-		$(document).ready(function(){
-			getDataFiltre();
-		});
+		$(document).ready(getDataFiltre());
 
 		// Exécute la requête de chargement des parcours
 		function getDataFiltre(){
@@ -58,11 +55,30 @@
 				}
 				,
 				success: function(data){
-
+					displayDataFiltre(data);
 				}
 			})
 		}
-	</script> -->
+
+		// Affiche la liste des parcours
+		function displayDataFiltre(data){
+			// Vide la liste des parcours
+			// innerHTML en JQuery
+			$("#resParcours .list-group").html("");
+
+			//$("#resParcours .list-group").empty();
+			var dataTab = data.split(", ;");
+			dataTab.pop();
+			dataTab.forEach(function(d){
+				var d = d.split(", ");
+				$("#resParcours .list-group").append(
+				'<li class="list-group-item list-group-item-warning" id="parcours'+ d[0] +'">'+
+					d[1] +
+					'<span class="badge badge-primary badge-pill">7 💬</span>'+
+				'</li>');
+			});
+		}
+	</script>
 
 	<!-- HEADER -->
 	<?php
