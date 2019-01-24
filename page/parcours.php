@@ -3,102 +3,149 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<title>PÉ-OC</title>
-	<meta charset="utf-8">
 
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./../css/header.css">
-	<link rel="stylesheet" type="text/css" href="./../css/footer.css">
-	<link rel="stylesheet" type="text/css" href="./../css/index.css">
+	<head>
+		<title>PÉ-OC</title>
+		<meta charset="utf-8">
 
-	<link rel="stylesheet" type="text/css" href="./../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./../css/leaflet.css">
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="./../css/header.css">
+		<link rel="stylesheet" type="text/css" href="./../css/footer.css">
+		<link rel="stylesheet" type="text/css" href="./../css/index.css">
 
-	<!-- JS -->
-	<script type="text/javascript" src="./../js/jquery.min.js"></script>
-	<script type="text/javascript" src="./../js/bootstrap.min.js"></script>
-</head>
-<body>
-	<!-- HEADER -->
-	<?php require_once('../include/header.php');
-		$idc = connect();
-	?>
+		<link rel="stylesheet" type="text/css" href="./../css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="./../css/leaflet.css">
 
-	<!-- CONTENU -->
-	<div id="contenu">
+		<!-- JS -->
+		<script type="text/javascript" src="./../js/jquery.min.js"></script>
+		<script type="text/javascript" src="./../js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+
+		<?php
+
+			// HEADER
+			require_once('../include/header.php');
+
+			$idc = connect();
+
+		?>
+
+		<!-- CONTENU -->
+		<div id="contenu">
+
 		<div id="colonneGauche">
-
 		</div>
 
 		<div id="colonneDroite">
-			<div id="div_parcours">
-			<?php
-			try {
-				$res = pg_query($idc, ' select *
-																from parcours
-																inner join niveau_equestre on id_niveau_p = id_niveau_ne
-																left join centre_equestre on id_centre_p = id_centre_ce;');
-			} catch(Exception $e) {
-				echo('erreur : '. $e);
-			}
 
-
-			$res = pg_fetch_all($res);
-
-			// var_dump($res);
-
-			// foreach ($res[0] as $key => $value) {
-			// 	print($key .' : <input type="text" name="zs_nom_p" value="'. $value .'"/><br/>');
-			// }
-			?>
-
-				<form>
-					<!-- Zone de saisie du nom du parcours -->
-					<div>
-						<label for="zs_nom_p">Nom </label> : <input type="text" name="zs_nom_p" id="zs_nom_p">
-					</div>
-					<!-- Zone de saisie de la description du parcours -->
-					<div>
-						<label for="description_p">Description </label> <textarea name="description_p" id="description_p"></textarea>
-					</div>
-					<!-- Choix des services proposés par le centre équestre du parcours -->
-					<div style="display: flex; flex-direction: column;justify-content: center;">
+					<!-- Déclaration du formulaire parcours -->
+					<form method="post" action="???.php">
+						<!-- Zone de saisie du nom du parcours -->
 						<div>
-							<p>Services</p>
-							<input type="checkbox" name="service 1" id="nom_s" ><label for="nom_s">Services </label>
+							<label for="zs_nom_p">Nom </label> <input type="text" name="zs_nom_p" id="zs_nom_p">
 						</div>
+
+						<!-- Zone de saisie de la description du parcours -->
 						<div>
-							<input type="checkbox" name="service 1" id="nom_s"><label for="nom_s">Services </label>
+							<label for="description_p">Description </label> <textarea name="description_p" id="description_p"></textarea>
 						</div>
-					</div>
-					<!-- Choix de rendre le parcours visible au public -->
-					<div style="display: flex; flex-direction: column;justify-content: center;">
+
+						<!-- Choix du niveau de difficulté du parcours -->
 						<div>
-							<p>Rendre le parcours public</p>
-							<input type="radio" name="visible_p" id="visible_p" ><label for="visible_p">Oui </label>
+							<label>Niveau de difficulté</label>
+							<select name="zl_nom_ne" id="zl_nom_ne" required>
+							<?php
+
+							$sql='SELECT nom_ne
+										FROM niveau_equestre';
+
+							$rs=pg_exec($idc,$sql);
+
+								while($ligne=pg_fetch_assoc($rs)){
+									print('<option value="'.$ligne['id_niveau_ne'].'">'.$ligne['nom_ne'].'</option>');
+								}
+							?>
+							</select>
 						</div>
+
+						<!-- Choix du centre équestre proposant le parcours -->
 						<div>
-							<input type="radio" name="visible_p" id="visible_p"><label for="visible_p">Non </label>
+							<label>Centre équestre</label>
+							<select name="zl_nom_ce" id="zl_nom_ce" >
+							<?php
+
+							$sql='SELECT nom_ce
+										FROM centre_equestre;';
+
+							$rs=pg_exec($idc,$sql);
+
+								while($ligne=pg_fetch_assoc($rs)){
+									print('<option value="'.$ligne['id_centre_ce'].'">'.$ligne['nom_ce'].'</option>');
+								}
+							?>
+							</select>
 						</div>
-				  </div>
-					<!-- Le parcours est-il faisable en autonomie ou pas -->
-					<div style="display: flex; flex-direction: column;justify-content: center;">
+
+						<!-- Le parcours est-il faisable en autonomie ou pas -->
 						<div>
-							<p>Parcours autonome</p>
-							<input type="radio" name="autonomie_p" id="autonomie_p" ><label for="autonomie_p">Oui </label>
+							<div>
+								<p>Parcours autonome</p>
+								<input type="radio" name="autonomie_p" id="autonomie_p" >  <label for="autonomie_p">Oui </label>
+							</div>
+							<div>
+								<input type="radio" name="autonomie_p" id="autonomie_p">  <label for="autonomie_p">Non </label>
+							</div>
 						</div>
+
+						<!-- Choix des services proposés par le centre équestre du parcours -->
 						<div>
-							<input type="radio" name="autonomie_p" id="autonomie_p"><label for="autonomie_p">Non </label>
-						</div>
-				  </div>
+
+							<?php
+
+							$sql='SELECT nom_s
+										FROM service;';
+
+							$rs=pg_exec($idc,$sql);
+
+								while($ligne=pg_fetch_assoc($rs)){
+									print(
+
+									'<div>
+										<input type="checkbox" name=".'$ligne['nom_ce']'." id=".'$ligne['nom_ce']'." > <label for="nom_s">.'$ligne['nom_ce']'.</label>
+									</div>'
+
+								);
+
+								}
 
 
-				</form>
-			</div>
+
+							?>
+
+						</div>
+
+						<!-- Choix de rendre le parcours visible au public -->
+						<div>
+							<div>
+								<p>Rendre le parcours public</p>
+								<input type="radio" name="visible_p" id="visible_p" ><label for="visible_p">Oui </label>
+							</div>
+							<div>
+								<input type="radio" name="visible_p" id="visible_p"><label for="visible_p">Non </label>
+							</div>
+					  </div>
+
+						<!-- Bouton d'envoi du formulaire -->
+						<input type="submit" value="Valider le parcours" />
+
+					</form>
+
 		</div>
 
-	<!-- FOOTER -->
-	<?php require_once('./../include/footer.php'); ?>
-</body>
+		<!-- FOOTER -->
+		<?php require_once('./../include/footer.php'); ?>
+
+	</body>
 </html>
