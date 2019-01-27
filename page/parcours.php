@@ -45,10 +45,10 @@
 						<!-- Choix du parcours à modifier-->
 						<div>
 							<label>Parcours à modifier</label>
-							<select name="zl_nom_p" id="zl_nom_p">
+							<select name="zl_id_p" id="zl_id_p" required>
 							<?php
 
-							$sql='SELECT nom_p
+							$sql='SELECT nom_p, id_parcours_p
 										FROM parcours';
 
 							$rs=pg_exec($idc,$sql);
@@ -62,27 +62,27 @@
 
 						<!-- Zone de saisie du nom du parcours -->
 						<div>
-							<label for="zs_nom_p">Nom du parcours </label> <input type="text" name="zs_nom_p" id="zs_nom_p" required>
+							<label for="zs_nom_p">Nom du parcours </label> <input type="text" name="zs_nom_p" id="zs_nom_p" maxlength="5" required>
 						</div>
 
 						<!-- Zone de saisie de la description du parcours -->
 						<div>
-							<label for="description_p">Description </label> <textarea name="description_p" id="description_p"></textarea>
+							<label for="zs_description_p">Description </label> <textarea name="zs_description_p" id="zs_description_p"></textarea>
 						</div>
 
 						<!-- Choix du niveau de difficulté du parcours -->
 						<div>
 							<label>Niveau de difficulté</label>
-							<select name="zl_nom_ne" id="zl_nom_ne" required>
+							<select name="zl_id_niveau_ne" id="zl_id_niveau_ne" required>
 							<?php
 
-							$sql='SELECT nom_ne
-										FROM niveau_equestre';
+							$sql='SELECT nom_ne, id_niveau_ne
+										FROM niveau_equestre;';
 
 							$rs=pg_exec($idc,$sql);
 
 								while($ligne=pg_fetch_assoc($rs)){
-									print('<option value="'.$ligne['id_niveau_p'].'">'.$ligne['nom_ne'].'</option>');
+									print('<option value="'.$ligne['id_niveau_ne'].'">'.$ligne['nom_ne'].'</option>');
 
 								}
 							?>
@@ -92,16 +92,16 @@
 						<!-- Choix du centre équestre proposant le parcours -->
 						<div>
 							<label>Centre équestre</label>
-							<select name="zl_nom_ce" id="zl_nom_ce" >
+							<select name="zl_id_centre_p" id="zl_id_centre_p" >
 							<?php
 
-							$sql='SELECT nom_ce
+							$sql='SELECT nom_ce, id_centre_ce
 										FROM centre_equestre;';
 
 							$rs=pg_exec($idc,$sql);
 
 								while($ligne=pg_fetch_assoc($rs)){
-									print('<option value="'.$ligne['nom_ce'].'">'.$ligne['nom_ce'].'</option>');
+									print('<option value="'.$ligne['id_centre_ce'].'">'.$ligne['nom_ce'].'</option>');
 								}
 							?>
 							</select>
@@ -110,16 +110,16 @@
 						<!-- Choix du département du parcours -->
 						<div>
 							<label>Département</label>
-							<select name="zl_nom_d" id="zl_nom_d" required>
+							<select name="zl_id_departement_p" id="zl_id_departement_p" required>
 							<?php
 
-							$sql='SELECT nom_d
+							$sql='SELECT nom_d, id_departement_d
 										FROM departement;';
 
 							$rs=pg_exec($idc,$sql);
 
 								while($ligne=pg_fetch_assoc($rs)){
-									print('<option value="'.$ligne['nom_d'].'">'.$ligne['nom_d'].'</option>');
+									print('<option value="'.$ligne['id_departement_d'].'">'.$ligne['nom_d'].'</option>');
 								}
 							?>
 							</select>
@@ -129,10 +129,10 @@
 						<div>
 							<div>
 								<p>Parcours autonome</p>
-								<input type="radio" name="autonomie_p" id="autonomie_p" value="true">  <label for="autonomie_p">Oui </label>
+								<input type="radio" name="autonomie_p" id="autonomie_p" value="TRUE">  <label for="autonomie_p">Oui </label>
 							</div>
 							<div>
-								<input type="radio" name="autonomie_p" id="autonomie_p" value="false">  <label for="autonomie_p">Non </label>
+								<input type="radio" name="autonomie_p" id="autonomie_p" value="FALSE">  <label for="autonomie_p">Non </label>
 							</div>
 						</div>
 
@@ -140,10 +140,10 @@
 						<div>
 							<div>
 								<p>Rendre le parcours public</p>
-								<input type="radio" name="visible_p" id="visible_p" value="true"><label for="visible_p">Oui</label>
+								<input type="radio" name="visible_p" id="visible_p" value="TRUE"><label for="visible_p">Oui</label>
 							</div>
 							<div>
-								<input type="radio" name="visible_p" id="visible_p" value="false"><label for="visible_p">Non</label>
+								<input type="radio" name="visible_p" id="visible_p" value="FALSE"><label for="visible_p">Non</label>
 							</div>
 					  </div>
 
