@@ -46,7 +46,7 @@
 		<div id="colonneDroite">
   		<?php
 				//Test
-  			$_SESSION['point_interet'] = 3;
+  			$_SESSION['point_interet'] = 4;
   			$_SESSION['parcours'] = 1;
 
        // A récupérer de la page qui appelle
@@ -98,7 +98,7 @@
 					$description_pi = $ligne['description_pi'];
 				}
 			?>
-			<form name="frm"  action="../fonction/save_point_interet.php" method="POST" enctype="multipart/form-data">
+			<form name="frm"  action="../fonction/verif_point_interet.php" method="POST" enctype="multipart/form-data">
 				<div id="div_point">
 					<?php
 						//Génération du code html

@@ -37,10 +37,14 @@
 
 		<div id="colonneDroite">
   			<?php
-	       // A récupérer de la page qui appelle
-				//$id_membre = $_SESSION['zs_XXXXXXXX']);
-	      //$id_membre = $_SESSION['membre']['id_membre_m'];
-				$id_membre = '';
+  			//Test
+  			$_SESSION['id_membre'] = 5;
+
+	      //A récupérer de la page qui appelle
+	      $id_membre = '';
+	      if (isset($_SESSION['id_membre'])){
+	      	$id_membre = $_SESSION['id_membre'];
+				}
 
 				// Initialisation ds variables du formulaire à vide
 				$id_membre_m='';
@@ -50,8 +54,6 @@
 				$adresse_m='';
 				$ville_m='';
 				$cp_m='';
-				$id_departement_m='';
-				$nom_d='';
 				$id_pays_m='';
 				$nom_pa='';
 				$tel_m='';
@@ -75,10 +77,9 @@
 				else {
 
 	      	// Récupération des informations du membre en base
-					$sql='select id_membre_m, nom_m, prenom_m, dt_naissance_m, adresse_m, ville_m, cp_m, id_departement_m, nom_d, ';
-					$sql=$sql.'id_pays_m, nom_pa, tel_m, mail_m, num_licence_c, dt_exp_licence_c, id_niveau_c, nom_ne, photo_c, login_ic, mdp_ic, id_centre_ce, nom_ce ';
+					$sql='select id_membre_m, nom_m, prenom_m, dt_naissance_m, adresse_m, ville_m, cp_m, id_pays_m, nom_pa, ';
+					$sql=$sql.'tel_m, mail_m, num_licence_c, dt_exp_licence_c, id_niveau_c, nom_ne, photo_c, login_ic, mdp_ic, id_centre_ce, nom_ce ';
 					$sql=$sql.'from membre ';
-					$sql=$sql.'inner join departement on id_departement_d = id_departement_m ';
 					$sql=$sql.'inner join pays on id_pays_pa = id_pays_m ';
 					$sql=$sql.'inner join info_connexion on id_membre_ic = id_membre_m ';
 					$sql=$sql.'left join cavalier on id_membre_c = id_membre_m ';
@@ -96,8 +97,6 @@
 					$adresse_m=$ligne['adresse_m'];
 					$ville_m=$ligne['ville_m'];
 					$cp_m=$ligne['cp_m'];
-					$id_departement_m=$ligne['id_departement_m'];
-					$nom_d=$ligne['nom_d'];
 					$id_pays_m=$ligne['id_pays_m'];
 					$nom_pa=$ligne['nom_pa'];
 					$tel_m=$ligne['tel_m'];
@@ -113,7 +112,7 @@
 					$nom_ce=$ligne['nom_ce'];
 				}
 			?>
-			<form name="frm"  action="../fonction/verif_inscription.php" method="post">
+			<form name="frm"  action="../fonction/verif_inscription.php" method="post" enctype="multipart/form-data">
 				<div id="div_statut">
 					<?php
 						if ($num_licence_c!=''){
@@ -141,20 +140,6 @@
 	          print('Adresse : <input type="text" name="zs_adresse_m" value="'.$adresse_m.'"/><br/>'."\n");
 						print('Ville : <input type="text" name="zs_ville_m" value="'.$ville_m.'"/><br/>'."\n");
 						print('Code postal : <input type="text" name="zs_cp_m" value="'.$cp_m.'"/><br/>'."\n");
-						print('Département : ');
-						$sql='select id_departement_d, nom_d from departement order by nom_d;';
-						$rs=pg_exec($idc,$sql);
-						print('<select name="zl_nom_d">'."\n");
-						print('<option value=""></option>'."\n");
-						while($ligne=pg_fetch_assoc($rs)){
-								if ($ligne['id_departement_d']==$id_departement_m){
-									print('<option value="'.$ligne['id_departement_d'].'" selected="selected">'.$ligne['nom_d'].'</option>'."\n");
-								}
-								else{
-									print('<option value="'.$ligne['id_departement_d'].'">'.$ligne['nom_d'].'</option>'."\n");
-								}
-						}
-						print('</select><br/>'."\n");
 						print('Pays : ');
 						$sql='select id_pays_pa, nom_pa from pays order by nom_pa;';
 						$rs=pg_exec($idc,$sql);
@@ -272,6 +257,9 @@
 			document.getElementById("bt_submit_CM").value="Modifier";
 			document.getElementById("zs_login_ic").disabled=true;
 		}
+		else{
+			document.getElementById("cc_mdp").disabled=true;
+		}	
 	});
 
 	//Déclenché sur le click des checkbox : affiche ou cache des div
@@ -307,7 +295,6 @@
 	//Appellé par fonction visible : réinitialise les valeurs des champs
 	function vider(op) {
 		if (op=='c'){
-			document.getElementById("zs_photo_c").value="";
 			document.getElementById("zs_num_licence_c").value="";
 			document.getElementById("zs_dt_exp_licence_c").value="";
 			document.getElementById("zl_nom_ne").value="";
