@@ -27,7 +27,6 @@
 
 			// HEADER
 			require_once('../include/header.php');
-
 			$idc = connect();
 
 		?>
@@ -41,10 +40,29 @@
 		<div id="colonneDroite">
 
 					<!-- Déclaration du formulaire parcours -->
-					<form method="post" action="???.php">
+					<form method="post" action="../fonction/verif_parcours.php">
+
+						<!-- Choix du parcours à modifier-->
+						<div>
+							<label>Parcours à modifier</label>
+							<select name="zl_nom_p" id="zl_nom_p">
+							<?php
+
+							$sql='SELECT nom_p
+										FROM parcours';
+
+							$rs=pg_exec($idc,$sql);
+
+								while($ligne=pg_fetch_assoc($rs)){
+									print('<option value="'.$ligne['id_parcours_p'].'">'.$ligne['nom_p'].'</option>');
+								}
+							?>
+							</select>
+						</div>
+
 						<!-- Zone de saisie du nom du parcours -->
 						<div>
-							<label for="zs_nom_p">Nom </label> <input type="text" name="zs_nom_p" id="zs_nom_p">
+							<label for="zs_nom_p">Nom du parcours </label> <input type="text" name="zs_nom_p" id="zs_nom_p" required>
 						</div>
 
 						<!-- Zone de saisie de la description du parcours -->
@@ -64,7 +82,8 @@
 							$rs=pg_exec($idc,$sql);
 
 								while($ligne=pg_fetch_assoc($rs)){
-									print('<option value="'.$ligne['id_niveau_ne'].'">'.$ligne['nom_ne'].'</option>');
+									print('<option value="'.$ligne['id_niveau_p'].'">'.$ligne['nom_ne'].'</option>');
+
 								}
 							?>
 							</select>
@@ -82,7 +101,25 @@
 							$rs=pg_exec($idc,$sql);
 
 								while($ligne=pg_fetch_assoc($rs)){
-									print('<option value="'.$ligne['id_centre_ce'].'">'.$ligne['nom_ce'].'</option>');
+									print('<option value="'.$ligne['nom_ce'].'">'.$ligne['nom_ce'].'</option>');
+								}
+							?>
+							</select>
+						</div>
+
+						<!-- Choix du département du parcours -->
+						<div>
+							<label>Département</label>
+							<select name="zl_nom_d" id="zl_nom_d" required>
+							<?php
+
+							$sql='SELECT nom_d
+										FROM departement;';
+
+							$rs=pg_exec($idc,$sql);
+
+								while($ligne=pg_fetch_assoc($rs)){
+									print('<option value="'.$ligne['nom_d'].'">'.$ligne['nom_d'].'</option>');
 								}
 							?>
 							</select>
@@ -92,53 +129,32 @@
 						<div>
 							<div>
 								<p>Parcours autonome</p>
-								<input type="radio" name="autonomie_p" id="autonomie_p" >  <label for="autonomie_p">Oui </label>
+								<input type="radio" name="autonomie_p" id="autonomie_p" value="true">  <label for="autonomie_p">Oui </label>
 							</div>
 							<div>
-								<input type="radio" name="autonomie_p" id="autonomie_p">  <label for="autonomie_p">Non </label>
+								<input type="radio" name="autonomie_p" id="autonomie_p" value="false">  <label for="autonomie_p">Non </label>
 							</div>
-						</div>
-
-						<!-- Choix des services proposés par le centre équestre du parcours -->
-						<div>
-
-							<?php
-
-							$sql='SELECT nom_s
-										FROM service;';
-
-							$rs=pg_exec($idc,$sql);
-
-								while($ligne=pg_fetch_assoc($rs)){
-									print(
-
-									'<div>
-										<input type="checkbox" name=".'$ligne['nom_ce']'." id=".'$ligne['nom_ce']'." > <label for="nom_s">.'$ligne['nom_ce']'.</label>
-									</div>'
-
-								);
-
-								}
-
-
-
-							?>
-
 						</div>
 
 						<!-- Choix de rendre le parcours visible au public -->
 						<div>
 							<div>
 								<p>Rendre le parcours public</p>
-								<input type="radio" name="visible_p" id="visible_p" ><label for="visible_p">Oui </label>
+								<input type="radio" name="visible_p" id="visible_p" value="true"><label for="visible_p">Oui</label>
 							</div>
 							<div>
-								<input type="radio" name="visible_p" id="visible_p"><label for="visible_p">Non </label>
+								<input type="radio" name="visible_p" id="visible_p" value="false"><label for="visible_p">Non</label>
 							</div>
 					  </div>
 
-						<!-- Bouton d'envoi du formulaire -->
-						<input type="submit" value="Valider le parcours" />
+						<!-- Bouton de validation de la création du parcours -->
+						<input type="submit" name="bt_submit_creation" id="bt_submit_creation" value="Valider la création du parcours" /> </br>
+
+						<!-- Bouton de validation des modifications du parcours -->
+						<input type="submit" name="bt_submit_modification" id="bt_submit_modification" value="Valider les modifications du parcours" /> </br>
+
+						<!-- Bouton de suppression du parcours -->
+						<input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le parcours" /> </br>
 
 					</form>
 

@@ -1,6 +1,8 @@
 <?php
+
+    // https://phppgadmin.alwaysdata.com/ pour se connecter online
+
 	function connect(){
-		
 		// Informations de connexion
 		$host='postgresql-peoc.alwaysdata.net';
 		$port='5432';
