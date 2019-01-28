@@ -37,8 +37,8 @@
 
 		<div id="colonneDroite">
   			<?php
-  			//Test
-  			$_SESSION['id_membre'] = 5;
+  			//Test : à commenter
+  			$_SESSION['id_membre'] = 1;
 
 	      //A récupérer de la page qui appelle
 	      $id_membre = '';
@@ -69,13 +69,8 @@
 				$nom_ce='';
 				$fichier_dossier_dest = '../image/photo/';
 
-				// Statut non inscrit : création du profil (inscription en bdd donc id membre affecté)
-				if ($id_membre == ''){
-
-				}
 				// Statut inscrit : visualisation /modification du profil
-				else {
-
+				if ($id_membre != ''){
 	      	// Récupération des informations du membre en base
 					$sql='select id_membre_m, nom_m, prenom_m, dt_naissance_m, adresse_m, ville_m, cp_m, id_pays_m, nom_pa, ';
 					$sql=$sql.'tel_m, mail_m, num_licence_c, dt_exp_licence_c, id_niveau_c, nom_ne, photo_c, login_ic, mdp_ic, id_centre_ce, nom_ce ';
@@ -87,7 +82,12 @@
 					$sql=$sql.'left join centre_equestre on id_membre_ce = id_membre_m ';
 					$sql=$sql.'where id_membre_m = '.$id_membre;
 
-	  			$rs=pg_exec($idc,$sql);
+					try{
+			      $rs=pg_exec($idc,$sql);
+			    }
+			    catch (Exception $e) {
+			      echo $e->getMessage(),"\n";
+			    };
 					$ligne=pg_fetch_assoc($rs);
 
 					$id_membre_m =$ligne['id_membre_m'];
@@ -259,7 +259,7 @@
 		}
 		else{
 			document.getElementById("cc_mdp").disabled=true;
-		}	
+		}
 	});
 
 	//Déclenché sur le click des checkbox : affiche ou cache des div

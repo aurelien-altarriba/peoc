@@ -9,6 +9,9 @@
   require_once('../include/connect.php');
   $idc = connect();
 
+  //Définition du chemin des photos
+  $fichier_dossier_dest = '../image/photo_pi/';
+
 
   //RECUPERATION DE L'ACTION A REALISER (selon le bouton exécuté)
   //bouton création/modification
@@ -92,7 +95,6 @@
 
   //GESTION DES PHOTOS
   $fichier_a_charger = 0;
-  $fichier_dossier_dest = '../image/photo_pi/';
   $fichier_temp = '';
   $photo_new='';
 
@@ -100,7 +102,12 @@
   $photo_old='';
   if (!empty($id_point)){
     $sql='SELECT photo_pi FROM point_interet WHERE id_interet_pi = '.$id_point.';';
-    $rs=pg_exec($idc,$sql);
+    try{
+      $rs=pg_exec($idc,$sql);
+    }
+    catch (Exception $e) {
+      echo $e->getMessage(),"\n";
+    };
     $ligne=pg_fetch_assoc($rs);
     if (!empty($ligne['photo_pi'])){
       $photo_old=$fichier_dossier_dest.$ligne['photo_pi'];
@@ -132,7 +139,12 @@
   if ($action==3){
     // Suppression du point en base
     $sql='DELETE FROM point_interet WHERE id_interet_pi = '.$id_point.';';
-    $rs=pg_exec($idc,$sql);
+    try{
+      $rs=pg_exec($idc,$sql);
+    }
+    catch (Exception $e) {
+      echo $e->getMessage(),"\n";
+    };
     echo 'OK';
 
     //suppression photo du serveur
@@ -146,7 +158,12 @@
       //Insertion du point en base
       $sql='INSERT INTO point_interet (id_parcours_pi,num_point_pi,id_categorie_pi,url_pi,description_pi)
             VALUES('.$parcours.','.$num_point.','.$id_categorie.',\''.$url.'\',\''.$description.'\') returning id_interet_pi';
-      $rs=pg_exec($idc,$sql);
+      try{
+        $rs=pg_exec($idc,$sql);
+      }
+      catch (Exception $e) {
+        echo $e->getMessage(),"\n";
+      };
       echo 'OK';
 
       if ($fichier_a_charger==1){
@@ -159,7 +176,12 @@
       if ($fichier_a_charger = 1 && !empty($photo_new)){
         if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
           $sql='UPDATE point_interet SET photo_pi = \''.$photo_new.'\' WHERE id_interet_pi = '.$id_point_new.';';
-          $rs=pg_exec($idc,$sql);
+          try{
+            $rs=pg_exec($idc,$sql);
+          }
+          catch (Exception $e) {
+            echo $e->getMessage(),"\n";
+          };
         }
       }
     }
@@ -177,7 +199,12 @@
       $sql='UPDATE point_interet
             SET id_parcours_pi = '.$parcours.', num_point_pi = '.$num_point.', id_categorie_pi = '.$id_categorie.', url_pi = \''.$url.'\', photo_pi = \''.$photo_new.'\', description_pi = \''.$description.'\'
             WHERE id_interet_pi = '.$id_point.';';
-      $rs=pg_exec($idc,$sql);
+      try{
+        $rs=pg_exec($idc,$sql);
+      }
+      catch (Exception $e) {
+        echo $e->getMessage(),"\n";
+      };
       echo 'OK';
 
       //Copie photo sélectionnée sur le serveur
