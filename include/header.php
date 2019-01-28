@@ -31,7 +31,7 @@
 	<a class="navbar-brand" href="/">
 
 		<!-- LOGO -->
-		<img src="../image/logo_peoc.png" height="60" style="margin-right: 0.5em;">
+		<img src="image/logo_peoc.png" height="60" style="margin-right: 0.5em;">
 	</a>
 
 	<!-- LIENS MENU -->
