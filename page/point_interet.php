@@ -45,14 +45,14 @@
 
 		<div id="colonneDroite">
   		<?php
-				//Test
+				//Test : à commenter
   			$_SESSION['point_interet'] = 4;
   			$_SESSION['parcours'] = 1;
 
-       // A récupérer de la page qui appelle
-			 $id_point = '';
-			 if (isset($_SESSION['point_interet'])){
-				 $id_point = $_SESSION['point_interet'];
+      	// A récupérer de la page qui appelle
+			 	$id_point = '';
+			 	if (isset($_SESSION['point_interet'])){
+					$id_point = $_SESSION['point_interet'];
 				}
 
 				//Initialisation ds variables du formulaire à vide
@@ -73,7 +73,6 @@
 					if (isset($_SESSION['parcours'])){
 						$id_parcours_pi = $_SESSION['parcours'];
 					}
-
 				}
 				//Statut visualisation /modification / suppression du point
 				else {
@@ -84,7 +83,12 @@
 					$sql=$sql.'inner join categorie_pi on id_categorie_pic = id_categorie_pi ';
 					$sql=$sql.'where id_interet_pi = '.$id_point;
 
-	  			$rs=pg_exec($idc,$sql);
+					try{
+			      $rs=pg_exec($idc,$sql);
+			    }
+			    catch (Exception $e) {
+			      echo $e->getMessage(),"\n";
+			    };
 					$ligne=pg_fetch_assoc($rs);
 
 					$id_interet_pi = $ligne['id_interet_pi'];
@@ -107,7 +111,7 @@
 						print('Parcours: <input type="text" name="zs_parcours_pi" value="'.$id_parcours_pi.'" disabled="disabled"/><input type="text" name="zs_nom_p" value="'.$nom_p.'" disabled="disabled"/><br/>'."\n");
 						print('Position : <input type="text" name="zs_num_point_pi" id="zs_num_point_pi" value="'.$num_point_pi.'" required="required"/><br/>'."\n");
 						print('Catégorie : ');
-						$sql='select id_categorie_pic, nom_pic from categorie_pi order by nom_pic;';
+						$sql='select id_categorie_pic, nom_pic from categorie_pi order by id_categorie_pic;';
 						$rs=pg_exec($idc,$sql);
 						print('<select name="zl_nom_pic" id="zl_nom_pic" required="required">'."\n");
 						while($ligne=pg_fetch_assoc($rs)){
