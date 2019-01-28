@@ -62,7 +62,7 @@
 
 						<!-- Zone de saisie du nom du parcours -->
 						<div>
-							<label for="zs_nom_p">Nom du parcours </label> <input type="text" name="zs_nom_p" id="zs_nom_p" maxlength="5" required>
+							<label for="zs_nom_p">Nom du parcours </label> <input type="text" name="zs_nom_p" id="zs_nom_p" maxlength="50" required>
 						</div>
 
 						<!-- Zone de saisie de la description du parcours -->
@@ -84,24 +84,6 @@
 								while($ligne=pg_fetch_assoc($rs)){
 									print('<option value="'.$ligne['id_niveau_ne'].'">'.$ligne['nom_ne'].'</option>');
 
-								}
-							?>
-							</select>
-						</div>
-
-						<!-- Choix du centre équestre proposant le parcours -->
-						<div>
-							<label>Centre équestre</label>
-							<select name="zl_id_centre_p" id="zl_id_centre_p" >
-							<?php
-
-							$sql='SELECT nom_ce, id_centre_ce
-										FROM centre_equestre;';
-
-							$rs=pg_exec($idc,$sql);
-
-								while($ligne=pg_fetch_assoc($rs)){
-									print('<option value="'.$ligne['id_centre_ce'].'">'.$ligne['nom_ce'].'</option>');
 								}
 							?>
 							</select>
