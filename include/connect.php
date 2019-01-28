@@ -1,6 +1,5 @@
 <?php
-
-    // https://phppgadmin.alwaysdata.com/ pour se connecter online
+  // https://phppgadmin.alwaysdata.com/ pour se connecter online
 
 	function connect(){
 		// Informations de connexion

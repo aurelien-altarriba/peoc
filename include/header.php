@@ -4,29 +4,68 @@
 	require_once('connect.php');
 
 	// Si le membre est connecté
-	if(isset($_SESSION['membre']['id'])) {
+	if(!empty($_SESSION['membre']['id'])) {
 
 		// Si ses données n'ont pas été encore récupérées
-		if(!isset($_SESSION['membre']['id_membre_m'])) {
+		if(empty($_SESSION['membre']['id_membre_m'])) {
+			$bdd = connect();
 
 			// On récupère ses données dans un tableau 'membre' en session
 			try {
-				$bdd = connect();
 				$res = pg_query_params($bdd, 'SELECT * FROM membre WHERE id_membre_m = $1', array($_SESSION['membre']['id']));
+				$res = pg_fetch_all($res)[0];
 			} catch(Exception $e) {
 				echo('erreur : '. $e);
 			}
 
-			$res = pg_fetch_all($res)[0];
-
+			// On assigne les données au tableau de session
 			foreach ($res as $key => $value) {
 				$_SESSION['membre'][$key] = $value;
+			}
+
+			// VÉRIFICATION SI CENTRE ÉQUESTRE
+			try {
+				$verif_ce = pg_query_params($bdd, 'SELECT * FROM centre_equestre WHERE id_membre_ce = $1', array($_SESSION['membre']['id']));
+				$verif_ce = pg_fetch_all($verif_ce)[0];
+			} catch(Exception $e) {
+				echo('erreur : '. $e);
+			}
+
+			// Si il dirige un centre équestre
+			if(!empty($verif_ce['id_membre_ce'])) {
+
+				// On assigne les données au tableau de session
+				foreach ($verif_ce as $key => $value) {
+					$_SESSION['membre']['ce'][$key] = $value;
+				}
+
+				// On lui assigne le type centre_equestre
+				$_SESSION['membre']['type'][] = 'centre_equestre';
+			}
+
+			// VÉRIFICATION SI CAVALIER
+			try {
+				$verif_cavalier = pg_query_params($bdd, 'SELECT * FROM cavalier WHERE id_membre_c = $1', array($_SESSION['membre']['id']));
+				$verif_cavalier = pg_fetch_all($verif_cavalier)[0];
+			} catch(Exception $e) {
+				echo('erreur : '. $e);
+			}
+
+			// Si c'est un cavalier
+			if(!empty($verif_cavalier['id_membre_c'])) {
+
+				// On assigne les données au tableau de session
+				foreach ($verif_cavalier as $key => $value) {
+					$_SESSION['membre'][$key] = $value;
+				}
+
+				// On lui assigne le type cavalier
+				$_SESSION['membre']['type'][] = 'cavalier';
 			}
 		}
 	}
 ?>
 
-<!-- HEADER -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="header">
 	<a class="navbar-brand" href="/">
 
