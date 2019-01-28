@@ -19,7 +19,7 @@ function getDataCE(){
 				// On créé le marqueur
 				var marqueur_CE = new L.marker([coord[1], coord[0]], {
 						icon: L.icon({
-							iconUrl: '../image/ce.png',			// URL de l'image
+							iconUrl: 'image/ce.png',			// URL de l'image
 							iconSize: [20, 20],							// Taille de l'image
 							popupAnchor: [0, -10]						// Position d'ouverture de la popup
 						})
@@ -29,7 +29,7 @@ function getDataCE(){
 				// On créé le contenu en HTML
 				var popup_contenu =
 				'<div class="popup_CE">'+
-					'<img src="../image/logo/'+ CE['logo_ce'] +'"></img>'+
+					'<img src="image/logo/'+ CE['logo_ce'] +'"></img>'+
 					'<h2>'+ CE['nom_ce'] +'</h2>'+
 					'<hr>'+
 					'<div><b>Adresse :</b> '+ CE['adresse_ce'] +' '+ CE['cp_ce'] +' '+ CE['ville_ce'] +' ('+ CE['id_departement_ce'] +')</div>'+
