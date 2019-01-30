@@ -1,13 +1,13 @@
-Options -Indexes
-Options +FollowSymlinks
-
-RewriteEngine On
-
-# Lien de l'accueil
-RewriteCond %{REQUEST_URI} ^/debug(.php)?
-RewriteRule ^([^\/]+)$ debug.php [L]
-
-RewriteCond %{REQUEST_URI} ^/index(.php)?
-RewriteRule ^([^\/]+)$ index.php [L]
-
-RewriteRule ^([^\/]+)$ page/$1.php [L]
+# Options -Indexes
+# Options +FollowSymlinks
+#
+# RewriteEngine On
+#
+# # Lien de l'accueil
+# RewriteCond %{REQUEST_URI} ^/debug(.php)?
+# RewriteRule ^([^\/]+)$ debug.php [L]
+#
+# RewriteCond %{REQUEST_URI} ^/index(.php)?
+# RewriteRule ^([^\/]+)$ index.php [L]
+#
+# RewriteRule ^([^\/]+)$ page/$1.php [L]

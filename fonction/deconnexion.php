@@ -4,5 +4,5 @@ session_start();
 session_destroy();
 
 // Redirection
-header('Location: ../');
+header('Location: /');
 ?>
