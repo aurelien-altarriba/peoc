@@ -41,19 +41,22 @@
 	flex: 4;
 }
 
-#filtres h3
+#filtres form
 {
-	border-bottom: 1px solid grey;
-	padding-bottom: 0.3em;
-	font-size: 1.5em;
+	font-size: 0.9em;
 }
 
-#resParcours h3
+.form-control
+{
+	font-size: 1em !important;
+	height: 2.5em !important;
+	padding: 0.2em !important;
+}
+
+#colonneGauche h3
 {
 	border-bottom: 1px solid grey;
-	margin-top: 0.5em;
 	padding-bottom: 0.3em;
-
 	font-size: 1.5em;
 }
 
@@ -70,6 +73,7 @@
 .form_row
 {
 	display: flex;
+	align-items: center;
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
@@ -77,6 +81,7 @@
 .form_row .form-check
 {
 	display: flex;
+	align-items: center;
 	margin-left: 1em;
 }
 
@@ -92,11 +97,6 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 0.3em;
-}
-
-#resParcours
-{
-	margin-top: 1em;
 }
 
 #description
@@ -143,4 +143,26 @@
 .popup_CE hr
 {
 	margin: 0.5em;
+}
+
+/* Niveaux couleur */
+.niveau1
+{
+	background-color: #3F3 !important;
+}
+
+.niveau2
+{
+	background-color: #FF1 !important;
+}
+
+.niveau3
+{
+	background-color: #F61 !important;
+}
+
+.niveau4
+{
+	background-color: #333 !important;
+	color: white !important;
 }

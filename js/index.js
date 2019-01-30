@@ -16,10 +16,10 @@ function onElementHeightChange(elm, callback){
 
 // Pour que la liste déroulante soit à la bonne taille
 $(document).ready(function() {
-  $("#resParcours .list-group").css("max-height", ( $("#colonneGauche").height() - ($("#filtres").height() + 100) ));
+  $("#resParcours .list-group").css("max-height", ( $("#colonneGauche").height() - ($("#filtres").height() + 80) ));
   $("#resParcours .list-group").show();
 
   onElementHeightChange(document.body, function(){
-    $("#resParcours .list-group").css("max-height", ( $("#colonneGauche").height() - ($("#filtres").height() + 100) ));
+    $("#resParcours .list-group").css("max-height", ( $("#colonneGauche").height() - ($("#filtres").height() + 80) ));
   });
 });

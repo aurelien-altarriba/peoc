@@ -1,36 +1,30 @@
 <?php
 	require_once('../include/connect.php');
-
   $bdd = connect();
 
 	// Récupération des variables
-	// $nom = $_POST['nom'];
-	// $niveau = $_POST['niveau'];
-	// $centre = $_POST['centre'];
-	// $departement = $_POST['departement'];
-
-	$nom = "Deuxième parcours";
-	$niveau = 2;
-	$centre = 1;
-	$departement = 11;
+	$nom = $_POST['nom'];
+	$niveau = $_POST['niveau'];
+	$centre = $_POST['centre'];
+	$departement = $_POST['departement'];
 
 	// Requête de récupération des parcours
-	$requete = "SELECT * FROM parcours WHERE 1 = 1 ";
+	$requete = "SELECT * FROM parcours WHERE 1 = 1";
 
 	// Ajout des conditions selon les filtres
 	if (!empty($nom)) {
-		$requete .= "AND nom_p LIKE '$nom%'";
+		$requete .= " AND nom_p LIKE '$nom%'";
 	}
 
 	if (!empty($niveau)) {
-		$requete .= "AND (id_niveau_p IS NOT NULL AND id_niveau_p IN ($niveau))";
+		$requete .= " AND id_niveau_p IN ($niveau)";
 	}
 
 	if (!empty($centre) && $centre != 0) {
-		$requete .= "AND id_centre_p = $centre";
+		$requete .= " AND id_centre_p = $centre";
 	}
 	else if (!empty($departement) && $departement != 0) {
-		$requete .= "AND id_departement_p = $departement";
+		$requete .= " AND id_departement_p = '$departement'";
 	}
 
 	// Exécution de la requête et récupération des données

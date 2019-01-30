@@ -80,7 +80,7 @@
 				<a class="nav-link" href="/">Accueil</a>
 			</li>
 
-			<li class="nav-item active">
+			<li class="nav-item">
 				<a class="nav-link" href="/">Liste des parcours</a>
 			</li>
 
