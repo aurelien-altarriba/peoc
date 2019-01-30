@@ -96,7 +96,6 @@ function getDataParcoursFiltre() {
 		},
 
 		function(data){
-			test = data;
 			displayDataParcours(data);
 		}
 	);

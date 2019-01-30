@@ -70,7 +70,7 @@
 	<a class="navbar-brand" href="/">
 
 		<!-- LOGO -->
-		<img src="image/logo_peoc.png" height="50" style="margin: 0.5em;">
+		<img src="/../image/logo_peoc.png" height="50" style="margin: 0.5em;">
 	</a>
 
 	<!-- LIENS MENU -->
