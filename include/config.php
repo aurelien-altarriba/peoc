@@ -8,4 +8,8 @@ $CF = [
     "logo" => "image/logo/",
   ],
 ];
+
+// Exemple d'appel
+// $CF['image']['photo'] . "45.jpg";
+
 ?>
