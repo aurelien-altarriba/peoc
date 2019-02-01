@@ -106,24 +106,20 @@
 
 						<!-- Le parcours est-il faisable en autonomie ou pas -->
 						<div>
-							<div>
-								<p>Parcours autonome</p>
-								<input type="radio" name="autonomie_p" id="autonomie_p" value="TRUE">  <label for="autonomie_p">Oui </label>
-							</div>
-							<div>
-								<input type="radio" name="autonomie_p" id="autonomie_p" value="FALSE">  <label for="autonomie_p">Non </label>
-							</div>
+
+								<p>Parcours autonome <br/>
+								<input type="radio" name="autonomie_p" id="autonomie_p_oui" value="TRUE"/>  <label for="autonomie_p_oui">Oui </label> <br/>
+								<input type="radio" name="autonomie_p" id="autonomie_p_non" value="FALSE"/>  <label for="autonomie_p_non">Non </label>
+								</p>
 						</div>
 
 						<!-- Choix de rendre le parcours visible au public -->
 						<div>
-							<div>
-								<p>Rendre le parcours public</p>
-								<input type="radio" name="visible_p" id="visible_p" value="TRUE"><label for="visible_p">Oui</label>
-							</div>
-							<div>
-								<input type="radio" name="visible_p" id="visible_p" value="FALSE"><label for="visible_p">Non</label>
-							</div>
+
+								<p>Rendre le parcours public <br/>
+								<input type="radio" name="visible_p" id="visible_p_oui" value="TRUE" ><label for="visible_p_oui">Oui</label> <br/>
+								<input type="radio" name="visible_p" id="visible_p_non" value="FALSE" ><label for="visible_p_non">Non</label>
+								</p>
 					  </div>
 
 						<!-- Bouton de validation de la création du parcours -->
