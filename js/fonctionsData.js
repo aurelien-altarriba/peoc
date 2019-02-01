@@ -118,10 +118,12 @@ function displayDataParcours(data) {
 
 		// On ajoute le parcours à la liste
 		$("#resParcours .list-group").append(
-		'<li class="list-group-item niveau'+ niveau +'" id="parcours'+ un_parcours['id_parcours_p'] +'">'+
-			un_parcours['nom_p'] +
-			'<span class="badge badge-primary badge-pill">'+ un_parcours['comment'] +' 💬</span>'+
-		'</li>');
+		'<a href="page/parcours.php?id='+ un_parcours['id_parcours_p'] +'">'+
+			'<li class="list-group-item niveau'+ niveau +'" id="parcours'+ un_parcours['id_parcours_p'] +'">'+
+				un_parcours['nom_p'] +
+				'<span class="badge badge-primary badge-pill">'+ un_parcours['comment'] +' 💬</span>'+
+			'</li>'+
+		'</a>');
 
 		// Tableau contenant les coordonnées des tronçons
 		var trace_parcours = [];
