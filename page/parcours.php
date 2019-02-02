@@ -129,8 +129,12 @@
 						<input type="submit" name="bt_submit_modification" id="bt_submit_modification" value="Valider les modifications du parcours" /> </br>
 
 						<!-- Bouton de suppression du parcours -->
-						<input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le parcours" /> </br>
+						<input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le parcours" />
 
+					</form>
+
+					<form method="get" action="../page/troncon.php">
+    			<button type="submit">Créer un tronçon</button>
 					</form>
 
 		</div>
