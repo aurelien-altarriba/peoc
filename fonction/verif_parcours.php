@@ -22,12 +22,17 @@ $today= '\''.$td['year'].'-'.$td['mon'].'-'.$td['mday'].'\'';
 
 // récupération du type de membre : centre_equestre, cavalier, NULL
 $type = $_SESSION['membre']['type']['0'];
-// récupération de l'id du membre
+// récupération de l'id du membre connecté
 $id_membre = $_SESSION['membre']['id'];
-// récupération de l'id du centre équestre
+// récupération de l'id du centre équestre connecté
 $id_centre_p = $_SESSION['membre']['ce']['id_centre_ce'];
-// récupération le l'id du membre qui à créé le parcours sélectionné
 
+// récupération le l'id du membre qui à créé le parcours sélectionné
+$rs = pg_query($idc,$sql = "SELECT id_membre_p
+FROM parcours
+WHERE id_parcours_p = $id_p");
+$id_membre_p_parcours_selection = pg_fetch_result($rs,0,0);
+echo $id_membre_p_parcours_selection;
 
 // vérifie si l'utilisateur est un cavalier pour pouvoir créer un parcours
 if (isset($_POST['bt_submit_creation']) && $type=='cavalier'){
@@ -61,8 +66,7 @@ if (isset($_POST['bt_submit_modification'])){
         id_departement_p= \''.$id_departement_p.'\',
         autonomie_p= \''.$autonomie_p.'\',
         visible_p= \''.$visible_p.'\'
-        WHERE id_parcours_p = '.$id_p.'
-        AND (id_membre_p = '.$id_membre.' OR id_centre_p = '.$id_centre_p.')';
+        WHERE id_parcours_p = '.$id_p.'';
   $rs=pg_exec($idc,$sql);
 }
 
