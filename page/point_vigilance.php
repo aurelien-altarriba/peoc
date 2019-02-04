@@ -124,7 +124,7 @@
 						print('Numéro du point de vigilance : <input type="text" name="zs_vigilance_pv" id="zs_vigilance_pv" value="'.$id_vigilance_pv.'" disabled="disabled"/><br/>'."\n");
 						print('Parcours: <input type="text" name="zs_parcours_pv" value="'.$id_parcours_pv.'" disabled="disabled"/><input type="text" name="zs_nom_p" value="'.$nom_p.'" disabled="disabled"/><br/>'."\n");
 						print('Membre : <input type="text" name="zs_membre_pv" id="zs_membre_pv" value="'.$id_membre_pv.'" disabled="disabled"/><br/>'."\n");
-						print('Position : <input type="text" name="zs_num_point_pv" id="zs_num_point_pv" value="'.$num_point_pv.'" required="required"/><br/>'."\n");
+						print('Position : <input type="number" name="zs_num_point_pv" id="zs_num_point_pv" value="'.$num_point_pv.'" required="required"/><br/>'."\n");
 						print('Catégorie : ');
 						$sql='select id_categorie_pvc, nom_pvc from categorie_pv order by id_categorie_pvc;';
 						$rs=pg_exec($idc,$sql);

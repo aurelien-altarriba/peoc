@@ -15,9 +15,13 @@ $(document).ready(function() {
 
 	// CENTRES ÉQUESTRES
 	centres_equestres = new L.LayerGroup();
+	// Gestion Cluster
+	centres_equestres_Cluster = L.markerClusterGroup();
 
-	// PARCOURS
+	// CENTRES ÉQUESTRES PARCOURS
 	parcours = new L.featureGroup();
+	// Gestion Cluster
+	parcours_Cluster = L.markerClusterGroup();
 
 	// MENU DES CARTES
 	var cartes = {
@@ -47,6 +51,10 @@ $(document).ready(function() {
 	// Charge les données sur la carte
 	getDataCE();
 	getDataParcoursAll();
+
+	// Gestion Cluster
+	map.addLayer(centres_equestres_Cluster);
+	map.addLayer(parcours_Cluster);
 });
 
 

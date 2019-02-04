@@ -1,6 +1,5 @@
 // Pour récupérer les données des centres équestres
 function getDataCE(){
-
 	// Supprime les layers dans la liste des centres équestres
 	centres_equestres.clearLayers();
 
@@ -44,6 +43,9 @@ function getDataCE(){
 
         // Ajoute le marqueur à la liste des CE
 				centres_equestres.addLayer(marqueur_CE);
+
+				// Gestion Cluster
+				centres_equestres_Cluster.addLayer(marqueur_CE);
 			});
 		}
 	);
@@ -104,7 +106,6 @@ function getDataParcoursFiltre() {
 
 // Fonction d'affichage des parcours
 function displayDataParcours(data) {
-
 	// Vide la liste des parcours (innerHTML en JQuery)
 	$("#resParcours .list-group").html("");
 
@@ -146,6 +147,9 @@ function displayDataParcours(data) {
 
 			// Ajout du polyline à la liste des parcours
 			parcours.addLayer(polyline);
+
+			// Gestion Cluster
+			parcours_Cluster.addLayer(polyline);
 		});
 	});
 }

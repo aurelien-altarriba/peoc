@@ -109,7 +109,7 @@
 						// !!! Sous firefox pb positionnement des listes de valeur sur la valeur par défaut
 						print('Numéro du point d\'intérêt : <input type="text" name="zs_interet_pi" id="zs_interet_pi" value="'.$id_interet_pi.'" disabled="disabled"/><br/>'."\n");
 						print('Parcours: <input type="text" name="zs_parcours_pi" value="'.$id_parcours_pi.'" disabled="disabled"/><input type="text" name="zs_nom_p" value="'.$nom_p.'" disabled="disabled"/><br/>'."\n");
-						print('Position : <input type="text" name="zs_num_point_pi" id="zs_num_point_pi" value="'.$num_point_pi.'" required="required"/><br/>'."\n");
+						print('Position : <input type="number" name="zs_num_point_pi" id="zs_num_point_pi" value="'.$num_point_pi.'" required="required"/><br/>'."\n");
 						print('Catégorie : ');
 						$sql='select id_categorie_pic, nom_pic from categorie_pi order by id_categorie_pic;';
 						$rs=pg_exec($idc,$sql);
