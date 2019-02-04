@@ -82,14 +82,17 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="/">Liste des parcours</a>
+				<a class="nav-link" href="/">Créer un parcours</a>
 			</li>
 
 			<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
-				<li class="nav-item">
 
-					<?php // TODO: Page mon compte ?>
-					<a class="nav-link" href="/">Mon compte</a>
+				<li class="nav-item">
+					<a class="nav-link" href="/">Mes parcours</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/">Mon profil</a>
 				</li>
 			<?php } ?>
 		</ul>

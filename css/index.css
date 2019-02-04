@@ -133,6 +133,12 @@
 	border-radius: 3px;
 }
 
+#msg_bienvenue
+{
+	font-size: 0.8em;
+	font-style: italic;
+}
+
 /*** POPUP CENTRE ÉQUESTRE ***/
 .popup_CE
 {
