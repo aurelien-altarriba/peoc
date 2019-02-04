@@ -3,6 +3,8 @@ body
 	width: 100%;
 	min-height: 100vh;
 	font-family: Verdana, Arial;
+
+	padding-bottom: 1em;
 }
 
 #header
