@@ -81,14 +81,19 @@
 				<a class="nav-link" href="/">Accueil</a>
 			</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="/">Créer un parcours</a>
-			</li>
-
 			<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
-
 				<li class="nav-item">
-					<a class="nav-link" href="/">Mes parcours</a>
+					<div class="dropdown">
+					  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown_parcours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Parcours
+					  </a>
+
+					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
+							<a class="dropdown-item" href="#">Tous les parcours</a>
+					    <a class="dropdown-item" href="#">Mes parcours</a>
+					    <a class="dropdown-item" href="#">Créer un parcours</a>
+					  </div>
+					</div>
 				</li>
 
 				<li class="nav-item">
