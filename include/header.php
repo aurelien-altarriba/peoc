@@ -92,7 +92,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/">Mon profil</a>
+					<a class="nav-link" href="page/profil.php">Mon profil</a>
 				</li>
 			<?php } ?>
 		</ul>
@@ -120,9 +120,11 @@
 					Connexion
 				</button>
 
-				<button type="button" class="btn btn-lg" id="bt_inscription">
-					Inscription
-				</button>
+				<a href="page/inscription.php">
+					<button type="button" class="btn btn-lg" id="bt_inscription">
+						Inscription
+					</button>
+				</a>
 			</div>
 
 		<?php } ?>
