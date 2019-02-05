@@ -19,19 +19,19 @@
 		<meta charset="utf-8">
 
 		<!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
+
 		<link rel="stylesheet" type="text/css" href="../css/header.css">
 		<link rel="stylesheet" type="text/css" href="../css/footer.css">
 		<link rel="stylesheet" type="text/css" href="../css/parcours.css">
-
-		<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
 
 		<!-- JS -->
 		<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/lib/leaflet.js"></script>
 		<script type="text/javascript" src="../js/lib/leaflet.active-layers.min.js"></script>
-    
+
 		<script type="text/javascript" src="../js/fonctionsData.js"></script>
 		<script type="text/javascript" src="../js/map_parcours.js"></script>
 	</head>
@@ -75,11 +75,11 @@
 		<div id="contenu">
 			<div id="colonneGauche">
 				<h3><?php echo($parcours['nom_p']) ?></h3>
-				<div>Créé le <?php echo date_format(date_create($parcours['dt_publication_p']), 'd/m/Y'); ?> par <?php echo $parcours_rel['prenom_m'] .' '. $parcours_rel['nom_m']; ?> (<?php echo $parcours_rel['nom_pa']; ?>)</div>
-				<div>En autonomie : <b><?php echo $parcours['autonomie_p'] ? 'OUI' : 'NON';?></b></div>
-				<div>Niveau : <b><?php echo $parcours_rel['nom_ne']; ?></b></div>
-				<div>Département : <b><?php echo $parcours_rel['nom_d']; ?> (<?php echo $parcours['id_departement_p']; ?>)</b></div>
-				<div><?php echo $parcours['description_p']; ?></div>
+				<div class="date">Créé le <?php echo date_format(date_create($parcours['dt_publication_p']), 'd/m/Y'); ?> par <?php echo $parcours_rel['prenom_m'] .' '. $parcours_rel['nom_m']; ?> (<?php echo $parcours_rel['nom_pa']; ?>)</div>
+				<div class="autonomie">En autonomie : <span class=<?php echo $parcours['autonomie_p'] ? '"vrai">OUI' : '"faux">NON';?></span></div>
+				<div class="niveau">Niveau : <span class="niveau<?php echo $parcours['id_niveau_p']; ?>"><?php echo $parcours_rel['nom_ne']; ?></span></div>
+				<div class="departement">Département : <b><?php echo $parcours_rel['nom_d']; ?> (<?php echo $parcours['id_departement_p']; ?>)</b></div>
+				<div class="description"><?php echo $parcours['description_p']; ?></div>
 			</div>
 
 			<div id="colonneDroite">

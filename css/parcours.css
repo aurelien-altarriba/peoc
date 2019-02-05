@@ -21,8 +21,14 @@
 	display: flex;
 	flex-direction: column;
   align-items: center;
+	text-align: center;
 
 	flex: 1;
+}
+
+#colonneGauche > div
+{
+	margin-bottom: 1em;
 }
 
 #colonneDroite
@@ -44,4 +50,68 @@
 
 	box-shadow: 0px 0px 3px black;
 	border-radius: 3px;
+}
+
+.date
+{
+	font-size: 0.9em;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+
+	border-bottom: 1px solid grey;
+}
+
+.description
+{
+	margin-top: 2em;
+	font-size: 0.9em;
+
+	font-family: sans-serif;
+}
+
+/* Couleurs */
+.vrai
+{
+	font-weight: bold;
+	color: green;
+}
+
+.faux
+{
+	font-weight: bold;
+	color: red;
+}
+
+/* Niveaux */
+.niveau1
+{
+	font-weight: bold;
+	background-color: #0E0;
+	padding: 0.3em;
+	border-radius: 0.5em;
+}
+
+.niveau2
+{
+	font-weight: bold;
+	background-color: #EE0;
+	padding: 0.3em;
+	border-radius: 0.5em;
+}
+
+.niveau3
+{
+	font-weight: bold;
+	background-color: #F90;
+	padding: 0.3em;
+	border-radius: 0.5em;
+}
+
+.niveau4
+{
+	font-weight: bold;
+	background-color: #E00;
+	color: white;
+	padding: 0.3em;
+	border-radius: 0.5em;
 }

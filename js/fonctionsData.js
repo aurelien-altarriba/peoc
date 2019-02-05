@@ -145,6 +145,8 @@ function displayDataParcours(data) {
 			// Création du polyline du parcours
 			var polyline = L.polyline(trace_parcours, {color:'red'});
 
+			test = polyline.getLatLngs();
+
 			// Ajout du polyline à la liste des parcours
 			parcours.addLayer(polyline);
 
