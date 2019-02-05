@@ -12,12 +12,12 @@
 	<link rel="stylesheet" type="text/css" href="../css/footer.css">
 	<link rel="stylesheet" type="text/css" href="../css/index.css">
 
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
 
 	<!-- JS -->
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- HEADER -->

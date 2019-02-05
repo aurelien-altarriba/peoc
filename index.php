@@ -8,17 +8,17 @@
 	<link rel="stylesheet" type="text/css" href="css/header.css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/leaflet.css">
-	<link rel="stylesheet" type="text/css" href="css/MarkerCluster.css" />
-  <link rel="stylesheet" type="text/css" href="css/MarkerCluster.Default.css" />
+	<link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/lib/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="css/lib/MarkerCluster.css" />
+  <link rel="stylesheet" type="text/css" href="css/lib//MarkerCluster.Default.css" />
 
 	<!-- JS -->
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/leaflet.js"></script>
-	<script type="text/javascript" src="js/leaflet.active-layers.min.js"></script>
-	<script type="text/javascript" src="js/leaflet.markercluster-src.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/lib/leaflet.js"></script>
+	<script type="text/javascript" src="js/lib/leaflet.active-layers.min.js"></script>
+	<script type="text/javascript" src="js/lib/leaflet.markercluster-src.js"></script>
 	<script type="text/javascript" src="js/fonctionsData.js"></script>
 	<script type="text/javascript" src="js/map_index.js"></script>
 	<script type="text/javascript" src="js/index.js" async></script>
