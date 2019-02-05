@@ -1,3 +1,18 @@
+<?php
+  session_start();
+  session_unset();
+
+  $_SESSION['membre']['id'] = 1;
+
+  // HEADER
+  require_once('../include/header.php');
+  $idc = connect();
+?>
+
+<style type="text/css">#header,#connexion{display:none;}</style>
+
+<?php echo('<h2>'. $_SESSION['membre']['prenom_m'] .' '. $_SESSION['membre']['nom_m'] .'</h2>'); ?>
+
 <form method="post" action="../fonction/verif_parcours.php">
 
   <!-- Choix du parcours à modifier-->
