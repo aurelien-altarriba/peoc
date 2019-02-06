@@ -97,12 +97,31 @@ function getDataParcoursFiltre() {
 			departement: dep_p
 		},
 
-		function(data){
+		function(data) {
 			displayDataParcours(data);
 		}
 	);
 }
 
+// Récupération des tronçons d'un parcours
+function getDataTroncon() {
+
+	// Récupération des paramètres
+	var url = new URLSearchParams(location.search);
+
+	// Récupération des tronçons
+	$.post('../fonction/recup_data_troncons_parcours.php',
+
+		// Récupération de l'ID du parcours
+		{
+			id: url.get('id'),
+		},
+
+		function(data) {
+			displayDataTroncon(data);
+		}
+	);
+}
 
 // Fonction d'affichage des parcours
 function displayDataParcours(data) {
@@ -115,12 +134,10 @@ function displayDataParcours(data) {
 	// Pour chaque parcours
 	$.each(liste_parcours, function(index, un_parcours) {
 
-		var niveau = un_parcours['id_niveau_p'];
-
 		// On ajoute le parcours à la liste
 		$("#resParcours .list-group").append(
 		'<a href="page/parcours.php?id='+ un_parcours['id_parcours_p'] +'">'+
-			'<li class="list-group-item niveau'+ niveau +'" id="parcours'+ un_parcours['id_parcours_p'] +'">'+
+			'<li class="list-group-item niveau'+ un_parcours['id_niveau_p'] +'" id="parcours'+ un_parcours['id_parcours_p'] +'">'+
 				un_parcours['nom_p'] +
 				'<span class="badge badge-primary badge-pill">'+ un_parcours['comment'] +' 💬</span>'+
 			'</li>'+
@@ -145,8 +162,6 @@ function displayDataParcours(data) {
 			// Création du polyline du parcours
 			var polyline = L.polyline(trace_parcours, {color:'red'});
 
-			test = polyline.getLatLngs();
-
 			// Ajout du polyline à la liste des parcours
 			parcours.addLayer(polyline);
 
@@ -154,4 +169,42 @@ function displayDataParcours(data) {
 			parcours_Cluster.addLayer(polyline);
 		});
 	});
+}
+
+// Affichage des tronçons sur la carte
+function displayDataTroncon(data) {
+
+	// Supprime les tronçons de la carte (variable globale donc au cas où)
+	troncons.clearLayers();
+
+	// Récupération des données en JSON + tableau des coordonnées (pour zoom automatique)
+	var liste_troncons = JSON.parse(data);
+	var tab_coord = [];
+
+	// Pour chaque parcours
+	$.each(liste_troncons, function(index, un_troncon) {
+
+		// Tableau contenant les coordonnées du tronçons
+		var trace_troncon = [];
+
+		// On récupère les coordonnées du troncon
+		var coords = JSON.parse(un_troncon['st_asgeojson'])['coordinates'];
+
+		// Pour chaque coordonnées dans le troncon
+		$.each(coords, function(index2, ligne) {
+
+			// On la stocke dans les tableaux
+			trace_troncon.push([ligne[1], ligne[0]]);
+			tab_coord.push(trace_troncon);
+		});
+
+		// Création du polyline du troncon sur la carte
+		var polyline = L.polyline(trace_troncon, {color:'red'});
+
+		// Ajout du polyline à la liste des parcours
+		troncons.addLayer(polyline);
+	});
+
+	// Zoom sur le parcours
+	map.fitBounds(tab_coord);
 }

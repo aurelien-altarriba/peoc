@@ -38,7 +38,7 @@ $(document).ready(function() {
 
 	// CRÉATION DE LA MAP
 	map = L.map('map', {
-    layers: [Satellite, points_interet, points_vigilance]
+    layers: [Satellite, troncons, points_interet, points_vigilance]
 	});
 
 	// Coordonnées à l'initialisation de la map (Occitanie)
@@ -49,5 +49,5 @@ $(document).ready(function() {
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
 	// Charge les données sur la carte
-	
+	getDataTroncon();
 });
