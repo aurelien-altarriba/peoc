@@ -103,6 +103,7 @@ function getDataParcoursFiltre() {
 	);
 }
 
+
 // Récupération des tronçons d'un parcours
 function getDataTroncon() {
 
@@ -114,7 +115,7 @@ function getDataTroncon() {
 
 		// Récupération de l'ID du parcours
 		{
-			id: url.get('id'),
+			id: url.get('id')
 		},
 
 		function(data) {
@@ -122,6 +123,31 @@ function getDataTroncon() {
 		}
 	);
 }
+
+
+// Récupération des points d'un parcours
+// type: "I" pour les points d'intérêt
+// 			 "V" pour les points de vigilance
+function getDataPoint(type) {
+
+	// Récupération des paramètres
+	var url = new URLSearchParams(location.search);
+
+	// Récupération des tronçons
+	$.post('../fonction/recup_data_points_parcours.php',
+
+		// Récupération de l'ID du parcours
+		{
+			id: url.get('id'),
+			type: type
+		},
+
+		function(data) {
+			displayDataPoint(data, type);
+		}
+	);
+}
+
 
 // Fonction d'affichage des parcours
 function displayDataParcours(data) {
@@ -171,6 +197,7 @@ function displayDataParcours(data) {
 	});
 }
 
+
 // Affichage des tronçons sur la carte
 function displayDataTroncon(data) {
 
@@ -207,4 +234,92 @@ function displayDataTroncon(data) {
 
 	// Zoom sur le parcours
 	map.fitBounds(tab_coord);
+}
+
+
+// Fonction d'affichage des points sur la carte
+function displayDataPoint(data, type) {
+
+	// Récupération des données en JSON
+	var liste_points = JSON.parse(data);
+
+	if (type == "I") {
+
+		// Supprime les points d'intérêt sur la carte
+		points_interet.clearLayers();
+
+		$.each(liste_points, function(index, point) {
+
+			var coord = JSON.parse(point['st_asgeojson'])['coordinates'];
+
+			// On créé le marqueur
+			var marqueur = new L.marker([coord[1], coord[0]], {
+					icon: L.icon({
+						iconUrl: '../image/ce.png',			// URL de l'image
+						iconSize: [20, 20],							// Taille de l'image
+						popupAnchor: [0, -10]						// Position d'ouverture de la popup
+					})
+				}
+			);
+
+			// On créé le contenu en HTML
+			var popup_contenu = '<h1>TEST</h1>';
+			// '<div class="popup_CE">'+
+			// 	'<img src="image/logo/'+ CE['logo_ce'] +'"></img>'+
+			// 	'<h2>'+ CE['nom_ce'] +'</h2>'+
+			// 	'<hr>'+
+			// 	'<div><b>Adresse :</b> '+ CE['adresse_ce'] +' '+ CE['cp_ce'] +' '+ CE['ville_ce'] +' ('+ CE['id_departement_ce'] +')</div>'+
+			// 	'<div><b>Tel :</b> '+ CE['tel_ce'] +'</div>'+
+			// 	'<div><b>Mail :</b> <a href="mailto:'+ CE['mail_ce'] +'">'+ CE['mail_ce'] +'</a></div>'+
+			// 	'<div><b>Site web :</b> <a href="'+ CE['url_ce'] +'" target="_blank">'+ CE['url_ce'] +'</a></div>'+
+			// 	'<div><b>Nombre de chevaux :</b> '+ CE['nb_cheval_ce'] +'</div>'+
+			// '</div>';
+
+			// Ajoute le contenu HTML dans une popup au marqueur
+			marqueur.bindPopup(popup_contenu);
+
+			// Ajoute le marqueur à la liste des points d'intérêt
+			points_interet.addLayer(marqueur);
+		});
+
+	} else if (type == "V") {
+
+		// Supprime les points de vigilance sur la carte
+		points_vigilance.clearLayers();
+
+		$.each(liste_points, function(index, point) {
+
+			var coord = JSON.parse(point['st_asgeojson'])['coordinates'];
+
+			// On créé le marqueur
+			var marqueur = new L.marker([coord[1], coord[0]], {
+					icon: L.icon({
+						iconUrl: '../image/ce.png',			// URL de l'image
+						iconSize: [20, 20],							// Taille de l'image
+						popupAnchor: [0, -10]						// Position d'ouverture de la popup
+					})
+				}
+			);
+
+			// On créé le contenu en HTML
+			var popup_contenu = '<h1>TEST</h1>';
+			// '<div class="popup_CE">'+
+			// 	'<img src="image/logo/'+ CE['logo_ce'] +'"></img>'+
+			// 	'<h2>'+ CE['nom_ce'] +'</h2>'+
+			// 	'<hr>'+
+			// 	'<div><b>Adresse :</b> '+ CE['adresse_ce'] +' '+ CE['cp_ce'] +' '+ CE['ville_ce'] +' ('+ CE['id_departement_ce'] +')</div>'+
+			// 	'<div><b>Tel :</b> '+ CE['tel_ce'] +'</div>'+
+			// 	'<div><b>Mail :</b> <a href="mailto:'+ CE['mail_ce'] +'">'+ CE['mail_ce'] +'</a></div>'+
+			// 	'<div><b>Site web :</b> <a href="'+ CE['url_ce'] +'" target="_blank">'+ CE['url_ce'] +'</a></div>'+
+			// 	'<div><b>Nombre de chevaux :</b> '+ CE['nb_cheval_ce'] +'</div>'+
+			// '</div>';
+
+			// Ajoute le contenu HTML dans une popup au marqueur
+			marqueur.bindPopup(popup_contenu);
+
+			// Ajoute le marqueur à la liste des points d'intérêt
+			points_vigilance.addLayer(marqueur);
+		});
+
+	}
 }

@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-
 	require_once('../include/connect.php');
-
   $bdd = connect();
 
   // Récupération de l'id du parcours

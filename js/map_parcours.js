@@ -50,4 +50,6 @@ $(document).ready(function() {
 
 	// Charge les données sur la carte
 	getDataTroncon();
+	getDataPoint('I');
+	getDataPoint('V');
 });
