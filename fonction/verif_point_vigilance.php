@@ -10,7 +10,8 @@
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '../image/photo_pv/';
+  $fichier_dossier_dest = '../'.$CF['image']['photo_pv'];
+  //$fichier_dossier_dest = '../image/photo_pv/';
 
 
   //RECUPERATION DE L'ACTION A REALISER (selon le bouton exécuté)

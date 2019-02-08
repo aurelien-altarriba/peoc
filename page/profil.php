@@ -112,7 +112,7 @@
 					$nom_ce=$ligne['nom_ce'];
 				}
 			?>
-			<!-- PROFIL MEMBRE -->
+			<!-- FORMULAIRE PROFIL MEMBRE -->
 			<div id="profil">
 				<?php require_once('../form/profil.php'); ?>
 			</div>
