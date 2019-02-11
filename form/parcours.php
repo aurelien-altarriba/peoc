@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  //session_start();
   session_unset();
 
   $_SESSION['membre']['id'] = 1;
@@ -7,9 +7,11 @@
   // HEADER
   require_once('../include/header.php');
   $idc = connect();
-?>
 
-<style type="text/css">#header,#connexion{display:none;}</style>
+  if(isset($_GET['id'])) {
+    $id = htmlspecialchars($_GET['id']);
+  }
+?>
 
 <?php echo('<h2>'. $_SESSION['membre']['prenom_m'] .' '. $_SESSION['membre']['nom_m'] .'</h2>'); ?>
 
@@ -17,6 +19,8 @@
 
   <!-- Choix du parcours à modifier-->
   <div>
+    <?php if(isset($id)) { ?>
+
     <label>Parcours à modifier</label>
     <select name="zl_id_p" id="zl_id_p" required>
     <?php
@@ -31,6 +35,7 @@
       }
     ?>
     </select>
+  <?php } ?>
   </div>
 
   <!-- Zone de saisie du nom du parcours -->
@@ -98,14 +103,19 @@
       </p>
   </div>
 
+
+  <?php if(!isset($id)) { ?>
   <!-- Bouton de validation de la création du parcours -->
   <input type="submit" name="bt_submit_creation" id="bt_submit_creation" value="Valider la création du parcours" /> </br>
 
+<?php } else { ?>
   <!-- Bouton de validation des modifications du parcours -->
   <input type="submit" name="bt_submit_modification" id="bt_submit_modification" value="Valider les modifications du parcours" /> </br>
 
   <!-- Bouton de suppression du parcours -->
   <input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le parcours" />
+
+<?php } ?>
 
 </form>
 
