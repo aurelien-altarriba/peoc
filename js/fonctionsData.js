@@ -1,5 +1,6 @@
 // Pour récupérer les données des centres équestres
 function getDataCE(){
+
 	// Supprime les layers dans la liste des centres équestres
 	centres_equestres.clearLayers();
 
@@ -19,8 +20,8 @@ function getDataCE(){
 				var marqueur_CE = new L.marker([coord[1], coord[0]], {
 						icon: L.icon({
 							iconUrl: 'image/ce.png',			// URL de l'image
-							iconSize: [20, 20],							// Taille de l'image
-							popupAnchor: [0, -10]						// Position d'ouverture de la popup
+							iconSize: [12, 12],							// Taille de l'image
+							popupAnchor: [0, -6]						// Position d'ouverture de la popup
 						})
 					}
 				);
@@ -43,9 +44,6 @@ function getDataCE(){
 
         // Ajoute le marqueur à la liste des CE
 				centres_equestres.addLayer(marqueur_CE);
-
-				// Gestion Cluster
-				centres_equestres_Cluster.addLayer(marqueur_CE);
 			});
 		}
 	);
@@ -151,6 +149,27 @@ function getDataPoint(type) {
 
 // Fonction d'affichage des parcours
 function displayDataParcours(data) {
+
+	// Classe de cluster des polyline
+	L.polylineCluster = L.Polyline.extend({
+		_originalInitialize: L.Polyline.prototype.initialize,
+
+		initialize: function (bounds, options) {
+			this._originalInitialize(bounds, options);
+			this._latlng = this.getBounds().getCenter();
+		},
+
+		getLatLng: function () {
+			return this._latlng;
+		},
+
+		// Ne pas supprimer
+		setLatLng: function () {}
+	});
+
+	// Supprime les layers dans la liste des parcours
+	parcours.clearLayers();
+
 	// Vide la liste des parcours (innerHTML en JQuery)
 	$("#resParcours .list-group").html("");
 
@@ -184,16 +203,13 @@ function displayDataParcours(data) {
 				// On la stocke dans le tableau
 				trace_parcours.push([ligne[1], ligne[0]]);
 			});
-
-			// Création du polyline du parcours
-			var polyline = L.polyline(trace_parcours, {color:'red'});
-
-			// Ajout du polyline à la liste des parcours
-			parcours.addLayer(polyline);
-
-			// Gestion Cluster
-			parcours_Cluster.addLayer(polyline);
 		});
+
+		// Création du polyline du parcours
+		var polyline = new L.polylineCluster(trace_parcours, {color:'red'});
+
+		// Ajout du polyline à la liste des parcours
+		parcours.addLayer(polyline);
 	});
 }
 
