@@ -2,7 +2,7 @@
   session_start();
   session_unset();
 
-  $_SESSION['membre']['id'] = 3;
+  $_SESSION['membre']['id'] = 1;
 
   // HEADER
   require_once('../include/header.php');
@@ -22,7 +22,7 @@
 
   <!-- Choix du type du tronçon -->
   <div>
-    <label>type </label>
+    <label>Type </label>
     <select name="zl_id_type_t" id="zl_id_type_t" required>
     <?php
 
@@ -41,7 +41,7 @@
   <!-- Choix du niveau du tronçon -->
   <div>
     <label>Niveau </label>
-    <select name="zl_id_troncon_t" id="zl_id_troncon_t" required>
+    <select name="zl_id_niveau_nt" id="zl_id_niveau_nt" required>
     <?php
 
     $sql='SELECT nom_nt, id_niveau_nt
@@ -54,6 +54,11 @@
       }
     ?>
     </select>
+  </div>
+
+  <!-- Zone de saisie de la position du tronçon -->
+  <div>
+    <label for="zs_num_position_t">Position du tronçon </label> <input type="number" name="zs_num_position_t" id="zs_num_position_t" required>
   </div>
 
   <!-- Bouton de validation de la création du tronçon -->
