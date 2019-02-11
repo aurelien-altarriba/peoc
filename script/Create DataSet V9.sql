@@ -772,11 +772,11 @@ INSERT INTO effectue VALUES(1,1,'2019-01-05',10,5,'Notation de test du parcours 
 
 --- INITILISATION DES SEQUENCES PAR RAPPORT AU DATASET
 ALTER SEQUENCE membre_id_membre_m_seq RESTART WITH 4;
-ALTER SEQUENCE parcours_id_parcours_p_seq RESTART WITH 3;
+ALTER SEQUENCE parcours_id_parcours_p_seq RESTART WITH 4;
 ALTER SEQUENCE point_interet_id_interet_pi_seq RESTART WITH 2;
 ALTER SEQUENCE point_vigilance_id_vigilance_pv_seq RESTART WITH 2;
 ALTER SEQUENCE zone_allure_id_zone_za_seq RESTART WITH 3;
-ALTER SEQUENCE troncon_id_troncon_t_seq RESTART WITH 7;
+ALTER SEQUENCE troncon_id_troncon_t_seq RESTART WITH 8;
 
 /*
 --- REINITILISATION DES SEQUENCES
