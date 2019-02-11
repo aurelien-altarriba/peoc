@@ -16,11 +16,8 @@ $(document).ready(function() {
 	// CENTRES ÉQUESTRES
 	centres_equestres = new L.featureGroup();
 
-
 	// PARCOURS
-	parcours = L.markerClusterGroup({
-		chunkedLoading: true,
-	});
+	parcours = L.markerClusterGroup();
 
 	// MENU DES CARTES
 	var cartes = {
@@ -46,6 +43,19 @@ $(document).ready(function() {
 	// Pour appliquer la cartes et les calques sélectionnés
 	//L.control.activeLayers(cartes).addTo(map);
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
+
+	// Calcul de la taille des marqueurs
+	map.on('zoomend', function() {
+		var currentZoom = (map.getZoom() + 2);
+
+		centres_equestres.eachLayer(function(layer) {
+			return layer.setIcon( L.icon({
+				iconUrl: 'image/ce.png',											// URL de l'image
+				iconSize: [currentZoom, currentZoom],					// Taille de l'image
+				popupAnchor: [0, ((currentZoom / 2) * -1)]		// Position d'ouverture de la popup
+			}))
+		});
+	});
 
 	// Charge les données sur la carte
 	getDataCE();

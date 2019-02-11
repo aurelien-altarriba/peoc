@@ -20,8 +20,8 @@ function getDataCE(){
 				var marqueur_CE = new L.marker([coord[1], coord[0]], {
 						icon: L.icon({
 							iconUrl: 'image/ce.png',			// URL de l'image
-							iconSize: [12, 12],							// Taille de l'image
-							popupAnchor: [0, -6]						// Position d'ouverture de la popup
+							iconSize: [10, 10],							// Taille de l'image
+							popupAnchor: [0, -5]						// Position d'ouverture de la popup
 						})
 					}
 				);

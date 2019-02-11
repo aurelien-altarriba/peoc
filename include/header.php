@@ -1,5 +1,5 @@
 <?php
-	ini_set('display_errors', 1);
+	ini_set('display_errors', 0);
 	session_start();
 	require_once('config.php');
 	require_once('connect.php');
@@ -91,7 +91,7 @@
 					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
 							<a class="dropdown-item" href="#">Tous les parcours</a>
 					    <a class="dropdown-item" href="#">Mes parcours</a>
-					    <a class="dropdown-item" href="form/parcours.php">Créer un parcours</a>
+					    <a class="dropdown-item" href="page/parcours_edition.php">Créer un parcours</a>
 					  </div>
 					</div>
 				</li>
