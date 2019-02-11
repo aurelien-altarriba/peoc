@@ -10,11 +10,13 @@
 	<link rel="stylesheet" type="text/css" href="../css/index.css">
 
 	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="../css/lib/dataTables.bootstrap4.min.css">
 
 	<!-- JS -->
 	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/lib/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
 	<!-- HEADER -->
@@ -48,6 +50,10 @@
 				$id_centre_p='';
 				$nom_ce='';
 				$description_p='';
+				$distance='';
+				$denivele='';
+				$duree='';
+				$type_terrain='';
         $cpt=0;
 
 
@@ -60,7 +66,6 @@
 					$sql=$sql.'left join membre on id_membre_m = id_membre_c ';
 					$sql=$sql.'left join niveau_equestre on id_niveau_ne = id_niveau_p ';
 					$sql=$sql.'left join centre_equestre on id_centre_ce = id_centre_p ';
-
 					try{
 			      $rs=pg_exec($idc,$sql);
 			    }
@@ -68,18 +73,22 @@
 			      echo $e->getMessage(),"\n";
 			    };
 
-          print('<table class="table table-striped">'."\n");
+          print('<table id="tab" class="table table-striped table-bordered" style="width:100%">'."\n");
           print('<thead>'."\n".'<tr>'."\n");
-          print('<th scope="col">#</th>'."\n");
-          print('<th scope="col">Nom</th>'."\n");
-          print('<th scope="col">Date publication</th>'."\n");
-          print('<th scope="col">Département</th>'."\n");
-          print('<th scope="col">Niveau équestre</th>'."\n");
-          print('<th scope="col">Cavalier créateur</th>'."\n");
-          print('<th scope="col">Centre équestre créateur</th>'."\n");
-          print('<th scope="col">Autonomie</th>'."\n");
-          print('<th scope="col">Visible</th>'."\n");
-          print('<th scope="col">Description</th>'."\n");
+          print('<th>#</th>'."\n");
+          print('<th>Nom</th>'."\n");
+          print('<th>Date publication</th>'."\n");
+          print('<th>Département</th>'."\n");
+          print('<th>Niveau équestre</th>'."\n");
+          print('<th>Distance</th>'."\n");
+          print('<th>Dénivelé</th>'."\n");
+          print('<th>Durée</th>'."\n");
+          print('<th>Type terrain</th>'."\n");
+          print('<th>Cavalier</th>'."\n");
+          print('<th>Centre équestre</th>'."\n");
+          print('<th>Autonomie</th>'."\n");
+          print('<th>Visible</th>'."\n");
+          print('<th">Description</th>'."\n");
           print('</tr>'."\n".'</thead>'."\n".'<tbody>'."\n");
 
 
@@ -102,11 +111,15 @@
   					$description_p=$ligne['description_p'];
 
             print('<tr>'."\n");
-            print('<th scope="row">'.$id_parcours_p.'</th>'."\n");
+            print('<td>'.$id_parcours_p.'</td>'."\n");
             print('<td>'.$nom_p.'</td>'."\n");
             print('<td>'.$dt_publication_p.'</td>'."\n");
             print('<td>'.$nom_d.'</td>'."\n");
             print('<td>'.$nom_ne.'</td>'."\n");
+            print('<td>'.$distance.'</td>'."\n");
+            print('<td>'.$denivele.'</td>'."\n");
+            print('<td>'.$duree.'</td>'."\n");
+            print('<td>'.$type_terrain.'</td>'."\n");
             print('<td>'.$nom_m.' '.$prenom_m.'</td>'."\n");
             print('<td>'.$nom_ce.'</td>'."\n");
             print('<td>'.$autonomie_p.'</td>'."\n");
@@ -122,9 +135,9 @@
 	<!-- FOOTER -->
 	<?php require_once('./../include/footer.php'); ?>
 	<script type="text/javascript">
-	//Déclenché une fois le document chargé : cache certaines div selon si checkbox cochée ou non
-	$(document).ready(function(){
 
+	$(document).ready(function(){
+		$('#tab').DataTable();
 	});
 
 	</script>
