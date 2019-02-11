@@ -91,7 +91,7 @@
 					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
 							<a class="dropdown-item" href="#">Tous les parcours</a>
 					    <a class="dropdown-item" href="#">Mes parcours</a>
-					    <a class="dropdown-item" href="#">Créer un parcours</a>
+					    <a class="dropdown-item" href="form/parcours.php">Créer un parcours</a>
 					  </div>
 					</div>
 				</li>
