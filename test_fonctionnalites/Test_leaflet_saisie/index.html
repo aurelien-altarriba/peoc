@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title>templates</title>
+  <meta name="description" content="" />
+  <meta name="author" content="benoit" />
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+
+  <link href="./lib/leaflet/leaflet.css" rel="stylesheet">
+</head>
+
+<body>
+  <div>
+    <div>
+      <div id="buttonid">
+        <button id="save" type="button" value="Enregistrer">Enregistrer tronçon</button>
+        <button id="new" type="button" value="Nouveau">Nouveau tronçon</button>
+      </div>
+      <br/>
+      <ul id="idLatLng">
+      </ul>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div id="mapid" style="height: 600px; width: 800px"></div>
+  </div>
+
+  <!-- Script here -->
+  <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
+  <script src="./lib/leaflet/leaflet.js"></script>
+  <script src="./map.js"></script>
+  <script>
+    // Create the map
+    var map = createMap("mapid");
+
+    // Create layer map control
+    var ctrlLayer = createControlLayer();
+    // Add control on the map
+    ctrlLayer.addTo(map);
+
+
+
+    // Create the osm layer tiles
+    //var options = {maxZoom : 20, attribution : "&copy; Openstreetmap France | &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>"};
+    var options = {};
+    options.maxZoom = 20;
+    options.attribution = "&copy; Openstreetmap France | &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>";
+    var osmLayer = createLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",options);
+    // Add layer on the map
+    osmLayer.addTo(map);
+    // Add layer on the map control
+    ctrlLayer.addBaseLayer(osmLayer,"osm");
+
+
+    // Create another osm layer tiles
+    options.attribution = "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>";
+    var gsLayer = createLayer("http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",options);
+    // !!! on ne le rajoute pas car on veut pas qu'il soit celui coché par défaut
+    //gsLayer.addTo(map);
+    // Add layer on the map control
+    ctrlLayer.addBaseLayer(gsLayer,"gis");
+
+
+
+    //création point
+    map.on('click', onMapClick);
+
+  // tableau des coordonnées des markers
+  var tronconHtml = [];
+  var tronconMap = [];
+  // position temporaire d'un marker dans troncon (utilisé quand drag and drop)
+  var posMarker;
+  // groupe de marker
+  var layerGrp = L.layerGroup();
+  layerGrp.addTo(map);
+  // tracé liant les markers (tronçon)
+  var polyline;
+
+
+  // Création des markers
+  function onMapClick(e) {
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
+
+    var pos = tronconMap.length;
+    var marker = L.marker([lat,lng],{"title":"point "+pos,"draggable":true}).on('dragstart', onPointDragS).on('dragend', onPointDragE).on('dragstart', onPointDragS);
+    layerGrp.addLayer(marker);
+    idMarker = layerGrp.getLayerId(marker);
+
+    tronconMap.push([lat,lng]);
+    tronconHtml.push([idMarker,lat,lng]);
+    if (tronconMap.length == 2){
+      polyline = L.polyline(tronconMap, {color: 'red'}).addTo(map);
+    }
+    else if (tronconMap.length > 2){
+      map.removeLayer(polyline);
+      polyline = L.polyline(tronconMap, {color: 'red'}).addTo(map);
+    }
+
+    $("ul#idLatLng").append("<li id=\"point_"+pos+"\" data-idMarker="+idMarker+" data-lat="+lat+" data-lng="+lng+" data-pos="+pos+">Point"+" "+(pos+1)+" : "+lat+", "+lng+"</li><button class=\"moins\" type=\"button\" data-idMarker="+idMarker+" value="+pos+">-</button>");
+  }
+
+
+
+// Modification d'un marker début
+function onPointDragS(e) {
+  var lat = e.target._latlng.lat;
+  var lng = e.target._latlng.lng;
+  for (var i = 0; i < tronconHtml.length; i++) {
+    if (tronconHtml[i][1]==lat && tronconHtml[i][2]==lng){
+      posMarker = i;
+    }
+  }
+}
+
+// Modification d'un marker fin
+function onPointDragE(e) {
+  var lat = e.target._latlng.lat;
+  var lng = e.target._latlng.lng;
+
+  tronconHtml[posMarker][1]=lat;
+  tronconHtml[posMarker][2]=lng;
+  tronconMap[posMarker][0]=lat;
+  tronconMap[posMarker][1]=lng;
+
+  if (tronconMap.length >= 2){
+    map.removeLayer(polyline);
+    polyline = L.polyline(tronconMap, {color: 'red'}).addTo(map);
+  }
+
+  var pointHtml = document.getElementById("point_"+posMarker);
+  pointHtml.setAttribute("data-lat",lat);
+  pointHtml.setAttribute("data-lng",lng);
+  pointHtml.innerHTML = "Point "+(posMarker+1)+" : "+lat+", "+lng;
+}
+
+
+
+// Suppression d'un marker
+ $(document).on("click","button.moins",function(){
+        var pos = $(this).attr('value');
+        var idMarker = $(this).attr('data-idMarker');
+
+        tronconHtml.splice(pos,1);
+        tronconMap.splice(pos,1);
+        layerGrp.removeLayer(idMarker);
+
+        $("ul#idLatLng").empty();
+        for (var i = 0; i < tronconHtml.length; i++) {
+          var idMarker = tronconHtml[i][0];
+          var lat = tronconHtml[i][1];
+          var lng = tronconHtml[i][2];
+          $("ul#idLatLng").append("<li id=\"point_"+i+"\" data-idMarker="+idMarker+" data-lat="+lat+" data-lng="+lng+" data-pos="+i+">Point"+" "+(i+1)+" : "+lat+", "+lng+"</li><button class=\"moins\" type=\"button\" data-idMarker="+idMarker+" value="+i+">-</button>");
+        }
+
+        map.removeLayer(polyline);
+        if (tronconMap.length >= 2){
+          polyline = L.polyline(tronconMap, {color: 'red'}).addTo(map);
+        }
+  });
+
+
+   $(document).on("click","button#save",function(){
+     if (tronconMap.length>1){
+       var lineString =  "ST_GeomFromText( 'LINESTRING(";
+       for (var i = 0; i < tronconMap.length; i++) {
+         if (i > 0){
+           lineString += ",";
+         }
+         lineString +=  tronconMap[i][1]+" "+tronconMap[i][0];
+       }
+       lineString += ")', 3857))";
+       console.log(lineString);
+
+       $.ajax("./php/save_data_troncon.php",{
+              data:{
+                geom : lineString
+
+              }
+              ,
+              success: function(data){
+              }
+        });
+      }
+    });
+
+
+
+   $(document).on("click","button#new",function(){
+     $("ul#idLatLng").empty();
+     tronconHtml = [];
+     tronconMap = [];
+     map.removeLayer(polyline);
+     layerGrp.clearLayers();
+   });
+  </script>
+</body>
+</html>
