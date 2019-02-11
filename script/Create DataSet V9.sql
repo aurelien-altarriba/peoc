@@ -324,6 +324,9 @@ INSERT INTO pays VALUES('YE','Yémen');
 INSERT INTO pays VALUES('ZM','Zambie');
 INSERT INTO pays VALUES('ZW','Zimbabwe');
 
+INSERT INTO membre VALUES(1,'FORSTER','Frank','1990-01-01','90 rue du bar','11000','Carcassonne','FR','0102030405','fh@test.fr');
+INSERT INTO membre VALUES(2,'ALTARRIBA','Aurélien','2000-01-01','100 avenue de la brasserie','11100','NARBONNE','FR','0102030405','aa@test.fr');
+INSERT INTO membre VALUES(3,'REY','Benoît','1980-01-01','80 chemin de la taverne','11000','Carcassonne','FR','0102030405','br@test.fr');
 
 ---- DATA
 INSERT INTO centre_equestre VALUES(1,'SEGADE*POTTIER/YOLANDE/','VOIE DE NYLS','66680','CANOHES','66','0671811867',NULL,NULL,NULL,NULL,NULL,ST_GeomFromText('POINT(2.837645000000000 42.640020000000000)', 3857));
@@ -732,6 +735,10 @@ INSERT INTO centre_equestre VALUES(403,'ASS EQUESTRE DU PASSE TEMPS','LIEU DIT C
 INSERT INTO centre_equestre VALUES(404,'CENTRE EQUESTRE DU VOLVESTRE','ROUTE DE LATRAPE','31310','RIEUX-VOLVESTRE','31','0699854644',NULL,NULL,NULL,NULL,NULL,ST_GeomFromText('POINT(1.215309000000000 43.263522999999999)', 3857));
 INSERT INTO centre_equestre VALUES(405,'LES CAVALIERS D ALAYRAC','ALAYRAC','12720','PEYRELEAU','12','0663703308',NULL,NULL,NULL,NULL,NULL,ST_GeomFromText('POINT(3.211624000000000 44.176251000000001)', 3857));
 
+-- Originel
+INSERT INTO centre_equestre VALUES(406,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
+INSERT INTO centre_equestre VALUES(407,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
+
 INSERT INTO cavalier VALUES(1,'111111','2020-01-01',3,'1.jpg');
 INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'2.jpg');
 
@@ -739,11 +746,9 @@ INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.
 INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
 INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3qjmCVyaEm3brv37jyF4G4ge','2019-01-01',NULL);
 
-INSERT INTO centre_equestre VALUES(1,'FERME ÉQUESTRE - LE PLO','LE PLO','11220','MONTLAUR','11','0468797132','test@free.fr',2,1,'https://ferme-equestre-du-plo.com/','1.png',ST_GeomFromText('POINT(2.5415308 43.1171921)', 3857));
-INSERT INTO centre_equestre VALUES(2,'FERME ÉQUESTRE DE MIREPEISSET','16 chemin des Ratequats','11120','MIREPEISSET','11','0468463111','ferme.mirepeisset@free.fr',10,NULL,'https://www.ferme-mirepeisset.fr/','2.png',ST_GeomFromText('POINT(2.8904 43.2851)', 3857));
-
-INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',2,'11',1,NULL,'test description');
-INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,FALSE,'2019-01-05',2,'11',NULL,1,'test description');
+INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',1,'11',1,NULL,'test description');
+INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,TRUE,'2019-01-05',2,'11',NULL,1,'test description');
+INSERT INTO parcours VALUES(3,'Troisième parcours',FALSE,FALSE,'2019-01-08',3,'11',2,NULL,'test description');
 
 INSERT INTO zone_allure VALUES(1,1,1,ST_GeomFromText( 'LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 3857));
 INSERT INTO zone_allure VALUES(2,1,3,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 3857));
@@ -754,6 +759,7 @@ INSERT INTO troncon VALUES(3,1,3,1,3,1,5,ST_GeomFromText( 'LINESTRING(2.8765 43.
 INSERT INTO troncon VALUES(4,1,4,1,1,1,3,ST_GeomFromText( 'LINESTRING(2.899 43.2753, 2.8876 43.2845)', 3857));
 INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 3857));
 INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 3857));
+INSERT INTO troncon VALUES(7,3,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.3829 42.0101, 0.7767 42.667, 0.786 43.2401)', 3857));
 
 INSERT INTO point_interet VALUES(1,1,1,1,NULL,NULL,E'Point d\'intérêt de test',ST_GeomFromText('POINT(2.8723 43.2671)', 3857));
 
