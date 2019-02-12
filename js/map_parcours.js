@@ -45,7 +45,6 @@ $(document).ready(function() {
 	map.setView([43.7, 2.5], 8);
 
 	// Pour appliquer la cartes et les calques sélectionnés
-	//L.control.activeLayers(cartes).addTo(map);
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
 	// Charge les données sur la carte

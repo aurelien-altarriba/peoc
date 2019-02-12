@@ -224,7 +224,7 @@ function displayDataTroncon(data) {
 	var liste_troncons = JSON.parse(data);
 	var tab_coord = [];
 
-	// Pour chaque parcours
+	// Pour chaque tronçons
 	$.each(liste_troncons, function(index, un_troncon) {
 
 		// Tableau contenant les coordonnées du tronçons
@@ -232,6 +232,17 @@ function displayDataTroncon(data) {
 
 		// On récupère les coordonnées du troncon
 		var coords = JSON.parse(un_troncon['st_asgeojson'])['coordinates'];
+
+		// Calculer couleur selon niveau difficulté
+		if (un_troncon['id_niveau_t'] == 1) {
+			couleur = 'yellow'
+		}
+		else if (un_troncon['id_niveau_t'] == 2) {
+			couleur = 'orange'
+		}
+		else if (un_troncon['id_niveau_t'] == 3) {
+			couleur = 'red'
+		}
 
 		// Pour chaque coordonnées dans le troncon
 		$.each(coords, function(index2, ligne) {
@@ -242,7 +253,7 @@ function displayDataTroncon(data) {
 		});
 
 		// Création du polyline du troncon sur la carte
-		var polyline = L.polyline(trace_troncon, {color:'red'});
+		var polyline = L.polyline(trace_troncon, {color: couleur});
 
 		// Ajout du polyline à la liste des parcours
 		troncons.addLayer(polyline);
