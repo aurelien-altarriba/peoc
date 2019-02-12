@@ -224,6 +224,9 @@ function displayDataTroncon(data) {
 	var liste_troncons = JSON.parse(data);
 	var tab_coord = [];
 
+	var début = null;
+	var fin = null;
+
 	// Pour chaque tronçons
 	$.each(liste_troncons, function(index, un_troncon) {
 
@@ -244,8 +247,16 @@ function displayDataTroncon(data) {
 			couleur = 'red'
 		}
 
+		test = coords;
+
 		// Pour chaque coordonnées dans le troncon
 		$.each(coords, function(index2, ligne) {
+
+			if(début === null) {
+				début = [ligne[1], ligne[0]];
+			}
+
+			fin = [ligne[1], ligne[0]];
 
 			// On la stocke dans les tableaux
 			trace_troncon.push([ligne[1], ligne[0]]);
@@ -258,6 +269,8 @@ function displayDataTroncon(data) {
 		// Ajout du polyline à la liste des parcours
 		troncons.addLayer(polyline);
 	});
+
+	// Créer marqueur ici
 
 	// Zoom sur le parcours
 	map.fitBounds(tab_coord);
