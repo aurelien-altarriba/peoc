@@ -59,7 +59,8 @@ $(document).ready(function() {
 
 
 
-	// A REVOIR TRI ET ORDRE : dessin des tronçons
+	// A REVOIR TRI ET ORDRE :
+	//DESSIN DES TRONCONS
 	// tableau des coordonnées des markers
 	var tronconHtml = [];
 	var tronconMap = [];
@@ -151,8 +152,8 @@ $(document).ready(function() {
 		});
 
 
-
-	 $(document).on("click","button#save",function(){
+		//Sauvegarde d'un tronçon
+	 	$(document).on("click","button#save",function(){
 		 if (tronconMap.length>1){
 			 var lineString =  "ST_GeomFromText( 'LINESTRING(";
 			 for (var i = 0; i < tronconMap.length; i++) {
@@ -176,14 +177,14 @@ $(document).ready(function() {
 			}
 		});
 
-
-	 $(document).on("click","button#new",function(){
-		 $("ul#idLatLng").empty();
-		 tronconHtml = [];
-		 tronconMap = [];
-		 map.removeLayer(polyline);
-		 layerGrp.clearLayers();
-	 });
+		//Nettoyage du tronçon sur la carte
+		 $(document).on("click","button#new",function(){
+			 $("ul#idLatLng").empty();
+			 tronconHtml = [];
+			 tronconMap = [];
+			 map.removeLayer(polyline);
+			 layerGrp.clearLayers();
+		 });
 
 	 //création point
 	 map.on('click', onMapClick);
