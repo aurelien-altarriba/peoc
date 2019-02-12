@@ -224,7 +224,8 @@ function displayDataTroncon(data) {
 	var liste_troncons = JSON.parse(data);
 	var tab_coord = [];
 
-	var début = null;
+	// Déclaration des variables qui vont contenir le premier et dernier point d'un tronçon
+	var debut = null;
 	var fin = null;
 
 	// Pour chaque tronçons
@@ -247,13 +248,11 @@ function displayDataTroncon(data) {
 			couleur = 'red'
 		}
 
-		test = coords;
-
 		// Pour chaque coordonnées dans le troncon
 		$.each(coords, function(index2, ligne) {
 
-			if(début === null) {
-				début = [ligne[1], ligne[0]];
+			if(debut === null) {
+				debut = [ligne[1], ligne[0]];
 			}
 
 			fin = [ligne[1], ligne[0]];
@@ -270,7 +269,26 @@ function displayDataTroncon(data) {
 		troncons.addLayer(polyline);
 	});
 
-	// Créer marqueur ici
+	// On créé les marqueurs de debut et de fin de parcours
+	var marqueur_depart = new L.marker(debut, {
+			icon: L.icon({
+				iconUrl: '../image/depart_parcours.png',			// URL de l'image
+				iconSize: [25, 25],												// Taille de l'image
+				popupAnchor: [0, 0]											// Position d'ouverture de la popup
+			})
+		}
+	);
+
+	var marqueur_fin = new L.marker(fin, {
+			icon: L.icon({
+				iconUrl: '../image/arrivee_parcours.png',			// URL de l'image
+				iconSize: [25, 25],												// Taille de l'image
+				popupAnchor: [0, 0]											// Position d'ouverture de la popup
+			})
+		}
+	);
+	map.addLayer(marqueur_depart);
+	map.addLayer(marqueur_fin);
 
 	// Zoom sur le parcours
 	map.fitBounds(tab_coord);
