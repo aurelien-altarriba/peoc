@@ -39,9 +39,6 @@
 			</div>
 		</div>
 
-		<!-- Formulaire -->
-		<?php //require_once('../form/parcours.php'); ?>
-
 		<!-- FOOTER -->
 		<?php require_once('../include/footer.php'); ?>
 	</body>
