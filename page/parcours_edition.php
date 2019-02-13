@@ -12,11 +12,13 @@
 		<link rel="stylesheet" type="text/css" href="../css/header.css">
 		<link rel="stylesheet" type="text/css" href="../css/footer.css">
 		<link rel="stylesheet" type="text/css" href="../css/parcours.css">
+		<link rel="stylesheet" type="text/css" href="../css/lib/leaflet.pm.css">
 
 		<!-- JS -->
 		<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/lib/leaflet.js"></script>
+		<script type="text/javascript" src="../js/lib/leaflet.pm.min.js"></script>
 		<script type="text/javascript" src="../js/lib/leaflet.active-layers.min.js"></script>
 
 		<script type="text/javascript" src="../js/fonctionsData.js"></script>

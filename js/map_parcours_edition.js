@@ -47,15 +47,26 @@ $(document).ready(function() {
 	// Pour appliquer la cartes et les calques sélectionnés
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
+	// Ajout du pluggin de dessin "pm"
+	map.pm.addControls({
+    position: 'topleft',
+    drawCircle: false,
+	});
+
+	// map.on('pm:edit', function(e) {
+  // var coords = e.layer.getLatLngs();
+  // console.log(coords);
+	// });
+
+	map.on('pm:create',(e) {
+  	e.layer.on('pm:edit', ({ layer }) => {
+    // layer has been edited
+		var coords = e.layer.getLatLngs();
+    console.log(coords);
+  	})
+	});
 
 
-
-
-
-	// Charge les données sur la carte
-	getDataTroncon(true);
-	getDataPoint('I');
-	getDataPoint('V');
 
 
 });
