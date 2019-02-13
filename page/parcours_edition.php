@@ -35,20 +35,7 @@
 			</div>
 
 			<div id="colonneDroite">
-				<div>
-		      <div id="buttonid">
-		        <button id="save" type="button" value="Enregistrer">Enregistrer tronçon</button>
-		        <button id="new" type="button" value="Nouveau">Nouveau tronçon</button>
-		      </div>
-		      <br/>
-		    </div>
-		    <br/>
         <div id="map"></div>
-			</div>
-		</div>
-		<div>
-			<ul id="idLatLng">
-			</ul>
 		</div>
 
 		<!-- FOOTER -->
