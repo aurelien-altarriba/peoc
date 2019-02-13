@@ -41,8 +41,6 @@
 		        <button id="new" type="button" value="Nouveau">Nouveau tronçon</button>
 		      </div>
 		      <br/>
-		      <ul id="idLatLng">
-		      </ul>
 		    </div>
 		    <br/>
         <div id="map"></div>
