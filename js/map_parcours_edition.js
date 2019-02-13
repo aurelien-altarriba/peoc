@@ -79,7 +79,14 @@ $(document).ready(function() {
 		var lng = e.latlng.lng;
 
 		var pos = tronconMap.length;
-		var marker = L.marker([lat,lng],{"title":"point "+pos,"draggable":true}).on('dragstart', onPointDragS).on('dragend', onPointDragE).on('dragstart', onPointDragS);
+
+		var iconT = L.icon({
+    	iconUrl: '../image/marker.png',
+    	shadowUrl: '../image/marker-shadow.png',
+			iconSize: [15, 15]
+		});
+		L.Icon.Default.imagePath = "../image/";
+		var marker = L.marker([lat,lng],{"title":"point "+pos,"icon":iconT,"draggable":true}).on('dragstart', onPointDragS).on('dragend', onPointDragE).on('dragstart', onPointDragS);
 		layerGrp.addLayer(marker);
 		idMarker = layerGrp.getLayerId(marker);
 

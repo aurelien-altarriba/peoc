@@ -44,11 +44,11 @@
 		    </div>
 		    <br/>
         <div id="map"></div>
-				<div>
-					<ul id="idLatLng">
-			 		</ul>
-		 		</div>
 			</div>
+		</div>
+		<div>
+			<ul id="idLatLng">
+			</ul>
 		</div>
 
 		<!-- FOOTER -->

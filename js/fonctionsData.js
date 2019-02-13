@@ -103,7 +103,7 @@ function getDataParcoursFiltre() {
 
 
 // Récupération des tronçons d'un parcours
-function getDataTroncon() {
+function getDataTroncon(edition = false) {
 
 	// Récupération des paramètres
 	var url = new URLSearchParams(location.search);
@@ -117,11 +117,15 @@ function getDataTroncon() {
 		},
 
 		function(data) {
-			displayDataTroncon(data);
+			if (edition != false) {
+				displayDataTronconEdition(data);
+
+			} else {
+				displayDataTroncon(data);
+			}
 		}
 	);
 }
-
 
 // Récupération des points d'un parcours
 // type: "I" pour les points d'intérêt
