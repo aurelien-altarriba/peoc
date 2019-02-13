@@ -53,18 +53,18 @@ $(document).ready(function() {
     drawCircle: false,
 	});
 
-	// map.on('pm:edit', function(e) {
-  // var coords = e.layer.getLatLngs();
-  // console.log(coords);
-	// });
-
-	map.on('pm:create',(e) {
-  	e.layer.on('pm:edit', ({ layer }) => {
-    // layer has been edited
-		var coords = e.layer.getLatLngs();
-    console.log(coords);
-  	})
+	map.on('pm:edit', function(e) {
+  var coords = e.layer.getLatLngs();
+  console.log(coords);
 	});
+
+	// map.on('pm:create',(e) {
+  // 	e.layer.on('pm:edit', ({ layer }) => {
+  //   // layer has been edited
+	// 	var coords = e.layer.getLatLngs();
+  //   console.log(coords);
+  // 	})
+	// });
 
 
 
