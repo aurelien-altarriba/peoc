@@ -381,3 +381,8 @@ function displayDataPoint(data, type) {
 
 	}
 }
+
+// Fonction d'affichage des points déplaçables sur la carte
+function displayDataTronconEdition(data) {
+
+}

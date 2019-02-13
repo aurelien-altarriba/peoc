@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="../js/lib/leaflet.active-layers.min.js"></script>
 
 		<script type="text/javascript" src="../js/fonctionsData.js"></script>
-		<script type="text/javascript" src="../js/map_parcours.js"></script>
+		<script type="text/javascript" src="../js/map_parcours_edition.js"></script>
 	</head>
 
 	<body>
