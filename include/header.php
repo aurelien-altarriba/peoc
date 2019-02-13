@@ -81,7 +81,6 @@
 				<a class="nav-link" href="/">Accueil</a>
 			</li>
 
-			<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
 				<li class="nav-item">
 					<div class="dropdown">
 					  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown_parcours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,17 +88,20 @@
 					  </a>
 
 					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
-							<a class="dropdown-item" href="#">Tous les parcours</a>
-					    <a class="dropdown-item" href="#">Mes parcours</a>
-					    <a class="dropdown-item" href="page/parcours_edition.php">Créer un parcours</a>
+							<a class="dropdown-item" href="page/parcours_liste.php">Tous les parcours</a>
+							<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
+						    <a class="dropdown-item" href="#">Mes parcours</a>
+						    <a class="dropdown-item" href="page/parcours_edition.php">Créer un parcours</a>
+							<?php } ?>
 					  </div>
 					</div>
 				</li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="page/profil.php">Mon profil</a>
-				</li>
-			<?php } ?>
+				<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
+					<li class="nav-item">
+						<a class="nav-link" href="page/profil.php">Mon profil</a>
+					</li>
+				<?php } ?>
 		</ul>
 
 		<!-- SLOGAN -->
