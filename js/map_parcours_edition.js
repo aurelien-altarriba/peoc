@@ -75,12 +75,15 @@ $(document).ready(function() {
 		var url = new URLSearchParams(location.search);
 
 		if (url.get('id')) {
+			// Update parcours en ajax
+
 			var chemin = '../fonction/modification';
 		} else {
+
+			// Insert parcours en ajax
+
 			var chemin = '../fonction/creation';
 		}
-
-		// Insert parcours en ajax
 
 		// Pour chaque tronçon dans le tableau des tronçons
 		$.each(tabTroncon, function(index, un_troncon) {
