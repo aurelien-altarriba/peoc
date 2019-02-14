@@ -103,18 +103,12 @@
       </p>
   </div>
 
+  <!-- Bouton d'enregistrement -->
+  <input type="submit" name="bt_submit_data" id="bt_submit_data" value="Enregistrer le parcours" />
 
-  <?php if(!isset($id)) { ?>
-  <!-- Bouton de validation de la création du parcours -->
-  <input type="submit" name="bt_submit_creation" id="bt_submit_creation" value="Valider la création du parcours" /> </br>
-
-<?php } else { ?>
-  <!-- Bouton de validation des modifications du parcours -->
-  <input type="submit" name="bt_submit_modification" id="bt_submit_modification" value="Valider les modifications du parcours" /> </br>
-
+<?php if(isset($id)) { ?>
   <!-- Bouton de suppression du parcours -->
   <input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le parcours" />
-
 <?php } ?>
 
 </form>

@@ -50,13 +50,58 @@ $(document).ready(function() {
 	// Ajout du pluggin de dessin "pm"
 	map.pm.addControls({
     position: 'topleft',
+		drawMarker: false,
     drawCircle: false,
+		drawRectangle: false,
+		drawPolygon: false,
+		dragMode: false,
+		cutPolygon: false,
 	});
 
-	map.on('pm:edit', function(e) {
-  var coords = e.layer.getLatLngs();
-  console.log(coords);
+	// Tableau contenant les objets tronçons de la carte
+	tabTroncon = [];
+
+	// A chaque création de tronçon
+	map.on('pm:create', (un_troncon) => {
+
+		// On ajoute le tronçon dans le tableau
+		tabTroncon.push(un_troncon);
 	});
+
+	// Quand on clique sur le bouton pour enregistrer
+	$('#bt_submit_data').on('click', function() {
+
+		// Récupération des paramètres
+		var url = new URLSearchParams(location.search);
+
+		if (url.get('id')) {
+			var chemin = '../fonction/modification';
+		} else {
+			var chemin = '../fonction/creation';
+		}
+
+		// Insert parcours en ajax
+
+		// Pour chaque tronçon dans le tableau des tronçons
+		$.each(tabTroncon, function(index, un_troncon) {
+
+			// insert des tronçons en ajax
+			console.log(un_troncon.layer.getLatLngs());
+		});
+	});
+
+	// map.on('pm:markerdragend', (e) => {
+	// 	var coords = e.layer.getLatLngs();
+	// 	console.log(coords);
+	// });
+
+
+
+
+	// map.on('pm:edit', function(e) {
+  // var coords = e.layer.getLatLngs();
+  // console.log(coords);
+	// });
 
 	// map.on('pm:create',(e) {
   // 	e.layer.on('pm:edit', ({ layer }) => {
