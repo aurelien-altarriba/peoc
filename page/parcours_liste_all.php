@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/parcours_liste.css">
 
 	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/lib/DataTables/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../js/lib/DataTables/datatables.min.css"/>
 
 	<!-- JS -->
 	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
