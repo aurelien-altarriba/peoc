@@ -10,3 +10,8 @@
   margin: auto;
   margin-top: 2em;
 }
+
+
+#tab tbody tr td {
+  padding: 0.3em !important;
+}

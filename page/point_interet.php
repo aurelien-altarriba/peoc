@@ -54,22 +54,14 @@
 					$id_point = $_SESSION['point_interet'];
 				}
 
-				//Initialisation ds variables du formulaire à vide
-				$id_interet_pi = '';
-				$id_parcours_pi = '';
-				$nom_p = '';
-				$num_point_pi = '';
-				$id_categorie_pi = '';
-				$nom_pic = '';
-				$url_pi = '';
-				$photo_pi = '';
-				$description_pi = '';
+				//Initialisation des variables
 				$fichier_dossier_dest = '../'.$CF['image']['photo_pi'];
 				//$fichier_dossier_dest = '../image/photo_pi/';
 
 				//Statut création :
 				if (empty($id_point)){
 					//Récupérer le numéro du parcours qui appelle la page
+					$id_parcours_pi = '';
 					if (isset($_SESSION['parcours'])){
 						$id_parcours_pi = $_SESSION['parcours'];
 					}
@@ -77,11 +69,11 @@
 				//Statut visualisation /modification / suppression du point
 				else {
 	      	//Récupération des informations du point en base
-					$sql='select id_interet_pi, id_parcours_pi, nom_p, num_point_pi, id_categorie_pi, nom_pic, url_pi, photo_pi, description_pi ';
-					$sql=$sql.'from point_interet ';
-					$sql=$sql.'inner join parcours on id_parcours_p = id_parcours_pi ';
-					$sql=$sql.'inner join categorie_pi on id_categorie_pic = id_categorie_pi ';
-					$sql=$sql.'where id_interet_pi = '.$id_point;
+					$sql='SELECT id_interet_pi, id_parcours_pi, nom_p, num_point_pi, id_categorie_pi, nom_pic, url_pi, photo_pi, description_pi
+								FROM point_interet
+								INNER JOIN parcours ON id_parcours_p = id_parcours_pi
+								INNER JOIN categorie_pi on id_categorie_pic = id_categorie_pi
+								WHERE id_interet_pi = '.$id_point;
 
 					try{
 			      $rs=pg_exec($idc,$sql);

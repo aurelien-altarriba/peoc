@@ -60,25 +60,15 @@
 				 $id_point = $_SESSION['point_vigilance'];
 				}
 
-				//Initialisation ds variables du formulaire à vide
-				$id_vigilance_pv = '';
-				$id_parcours_pv = '';
-				$nom_p = '';
-				$num_point_pv = '';
-				$dt_creation_pv = '';
-				$dt_debut_pv = '';
-				$dt_fin_pv = '';
-				$id_membre_pv = '';
-				$id_categorie_pv = '';
-				$nom_pvc = '';
-				$photo_pv = '';
-				$description_pv = '';
+				//Initialisation des variables
+
 				$fichier_dossier_dest = '../'.$CF['image']['photo_pv'];
 				//$fichier_dossier_dest = '../image/photo_pv/';
 
 				//Statut création :
 				if (empty($id_point)){
 					//Récupérer le numéro du parcours qui appelle la page
+					$id_parcours_pv = '';
 					if (isset($_SESSION['parcours'])){
 						$id_parcours_pv = $_SESSION['parcours'];
 						$id_membre_pv = $id_membre;
@@ -87,12 +77,12 @@
 				//Statut visualisation /modification / suppression du point
 				else {
 	      	//Récupération des informations du point en base
-					$sql='select id_vigilance_pv, id_parcours_pv, nom_p, prenom_m, num_point_pv, dt_creation_pv, dt_debut_pv, dt_fin_pv, id_categorie_pv, nom_pvc, id_membre_pv, nom_m, photo_pv, description_pv ';
-					$sql=$sql.'from point_vigilance ';
-					$sql=$sql.'inner join parcours on id_parcours_p = id_parcours_pv ';
-					$sql=$sql.'inner join categorie_pv on id_categorie_pvc = id_categorie_pv ';
-					$sql=$sql.'inner join membre on id_membre_m = id_membre_pv ';
-					$sql=$sql.'where id_vigilance_pv = '.$id_point;
+					$sql='SELECT id_vigilance_pv, id_parcours_pv, nom_p, prenom_m, num_point_pv, dt_creation_pv, dt_debut_pv, dt_fin_pv, id_categorie_pv, nom_pvc, id_membre_pv, nom_m, photo_pv, description_pv
+								FROM point_vigilance
+								INNER JOIN parcours on id_parcours_p = id_parcours_pv
+								INNER JOIN categorie_pv on id_categorie_pvc = id_categorie_pv
+								INNER JOIN membre on id_membre_m = id_membre_pv
+								WHERE id_vigilance_pv = '.$id_point;
 
 					try{
 						$rs=pg_exec($idc,$sql);

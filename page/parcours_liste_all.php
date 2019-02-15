@@ -10,12 +10,12 @@
 	<link rel="stylesheet" type="text/css" href="../css/parcours_liste.css">
 
 	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/lib/DataTables/datatables.min.css"/>
 
 	<!-- JS -->
 	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../DataTables/datatables.min.js"></script>
+	<script type="text/javascript" src="../js/lib/DataTables/datatables.min.js"></script>
 </head>
 <body>
 	<!-- HEADER -->
@@ -38,6 +38,7 @@
 					<th>Dénivelé</th>
 					<th>Durée</th>
 					<th>Créateur</th>
+					<th>Profil</th>
 					<th>Autonomie</th>
 					<th>Description</th>
 				</tr>
@@ -47,8 +48,10 @@
   			<?php
       	// Requête SQL
 				$sql = "SELECT id_parcours_p, nom_p, autonomie_p, visible_p, dt_publication_p, id_niveau_p, nom_ne, id_departement_p,
-									nom_d, id_membre_p, nom_m, prenom_m, id_centre_p, nom_ce, description_p
-								FROM parcours
+									nom_d, id_membre_p, nom_m, prenom_m, id_centre_p, nom_ce, description_p, duree_t, distance_t
+								FROM parcours AS p
+								INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+														FROM troncon WHERE id_hierarchie_t = 1 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  p.id_parcours_p
 								INNER JOIN departement ON id_departement_d = id_departement_p
 								LEFT JOIN cavalier ON id_membre_c = id_membre_p
 								LEFT JOIN membre ON id_membre_m = id_membre_c
@@ -68,18 +71,29 @@
           print(
 						'<tr>'.
 							'<td>'. $ligne['id_parcours_p'] .'</td>'.
-	            '<td>'. $ligne['nom_p'] .'</td>'.
+	            '<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
 	            '<td>'. $ligne['dt_publication_p'] .'</td>'.
 	            '<td>'. $ligne['nom_d'] .'</td>'.
 	            '<td>'. $ligne['nom_ne'] .'</td>'.
+	            '<td>'. $ligne['distance_t'] .'</td>'.
 	            '<td> </td>'.
-	            '<td> </td>'.
-	            '<td> </td>'.
-	            '<td>'. $ligne['nom_m'] .' '. $ligne['prenom_m'] .'</td>'.
-	            '<td>'. $ligne['autonomie_p'] .'</td>'.
-	            '<td>'. $ligne['description_p'] .'</td>'.
-						'</tr>'
-					);
+	            '<td>'. $ligne['duree_t'] .'</td>');
+					if (!empty($ligne['id_membre_p'])){
+						print('<td>'. $ligne['nom_m'] .' '. $ligne['prenom_m'] .'</td>');
+						print('<td>Cavalier</td>');
+					}
+					else {
+						print('<td>'. $ligne['nom_ce'] .'</td>');
+						print('<td>Centre</td>');
+					}
+					if ($ligne['autonomie_p'] == TRUE){
+						print('<td><input type="checkbox" name="cc_auto" value="1" checked disabled></td>');
+					}
+					else {
+						print('<td><input type="checkbox" name="cc_auto" value="1" disabled></td>');
+					}
+	        print('<td>'. $ligne['description_p'] .'</td>'.
+					'</tr>');
          }
 				?>
 			</tbody>

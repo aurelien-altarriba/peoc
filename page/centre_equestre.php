@@ -39,7 +39,7 @@
 		<div id="colonneDroite">
   		<?php
 				//Test : à commenter
-  			$_SESSION['centre_equestre'] = 1;
+  			//$_SESSION['centre_equestre'] = 1;
 
       	// A récupérer de la page qui appelle
 	  		$id_membre = '';
@@ -47,34 +47,21 @@
       			$id_membre = $_SESSION['membre']['id'];
       		}
 			 	$id_centre = '';
-			 	if (isset($_SESSION['membre']['centre_equestre'])){
-					$id_centre = $_SESSION['membre']['centre_equestre'];
+			 	if (isset($_SESSION['membre']['ce']['id_centre_ce'])){
+					$id_centre = $_SESSION['membre']['ce']['id_centre_ce'];
 				}
 
-				//Initialisation ds variables du formulaire à vide
-				$id_centre_ce = '';
-				$nom_ce = '';
-				$adresse_ce = '';
-				$cp_ce = '';
-				$ville_ce = '';
-				$id_departement_ce = '';
-				$tel_ce = '';
-				$mail_ce = '';
-				$nb_cheval_ce = '';
-				$id_membre_ce = '';
-				$url_ce = '';
-				$logo_ce = '';
+				//Initialisation des variables
 				$fichier_dossier_dest = '../'.$CF['image']['logo'];
 				//$fichier_dossier_dest = '../image/logo/';
 
 				//Statut modification :
 				if (!empty($id_centre)){
-
 	      	//Récupération des informations du centre en base
-					$sql='select id_centre_ce, nom_ce, adresse_ce, cp_ce, ville_ce, id_departement_ce, nom_d, tel_ce, mail_ce, nb_cheval_ce,url_ce,logo_ce';
-					$sql=$sql.'from centre_equestre ';
-					$sql=$sql.'inner join departement on id_departement_d = id_departement_ce ';
-					$sql=$sql.'where id_centre_ce = '.$id_centre.' and id_membre_ce = '.$id_membre;
+					$sql='SELECT id_centre_ce, nom_ce, adresse_ce, cp_ce, ville_ce, id_departement_ce, nom_d, tel_ce, mail_ce, nb_cheval_ce,url_ce,logo_ce
+								FROM centre_equestre
+				 				INNER JOIN departement ON id_departement_d = id_departement_ce
+								WHERE id_centre_ce = '.$id_centre.' AND id_membre_ce = '.$id_membre;
 
 					try{
 			      $rs=pg_exec($idc,$sql);

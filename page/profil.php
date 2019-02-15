@@ -45,42 +45,21 @@
 	      	$id_membre = $_SESSION['membre']['id'];
 				}
 
-				// Initialisation ds variables du formulaire à vide
-				$id_membre_m='';
-				$nom_m='';
-				$prenom_m='';
-				$dt_naissance_m='';
-				$adresse_m='';
-				$ville_m='';
-				$cp_m='';
-				$id_pays_m='';
-				$nom_pa='';
-				$tel_m='';
-				$mail_m='';
-				$num_licence_c='';
-				$dt_exp_licence_c='';
-				$id_niveau_c='';
-				$nom_ne='';
-				$photo_c='';
-				$login_ic='';
-				$mdp_ic='';
-				$id_centre_ce='';
-				$nom_ce='';
+				// Initialisation des variables
 				$fichier_dossier_dest = '../'.$CF['image']['photo'];
 				//$fichier_dossier_dest = '../image/photo/';
 
 				// Statut inscrit : visualisation /modification du profil
 				if ($id_membre != ''){
 	      	// Récupération des informations du membre en base
-					$sql='select id_membre_m, nom_m, prenom_m, dt_naissance_m, adresse_m, ville_m, cp_m, id_pays_m, nom_pa, ';
-					$sql=$sql.'tel_m, mail_m, num_licence_c, dt_exp_licence_c, id_niveau_c, nom_ne, photo_c, login_ic, mdp_ic, id_centre_ce, nom_ce ';
-					$sql=$sql.'from membre ';
-					$sql=$sql.'inner join pays on id_pays_pa = id_pays_m ';
-					$sql=$sql.'inner join info_connexion on id_membre_ic = id_membre_m ';
-					$sql=$sql.'left join cavalier on id_membre_c = id_membre_m ';
-					$sql=$sql.'left join niveau_equestre on id_niveau_ne = id_niveau_c ';
-					$sql=$sql.'left join centre_equestre on id_membre_ce = id_membre_m ';
-					$sql=$sql.'where id_membre_m = '.$id_membre;
+					$sql='SELECT id_membre_m, nom_m, prenom_m, dt_naissance_m, adresse_m, ville_m, cp_m, id_pays_m, nom_pa, tel_m, mail_m, num_licence_c, dt_exp_licence_c, id_niveau_c, nom_ne, photo_c, login_ic, mdp_ic, id_centre_ce, nom_ce
+								FROM membre
+								INNER JOIN pays ON id_pays_pa = id_pays_m
+								INNER JOIN info_connexion ON id_membre_ic = id_membre_m
+								LEFT JOIN cavalier ON id_membre_c = id_membre_m
+								LEFT JOIN niveau_equestre ON id_niveau_ne = id_niveau_c
+								LEFT JOIN centre_equestre ON id_membre_ce = id_membre_m 
+								WHERE id_membre_m = '.$id_membre;
 
 					try{
 			      $rs=pg_exec($idc,$sql);

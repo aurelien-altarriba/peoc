@@ -3,6 +3,7 @@
   ini_set('display_errors', 1);
 
   //Include
+  require_once('../include/config.php');
   require_once('../fonction/verif_upload_image.php');
 
   //Connexion BDD
@@ -10,7 +11,7 @@
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '../'.$CF['image']['photo_pi'];
+  $fichier_dossier_dest = '../'.$CF['image']['point_interet'];
   //$fichier_dossier_dest = '../image/photo_pi/';
 
 

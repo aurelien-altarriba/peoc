@@ -3,6 +3,7 @@
   ini_set('display_errors', 1);
 
   //Include
+  require_once('../include/config.php');
   require_once('../fonction/verif_upload_image.php');
 
   //Connexion BDD
@@ -18,10 +19,9 @@
   //bouton création/modification
   $action = '';
   if($_POST['bt_submit_CM']=='Modifier'){
-      $action=1;
-    }
+    $action=1;
   }
-  
+
 
 
   //RECUPERATION DES DONNEES DU FORMULAIRE
@@ -30,19 +30,19 @@
   if (isset($_SESSION['membre']['id'])){
         $id_membre = $_SESSION['membre']['id'];
   }
-  if (isset($_SESSION['membre']['centre_equestre'])){
-    $id_centre = $_SESSION['membre']['centre_equestre'];
+  if (isset($_SESSION['membre']['ce']['id_centre_ce'])){
+    $id_centre = $_SESSION['membre']['ce']['id_centre_ce'];
   }
   $tel = pg_escape_string($_POST['zs_tel_ce']);
   $mail = pg_escape_string($_POST['zs_mail_ce']);
   $nb_cheval = pg_escape_string($_POST['zs_nb_cheval_ce']);
-  $url = pg_escape_string($_POST['zs_url_pi']);
+  $url = pg_escape_string($_POST['zs_url_ce']);
 
   $erreur = '';
 
 
   //VERIFICATION DES CHAMPS OBLIGATOIRES
-  if (empty($tel_ce)){
+  if (empty($tel)){
     $erreur = "Tous les champs obligatoires doivent être saisis";
     echo $erreur;
     return(0);
@@ -65,17 +65,17 @@
   }
 
   //Mail
-  if(!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+  if(!empty($mail) && !filter_var($mail, FILTER_VALIDATE_EMAIL)) {
     $erreur = 'Veuillez rentrer un mail valide';
     echo $erreur;
     return(0);
   }
-  
+
 
   //GESTION DES PHOTOS
   $fichier_a_charger = 0;
   $fichier_temp = '';
-  $photo_new='';
+  $logo_new='';
 
   //Récupération de la photo actuelle du point
   $logo_old='';
@@ -126,7 +126,7 @@
     }
 
     $sql='UPDATE centre_equestre
-          SET tel_ce = \''.$tel.'\', mail_ce = \''.$mail.'\', nb_cheval_ce = '.$nb_cheval.', url_ce = \''.$url.'\', logo_ce = \''.$logo_new.'\' 
+          SET tel_ce = \''.$tel.'\', mail_ce = \''.$mail.'\', nb_cheval_ce = '.$nb_cheval.', url_ce = \''.$url.'\', logo_ce = \''.$logo_new.'\'
           WHERE id_centre_ce = '.$id_centre.' And id_membre_ce = '.$id_membre.';';
     try{
       $rs=pg_exec($idc,$sql);

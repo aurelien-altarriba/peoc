@@ -86,11 +86,10 @@
 					  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown_parcours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    Parcours
 					  </a>
-
 					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
-							<a class="dropdown-item" href="page/parcours_liste.php">Tous les parcours</a>
+							<a class="dropdown-item" href="page/parcours_liste_all.php">Tous les parcours</a>
 							<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
-						    <a class="dropdown-item" href="#">Mes parcours</a>
+						    <a class="dropdown-item" href="page/parcours_liste_perso.php">Mes parcours</a>
 						    <a class="dropdown-item" href="page/parcours_edition.php">Créer un parcours</a>
 							<?php } ?>
 					  </div>
@@ -99,7 +98,17 @@
 
 				<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
 					<li class="nav-item">
-						<a class="nav-link" href="page/profil.php">Mon profil</a>
+						<div class="dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown_profil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							 Mon profil
+						 </a>
+						 <div class="dropdown-menu" aria-labelledby="dropdown_profil">
+								<a class="dropdown-item" href="page/profil.php">Mon profil</a>
+								<?php if(isset($_SESSION['membre']['ce']['id_centre_ce']) && in_array("centre_equestre", $_SESSION['membre']['type'])) { ?>
+									<a class="dropdown-item" href="page/centre_equestre.php">Mon centre équestre</a>
+								<?php } ?>
+							</div>
+						</div>
 					</li>
 				<?php } ?>
 		</ul>
