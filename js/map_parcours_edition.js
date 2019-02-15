@@ -69,52 +69,76 @@ $(document).ready(function() {
 	});
 
 	// Quand on clique sur le bouton pour enregistrer
-	$('#bt_submit_data').on('click', function() {
+	$('#bt_submit_data').on('click', function(e) {
 
 		// Récupération des paramètres
 		var url = new URLSearchParams(location.search);
 
+		// Si on modifie le parcours
 		if (url.get('id')) {
-			// Update parcours en ajax
-
-			var chemin = '../fonction/modification';
-		} else {
-
-			// Insert parcours en ajax
-
-			var chemin = '../fonction/creation';
+			var chemin = "../fonction/verif_parcours_modification.php";
 		}
 
-		// Pour chaque tronçon dans le tableau des tronçons
-		$.each(tabTroncon, function(index, un_troncon) {
+		// Si on créé le parcours
+		else {
+			var chemin = "../fonction/verif_parcours_creation.php";
+		}
 
-			// insert des tronçons en ajax
-			console.log(un_troncon.layer.getLatLngs());
-		});
+		// Mise à jour du parcours
+		$.post(chemin,
+			{
+				zs_nom_p: $('#zs_nom_p')[0].value,
+				zs_description_p: $('#zs_description_p')[0].value,
+				zl_id_niveau_ne: $('#zl_id_niveau_ne')[0].value,
+				zl_id_departement_p: $('#zl_id_departement_p')[0].value,
+				autonomie_p: $('#autonomie_p')[0].value,
+				visible_p: $('#visible_p')[0].value
+			},
+		);
+
+
+
+			// Quand le PHP a fini d'être exécuté
+			// function(reponse_parcours){
+			//
+			// 	// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
+			// 	if (reponse_parcours === "OK") {
+			// 		alert(reponse_parcours)}
+			// 	else
+			// 		alert(reponse_parcours)
+
+
+
+		// 			// On met à jour les tronçons
+		// 			$.post("../fonction/verif_troncon.php",
+		// 				{
+		// 					listeTroncons: JSON.stringify(tabTroncon)
+		// 				},
+		//
+		// 				// Quand le PHP a fini d'être exécuté
+		// 				function(reponse_troncon) {
+		// 					if (reponse_troncon === "OK") {
+		// 						alert('Enregistrement réussi!');
+		// 					}
+		//
+		// 					// Sinon on affiche l'erreur
+		// 					else {
+		// 						alert(reponse_troncon);
+		// 					}
+		// 				}
+		// 			);
+		// 		}
+		//
+		// 		// Sinon on affiche l'erreur
+		// 		else {
+		// 			alert(reponse_parcours);
+		// 		}
+		// 	}
+		// );
+		//
+		// // insert des tronçons en ajax
+		// console.log(tabTroncon);
 	});
-
-	// map.on('pm:markerdragend', (e) => {
-	// 	var coords = e.layer.getLatLngs();
-	// 	console.log(coords);
-	// });
-
-
-
-
-	// map.on('pm:edit', function(e) {
-  // var coords = e.layer.getLatLngs();
-  // console.log(coords);
-	// });
-
-	// map.on('pm:create',(e) {
-  // 	e.layer.on('pm:edit', ({ layer }) => {
-  //   // layer has been edited
-	// 	var coords = e.layer.getLatLngs();
-  //   console.log(coords);
-  // 	})
-	// });
-
-
 
 
 });
