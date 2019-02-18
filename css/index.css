@@ -187,3 +187,43 @@
 	background-color: #333 !important;
 	color: white !important;
 }
+
+/* .pointCamembert
+{
+	border: 2px solid red;
+	border-radius: 100%;
+}
+
+.camembert
+{
+	position: absolute;
+
+	width: 30px;
+	height: 30px;
+	top: -15px;
+	left: -15px;
+
+	background-color: grey;
+	border-radius: 100%;
+}
+
+.pie {
+	position: absolute;
+
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	background-image: linear-gradient(to right, transparent 50%, #655 0);
+}
+
+.pie::before {
+  content: ’’;
+  display: block;
+	position: absolute;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 40%;
+  background: #655;
+  transform-origin: right;
+  transform: rotate(.1turn);
+} */

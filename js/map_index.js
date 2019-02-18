@@ -16,8 +16,46 @@ $(document).ready(function() {
 	// CENTRES ÉQUESTRES
 	centres_equestres = new L.featureGroup();
 
-	// PARCOURS
-	parcours = L.markerClusterGroup();
+	// SVG CLUSTER
+	function svgCluster(child) {
+
+		var niveau = [];
+		var total = 0;
+
+		// Pour chaque parcours
+		$.each(child.getAllChildMarkers(), function(index, un_parcours) {
+
+			// Si le tableau du niveau n'existe pas, on l'initialise à 0
+			if (!niveau.hasOwnProperty(un_parcours.niveau)) {
+				niveau[un_parcours.niveau] = 0;
+			}
+
+			// On incrémente de 1
+			niveau[un_parcours.niveau]++;
+			total++;
+		});
+
+		var html = '<div class="camembert">';
+
+		// Pour chaque niveau
+		$.each(niveau, function(index, value) {
+			if (value !== undefined) {
+				html = html + '<div class="pie niveau'+ index +'"></div>';
+			}
+		});
+
+		html = html + '</div>';
+
+		return html;
+	}
+
+	// SVG à laisser
+	// // PARCOURS
+	// parcours = L.markerClusterGroup({
+	// 	iconCreateFunction: function(cluster) {
+	// 		return L.divIcon({ html: svgCluster(cluster), className: 'pointCamembert' });
+	// 	}
+	// });
 
 	// MENU DES CARTES
 	var cartes = {

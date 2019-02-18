@@ -212,6 +212,8 @@ function displayDataParcours(data) {
 		// Création du polyline du parcours
 		var polyline = new L.polylineCluster(trace_parcours, {color:'red'});
 
+		polyline.niveau = un_parcours['id_niveau_p'];
+
 		// Ajout du polyline à la liste des parcours
 		parcours.addLayer(polyline);
 	});
@@ -243,13 +245,13 @@ function displayDataTroncon(data) {
 
 		// Calculer couleur selon niveau difficulté
 		if (un_troncon['id_niveau_t'] == 1) {
-			couleur = 'yellow'
+			couleur = 'yellow';
 		}
 		else if (un_troncon['id_niveau_t'] == 2) {
-			couleur = 'orange'
+			couleur = 'orange';
 		}
 		else if (un_troncon['id_niveau_t'] == 3) {
-			couleur = 'red'
+			couleur = 'red';
 		}
 
 		// Pour chaque coordonnées dans le troncon
@@ -410,13 +412,13 @@ function displayDataTronconEdition(data) {
 
 		// Calculer couleur selon niveau difficulté
 		if (un_troncon['id_niveau_t'] == 1) {
-			couleur = 'yellow'
+			couleur = 'yellow';
 		}
 		else if (un_troncon['id_niveau_t'] == 2) {
-			couleur = 'orange'
+			couleur = 'orange';
 		}
 		else if (un_troncon['id_niveau_t'] == 3) {
-			couleur = 'red'
+			couleur = 'red';
 		}
 
 		// Pour chaque coordonnées dans le troncon
