@@ -1,21 +1,8 @@
 <?php
-  //session_start();
-  session_unset();
-
-  $_SESSION['membre']['id'] = 1;
-
-  // HEADER
-  require_once('../include/header.php');
   $idc = connect();
-
-  if(isset($_GET['id'])) {
-    $id = htmlspecialchars($_GET['id']);
-  }
 ?>
 
-<?php echo('<h2>'. $_SESSION['membre']['prenom_m'] .' '. $_SESSION['membre']['nom_m'] .'</h2>'); ?>
-
-<form>
+<form onsubmit="return(false);">
 
     <!-- Choix du parcours à modifier-->
     <div>
@@ -104,15 +91,15 @@
     </div>
 
     <!-- Bouton d'enregistrement -->
-    <input type="submit" name="bt_submit_data" id="bt_submit_data" value="Enregistrer le parcours" />
+    <button id="bt_submit_data">Enregistrer le parcours</button>
 
   <?php if(isset($id)) { ?>
     <!-- Bouton de suppression du parcours -->
     <input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le parcours" />
   <?php } ?>
 
-  </form>
+</form>
 
-  <form method="get" action="../page/troncon.php">
-    <button type="submit">Créer un tronçon</button>
-  </form>
+<form method="get" action="../page/troncon.php">
+  <button type="submit">Créer un tronçon</button>
+</form>

@@ -1,20 +1,15 @@
 <?php
-
 session_start();
 
 //Connexion BDD
 require_once('../include/connect.php');
 $idc = connect();
 
-// Création des variables recupérant les données du formulaire
-$duree_estime_t = pg_escape_string($_POST['zs_duree_estime_t']);
-$id_type_t = pg_escape_string($_POST['zl_id_type_t']);
-$id_niveau_nt = pg_escape_string($_POST['zl_id_niveau_nt']);
-$num_position_t = pg_escape_string($_POST['zs_num_position_t']);
+// Tabkeau des coordonnées
+$listeTroncons = json_decode($_POST['listeTroncons']);
 
-// Déclaration de l'id du parcours qui contient le tronçon
-$id_parcours_p = 1;
-$id_troncon_t = 1;
+/*
+
 
 // récupération de l'id du membre connecté
 if (isset($_SESSION['membre']['id'])){

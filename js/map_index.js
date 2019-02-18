@@ -50,12 +50,12 @@ $(document).ready(function() {
 	}
 
 	// SVG à laisser
-	// // PARCOURS
-	// parcours = L.markerClusterGroup({
-	// 	iconCreateFunction: function(cluster) {
-	// 		return L.divIcon({ html: svgCluster(cluster), className: 'pointCamembert' });
-	// 	}
-	// });
+	// PARCOURS
+	parcours = L.markerClusterGroup({
+		// iconCreateFunction: function(cluster) {
+		// 	return L.divIcon({ html: svgCluster(cluster), className: 'pointCamembert' });
+		// }
+	});
 
 	// MENU DES CARTES
 	var cartes = {

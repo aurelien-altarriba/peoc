@@ -64,8 +64,8 @@ $(document).ready(function() {
 	// A chaque création de tronçon
 	map.on('pm:create', (un_troncon) => {
 
-		// On ajoute le tronçon dans le tableau
-		tabTroncon.push(un_troncon);
+		// On ajoute les coordonnées du tronçon dans le tableau
+		tabTroncon.push(un_troncon.layer.getLatLngs());
 	});
 
 	// Quand on clique sur le bouton pour enregistrer
@@ -91,53 +91,47 @@ $(document).ready(function() {
 				zs_description_p: $('#zs_description_p')[0].value,
 				zl_id_niveau_ne: $('#zl_id_niveau_ne')[0].value,
 				zl_id_departement_p: $('#zl_id_departement_p')[0].value,
-				autonomie_p: $('#autonomie_p')[0].value,
-				visible_p: $('#visible_p')[0].value
+				autonomie_p: $("input[name='autonomie_p']:checked").val(),
+				visible_p: $("input[name='visible_p']:checked").val()
 			},
-		);
-
-
 
 			// Quand le PHP a fini d'être exécuté
-			// function(reponse_parcours){
-			//
-			// 	// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
-			// 	if (reponse_parcours === "OK") {
-			// 		alert(reponse_parcours)}
-			// 	else
-			// 		alert(reponse_parcours)
+			function(id_parcours_p){
 
+				// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
+				if (Number(id_parcours_p)) {
 
+					// On met à jour les tronçons
+					$.post("../fonction/verif_troncon.php",
+						{
+							listeTroncons: JSON.stringify(tabTroncon)
+						},
 
-		// 			// On met à jour les tronçons
-		// 			$.post("../fonction/verif_troncon.php",
-		// 				{
-		// 					listeTroncons: JSON.stringify(tabTroncon)
-		// 				},
-		//
-		// 				// Quand le PHP a fini d'être exécuté
-		// 				function(reponse_troncon) {
-		// 					if (reponse_troncon === "OK") {
-		// 						alert('Enregistrement réussi!');
-		// 					}
-		//
-		// 					// Sinon on affiche l'erreur
-		// 					else {
-		// 						alert(reponse_troncon);
-		// 					}
-		// 				}
-		// 			);
-		// 		}
-		//
-		// 		// Sinon on affiche l'erreur
-		// 		else {
-		// 			alert(reponse_parcours);
-		// 		}
-		// 	}
-		// );
-		//
-		// // insert des tronçons en ajax
-		// console.log(tabTroncon);
+						// Quand le PHP a fini d'être exécuté
+						function(data) {
+
+							alert(data);
+							// if (data === "OK") {
+							// 	alert('Enregistrement réussi!');
+							// }
+							//
+							// // Sinon on affiche l'erreur
+							// else {
+							// 	alert(data);
+							// }
+						}
+					);
+				}
+
+				// Sinon on affiche l'erreur
+				else {
+					alert(id_parcours_p);
+				}
+			}
+		);
+
+		// insert des tronçons en ajax
+		console.log(tabTroncon);
 	});
 
 
