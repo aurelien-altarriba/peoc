@@ -134,7 +134,8 @@
     catch (Exception $e) {
       echo $e->getMessage(),"\n";
     };
-    echo 'OK';
+    //echo 'OK';
+    header("Location: ./../page/centre_equestre.php");
 
     //Copie logo sélectionné sur le serveur
     if ($fichier_a_charger == 1 && !empty($logo_new)){

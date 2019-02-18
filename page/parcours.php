@@ -84,7 +84,15 @@
 
 			<div id="colonneDroite">
 				<div id="map"></div>
-			</div>
+
+
+        <!-- Commentaires -->
+        <div id="resComment">
+          <h3>Commentaires</h3>
+          <ul class="list-group">
+          </ul>
+        </div>
+      </div>
 		</div>
 
 		<!-- Formulaire -->
@@ -92,5 +100,57 @@
 
 		<!-- FOOTER -->
 		<?php require_once('../include/footer.php'); ?>
+
+    <script type="text/javascript">
+    // Récupération des informations renseignées par les cavaliers
+    // type: "G" global au parcours
+    // 			 "L" liste de tous les commentaires
+    function getData(id, type) {
+    	// Récupération des commentaires
+    	$.post('../fonction/recup_data_commentaire.php',
+    		// Récupération de l'ID du parcours
+    		{
+    			id: id,
+    			type: type
+    		},
+
+    		function(data) {
+    			displayData(data, type);
+    		}
+    	);
+    }
+
+
+    // Fonction d'affichage des informations cavaliers
+    function displayData(data, type) {
+    	// Récupération des données en JSON
+    	var data = JSON.parse(data);
+      console.log(data);
+
+      // données récapitulatives au parcours
+    	if (type == "R") {
+    		$.each(data, function(index, recap) {
+    			//var coord = JSON.parse(point['st_asgeojson'])['coordinates'];
+          // On ajoute le parcours à la liste
+      		$("#resComment .list-group").append('<li class="list-group-item" Note moyenne : '+''+' / Durée réelle moyenne : '+''+'</li>');
+    		});
+      // liste des commentaires
+    	} else if (type == "L") {
+    		$.each(data, function(index, com) {
+    		//var coord = JSON.parse(point['st_asgeojson'])['coordinates'];
+        // On ajoute le parcours à la liste
+    		$("#resComment .list-group").append('<li class="list-group-item" Cavalier : '+''+' / Note : '+''+' / Durée : '+''+' / Commentaire : '+''+'</li>');
+    		});
+    	}
+    }
+
+    $(document).ready(function() {
+      // Récupération des paramètres
+      var url = new URLSearchParams(location.search);
+      var id = url.get('id');
+      getData(id,"R");
+      getData(id,"L");
+    });
+    </script>
 	</body>
 </html>

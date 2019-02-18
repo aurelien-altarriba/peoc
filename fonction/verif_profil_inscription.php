@@ -319,7 +319,8 @@
     if (!empty($photo_old)  && file_exists($photo_old)){
       unlink($photo_old);
     }
-    echo 'OK';
+    //echo 'OK';
+    header("Location: ./../page/profil.php");
   }
   else {
     //Insert
@@ -393,7 +394,8 @@
         }
       }
 
-      echo 'OK';
+      //echo 'OK';
+      header("Location: ./../page/profil.php");
     }
     //update
     else if ($action==2){
@@ -539,7 +541,8 @@
         }
       }
 
-      echo 'OK';
+      //echo 'OK';
+      header("Location: ./../page/profil.php");
     }
     else {$erreur = "Aucune action réalisée";}
   }

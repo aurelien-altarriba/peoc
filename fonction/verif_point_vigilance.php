@@ -176,7 +176,8 @@
     catch (Exception $e) {
       echo $e->getMessage(),"\n";
     };
-    echo 'OK';
+    //echo 'OK';
+    header("Location: ./../page/point_vigilance.php");
 
     //suppression photo du serveur
     if (!empty($photo_old) && file_exists($photo_old)){
@@ -195,7 +196,8 @@
       catch (Exception $e) {
         echo $e->getMessage(),"\n";
       };
-      echo 'OK';
+      //echo 'OK';
+      header("Location: ./../page/point_vigilance.php");
 
       if ($fichier_a_charger==1){
         $ligne=pg_fetch_assoc($rs);
@@ -236,7 +238,8 @@
       catch (Exception $e) {
         echo $e->getMessage(),"\n";
       };
-      echo 'OK';
+      //echo 'OK';
+      header("Location: ./../page/point_vigilance.php");
 
       //Copie photo sélectionnée sur le serveur
       if ($fichier_a_charger == 1 && !empty($photo_new)){

@@ -344,6 +344,10 @@ ALTER TABLE public.zone_allure 		ADD CONSTRAINT FK_zone_allure_id_parcours_za 		
 
 
 
-
 --- ALTER TABLE child_table_name  ADD CONSTRAINT fk_name FOREIGN KEY (child_column_name) REFERENCES parent_table_name(parent_column_name) ON DELETE CASCADE;
 --- ALTER TABLE table_y DROP CONSTRAINT id_x_fk, ADD CONSTRAINT id_x_fk FOREIGN KEY (id_y) REFERENCES table_x (id_x) ON DELETE CASCADE;
+
+
+// Ajout de la colonne altitude dans la table tronçon :
+// va contenir une chaine de caractères avec les altitudes des points constituant le tronçon.
+ALTER TABLE public.troncon ADD COLUMN liste_z_t VARCHAR (2000);
