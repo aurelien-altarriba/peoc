@@ -48,12 +48,12 @@
 				//Test : à commenter
   			$_SESSION['point_vigilance'] = '';
   			$_SESSION['parcours'] = 1;
-				$_SESSION['membre'] = 1;
+				$_SESSION['membre']['id'] = 1;
 
       	// A récupérer de la page qui appelle
 				$id_membre = '';
-		 		if (isset($_SESSION['membre'])){
-		 			$id_membre = $_SESSION['membre'];
+		 		if (isset($_SESSION['membre']['id'])){
+		 			$id_membre = $_SESSION['membre']['id'];
 		 		}
 			 	$id_point = '';
 				if (isset($_SESSION['point_vigilance'])){

@@ -272,8 +272,8 @@ CREATE TABLE public.effectue(
 	id_membre_e    		INT  NOT NULL ,
 	id_parcours_e  		INT  NOT NULL ,
 	dt_jour_e      		DATE  NOT NULL ,
-	note_e         		VARCHAR (20)  ,
-	duree_reel_e 		FLOAT  ,
+	note_e         		INT ,
+	duree_reel_e 		  FLOAT  ,
 	commentaire_e  		VARCHAR (2000)   ,
 	CONSTRAINT prk_constraint_effectue PRIMARY KEY (id_membre_e,id_parcours_e,dt_jour_e)
 )WITHOUT OIDS;
@@ -348,6 +348,6 @@ ALTER TABLE public.zone_allure 		ADD CONSTRAINT FK_zone_allure_id_parcours_za 		
 --- ALTER TABLE table_y DROP CONSTRAINT id_x_fk, ADD CONSTRAINT id_x_fk FOREIGN KEY (id_y) REFERENCES table_x (id_x) ON DELETE CASCADE;
 
 
-// Ajout de la colonne altitude dans la table tronçon :
-// va contenir une chaine de caractères avec les altitudes des points constituant le tronçon.
-ALTER TABLE public.troncon ADD COLUMN liste_z_t VARCHAR (2000);
+--- Ajout de la colonne altitude dans la table tronçon :
+--- va contenir une chaine de caractères avec les altitudes des points constituant le tronçon.
+--- ALTER TABLE public.troncon ADD COLUMN liste_z_t VARCHAR (2000);
