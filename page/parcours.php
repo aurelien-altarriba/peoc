@@ -125,21 +125,16 @@
     function displayData(data, type) {
     	// Récupération des données en JSON
     	var data = JSON.parse(data);
-      console.log(data);
 
       // données récapitulatives au parcours
     	if (type == "R") {
     		$.each(data, function(index, recap) {
-    			//var coord = JSON.parse(point['st_asgeojson'])['coordinates'];
-          // On ajoute le parcours à la liste
-      		$("#resComment .list-group").append('<li class="list-group-item" Note moyenne : '+''+' / Durée réelle moyenne : '+''+'</li>');
+      		$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' / Note moyenne : '+recap.moynote+' / Durée réelle moyenne : '+recap.dureereelle+'</li>');
     		});
       // liste des commentaires
     	} else if (type == "L") {
     		$.each(data, function(index, com) {
-    		//var coord = JSON.parse(point['st_asgeojson'])['coordinates'];
-        // On ajoute le parcours à la liste
-    		$("#resComment .list-group").append('<li class="list-group-item" Cavalier : '+''+' / Note : '+''+' / Durée : '+''+' / Commentaire : '+''+'</li>');
+    		$("#resComment .list-group").append('<li class="list-group-item"> Date : '+com.datejour+' / Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' / Note : '+com.note_e+' / Durée : '+com.duree_reel_e+' / Commentaire : '+com.commentaire_e+'</li>');
     		});
     	}
     }
