@@ -8,16 +8,16 @@
 	<meta charset="utf-8">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="../css/header.css">
-	<link rel="stylesheet" type="text/css" href="../css/footer.css">
-	<link rel="stylesheet" type="text/css" href="../css/index.css">
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/footer.css">
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
 
-	<link rel="stylesheet" type="text/css" href="../css/lib//bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="/css/lib//bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/lib/leaflet.css">
 
 	<!-- JS -->
-	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
 	</script>
@@ -25,8 +25,8 @@
 <body>
 	<!-- HEADER -->
 	<?php
-		require_once('./../include/header.php');
-		//require_once('../include/connect.php');
+		require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
+		//require_once($_SERVER['DOCUMENT_ROOT'] ."/include/connect.php");
 		$idc=connect();
 	?>
 
@@ -52,8 +52,8 @@
 				}
 
 				//Initialisation des variables
-				$fichier_dossier_dest = '../'.$CF['image']['logo'];
-				//$fichier_dossier_dest = '../image/logo/';
+				$fichier_dossier_dest = '/'.$CF['image']['logo'];
+				//$fichier_dossier_dest = '/image/logo/';
 
 				//Statut modification :
 				if (!empty($id_centre)){
@@ -87,11 +87,11 @@
 			?>
 			<!-- FORMULAIRE POINT INTERET -->
 			<div id="centre_equestre">
-				<?php require_once('../form/centre_equestre.php'); ?>
+				<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/centre_equestre.php"); ?>
 			</div>
 		</div>
 	</div>
 	<!-- FOOTER -->
-	<?php require_once('../include/footer.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 </body>
 </html>

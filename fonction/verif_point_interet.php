@@ -3,15 +3,15 @@
   ini_set('display_errors', 1);
 
   //Include
-  require_once('../include/config.php');
-  require_once('../fonction/verif_upload_image.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/fonction/verif_upload_image.php');
 
   //Connexion BDD
-  require_once('../include/connect.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '../'.$CF['image']['point_interet'];
+  $fichier_dossier_dest = '/'.$CF['image']['point_interet'];
   //$fichier_dossier_dest = '../image/photo_pi/';
 
 
@@ -148,7 +148,7 @@
       echo $e->getMessage(),"\n";
     };
     //echo 'OK';
-    header("Location: ./../page/point_interet.php");
+    header("Location: /page/point_interet.php");
 
     //suppression photo du serveur
     if (!empty($photo_old) && file_exists($photo_old)){
@@ -168,7 +168,7 @@
         echo $e->getMessage(),"\n";
       };
       //echo 'OK';
-      header("Location: ./../page/point_interet.php");
+      header("Location: /page/point_interet.php");
 
       if ($fichier_a_charger==1){
         $ligne=pg_fetch_assoc($rs);
@@ -210,7 +210,7 @@
         echo $e->getMessage(),"\n";
       };
       //echo 'OK';
-      header("Location: ./../page/point_interet.php");
+      header("Location: /page/point_interet.php");
 
       //Copie photo sélectionnée sur le serveur
       if ($fichier_a_charger == 1 && !empty($photo_new)){

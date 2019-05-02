@@ -1,8 +1,9 @@
 <?php
 	ini_set('display_errors', 1);
 	session_start();
-	require_once('config.php');
-	require_once('connect.php');
+
+	require_once($_SERVER['DOCUMENT_ROOT'] ."/include/config.php");
+	require_once($_SERVER['DOCUMENT_ROOT'] ."/include/connect.php");
 
 	// Si le membre est connecté
 	if(!empty($_SESSION['membre']['id'])) {
@@ -71,7 +72,7 @@
 	<a class="navbar-brand" href="/">
 
 		<!-- LOGO -->
-		<img src="/../image/logo_peoc.png" height="50" style="margin: 0.5em;">
+		<img src="/image/logo_peoc.png" height="50" style="margin: 0.5em;">
 	</a>
 
 	<!-- LIENS MENU -->
@@ -87,10 +88,10 @@
 					    Parcours
 					  </a>
 					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
-							<a class="dropdown-item" href="page/parcours_liste_all.php">Tous les parcours</a>
+							<a class="dropdown-item" href="/page/parcours_liste_all.php">Tous les parcours</a>
 							<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
-						    <a class="dropdown-item" href="page/parcours_liste_perso.php">Mes parcours</a>
-						    <a class="dropdown-item" href="page/parcours_edition.php">Créer un parcours</a>
+						    <a class="dropdown-item" href="/page/parcours_liste_perso.php">Mes parcours</a>
+						    <a class="dropdown-item" href="/page/parcours_edition.php">Créer un parcours</a>
 							<?php } ?>
 					  </div>
 					</div>
@@ -103,9 +104,9 @@
 							 Mon profil
 						 </a>
 						 <div class="dropdown-menu" aria-labelledby="dropdown_profil">
-								<a class="dropdown-item" href="page/profil.php">Mon profil</a>
+								<a class="dropdown-item" href="/page/profil.php">Mon profil</a>
 								<?php if(isset($_SESSION['membre']['ce']['id_centre_ce']) && in_array("centre_equestre", $_SESSION['membre']['type'])) { ?>
-									<a class="dropdown-item" href="page/centre_equestre.php">Mon centre équestre</a>
+									<a class="dropdown-item" href="/page/centre_equestre.php">Mon centre équestre</a>
 								<?php } ?>
 							</div>
 						</div>
@@ -123,7 +124,7 @@
 			if(isset($_SESSION['membre']['id_membre_m'])) { ?>
 
 				<div id="msg_bienvenue">Bienvenue <?php echo($_SESSION['membre']['prenom_m']); ?></div>
-				<a href="fonction/deconnexion.php">
+				<a href="/fonction/deconnexion.php">
 					<button type="button" class="btn btn-lg btn-danger">
 						Déconnexion
 					</button>
@@ -136,7 +137,7 @@
 					Connexion
 				</button>
 
-				<a href="page/inscription.php">
+				<a href="/page/inscription.php">
 					<button type="button" class="btn btn-lg" id="bt_inscription">
 						Inscription
 					</button>
@@ -189,7 +190,7 @@
 $(document).ready(function(){
 	$("#bt_connexion").on("click", function(e) {
 		$.post(
-			'fonction/verif_connexion.php',
+			'/fonction/verif_connexion.php',
 			{
 				login : $("#login").val(),
 				mdp : $("#mdp").val()

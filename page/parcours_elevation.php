@@ -3,17 +3,17 @@
 <head>
   <title>PÉ-OC</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../css/header.css">
-  <link rel="stylesheet" type="text/css" href="../css/footer.css">
+  <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/footer.css">
 
 
-  <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/lib/jquery.min.js"></script>
 </head>
 <body>
   <!-- HEADER -->
   <?php
-  require_once('./../include/header.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
   $idc=connect();
 
 
@@ -51,7 +51,7 @@
     print('<div>');
 
   //FOOTER
-  require_once('./../include/footer.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php");
   ?>
   <script type="text/javascript">
 

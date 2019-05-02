@@ -8,16 +8,16 @@
 	<meta charset="utf-8">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./../css/header.css">
-	<link rel="stylesheet" type="text/css" href="./../css/footer.css">
-	<link rel="stylesheet" type="text/css" href="./../css/index.css">
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/footer.css">
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
 
-	<link rel="stylesheet" type="text/css" href="./../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./../css/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/leaflet.css">
 
 	<!-- JS -->
-	<script type="text/javascript" src="./../js/jquery.min.js"></script>
-	<script type="text/javascript" src="./../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
 		// Se déclenche une fois le document chargé : cache certaines div selon si checkbox cochée ou non
@@ -31,12 +31,12 @@
 </head>
 <body>
 	<?php
-		require_once('./../include/connect.php');
+		require_once($_SERVER['DOCUMENT_ROOT'] ."/include/connect.php");
 	 	$idc=connect();
 	?>
 
 	<!-- HEADER -->
-	<?php //require_once('./../include/header.php'); ?>
+	<?php //require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php"); ?>
 
 	<!-- CONTENU -->
 	<div id="contenu">
@@ -99,7 +99,7 @@
 					$duree_t = $ligne['duree_estime_t'];
 				}
 			?>
-			<form name="frm"  action="./../fonction/.php" method="post">
+			<form name="frm"  action="/fonction/.php" method="post">
 				<div id="div_point">
 					<?php
 						// Génération du code html
@@ -159,6 +159,6 @@
 			</form>
 		</div>
 	<!-- FOOTER -->
-	<?php //require_once('./../include/footer.php'); ?>
+	<?php //require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 </body>
 </html>

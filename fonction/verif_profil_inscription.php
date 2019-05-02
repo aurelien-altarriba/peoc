@@ -3,15 +3,15 @@
   ini_set('display_errors', 1);
 
   //Include
-  require_once('../include/config.php');
-  require_once('../fonction/verif_upload_image.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/fonction/verif_upload_image.php');
 
   // Connexion BDD
-  require_once('../include/connect.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '../'.$CF['image']['photo'];
+  $fichier_dossier_dest = '/'.$CF['image']['photo'];
   //$fichier_dossier_dest = '../image/photo/';
 
   //RECUPERATION VARIABLE DE SESSION
@@ -320,7 +320,7 @@
       unlink($photo_old);
     }
     //echo 'OK';
-    header("Location: ./../page/profil.php");
+    header("Location: /page/profil.php");
   }
   else {
     //Insert
@@ -395,7 +395,7 @@
       }
 
       //echo 'OK';
-      header("Location: ./../page/profil.php");
+      header("Location: /page/profil.php");
     }
     //update
     else if ($action==2){
@@ -542,7 +542,7 @@
       }
 
       //echo 'OK';
-      header("Location: ./../page/profil.php");
+      header("Location: /page/profil.php");
     }
     else {$erreur = "Aucune action réalisée";}
   }

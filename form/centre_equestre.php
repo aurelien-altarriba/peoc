@@ -1,4 +1,4 @@
-<form name="frm"  action="../fonction/verif_centre_equestre.php" method="POST" enctype="multipart/form-data">
+<form name="frm"  action="/fonction/verif_centre_equestre.php" method="POST" enctype="multipart/form-data">
   <div id="div_centre">
     <?php
       //Génération du code html

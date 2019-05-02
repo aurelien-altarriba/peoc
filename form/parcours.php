@@ -100,6 +100,6 @@
 
 </form>
 
-<form method="get" action="../page/troncon.php">
+<form method="get" action="/page/troncon.php">
   <button type="submit">Créer un tronçon</button>
 </form>

@@ -2,7 +2,7 @@
 session_start();
 
 //Connexion BDD
-require_once('../include/connect.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
 $idc = connect();
 
 // Tabkeau des coordonnées

@@ -3,15 +3,15 @@
   ini_set('display_errors', 1);
 
   //Include
-  require_once('../include/config.php');
-  require_once('../fonction/verif_upload_image.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/fonction/verif_upload_image.php');
 
   //Connexion BDD
-  require_once('../include/connect.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '../'.$CF['image']['logo'];
+  $fichier_dossier_dest = '/'.$CF['image']['logo'];
   //$fichier_dossier_dest = '../image/logo/';
 
 
@@ -135,7 +135,7 @@
       echo $e->getMessage(),"\n";
     };
     //echo 'OK';
-    header("Location: ./../page/centre_equestre.php");
+    header("Location: /page/centre_equestre.php");
 
     //Copie logo sélectionné sur le serveur
     if ($fichier_a_charger == 1 && !empty($logo_new)){

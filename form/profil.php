@@ -1,5 +1,5 @@
 
-<form name="frm"  action="../fonction/verif_profil_inscription.php" method="post" enctype="multipart/form-data">
+<form name="frm"  action="/fonction/verif_profil_inscription.php" method="post" enctype="multipart/form-data">
 	<div id="div_statut">
 		<?php
 			if ($num_licence_c!=''){

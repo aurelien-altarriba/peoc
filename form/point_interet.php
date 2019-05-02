@@ -1,4 +1,4 @@
-<form name="frm"  action="../fonction/verif_point_interet.php" method="POST" enctype="multipart/form-data">
+<form name="frm"  action="/fonction/verif_point_interet.php" method="POST" enctype="multipart/form-data">
   <div id="div_point">
     <?php
       //Génération du code html
