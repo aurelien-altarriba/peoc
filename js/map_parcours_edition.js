@@ -58,14 +58,21 @@ $(document).ready(function() {
 		cutPolygon: false,
 	});
 
-	// Tableau contenant les objets tronçons de la carte
-	tabTroncon = [];
+	// Objet contenant les coordonnées des troncons
+	tabTroncon = {};
 
 	// A chaque création de tronçon
 	map.on('pm:create', (un_troncon) => {
+		var idTroncon = un_troncon.layer._leaflet_id;
 
-		// On ajoute les coordonnées du tronçon dans le tableau
-		tabTroncon.push(un_troncon.layer.getLatLngs());
+		tabTroncon['id_' + idTroncon] = un_troncon.layer.getLatLngs();
+	});
+
+	// A chaque suppression de troncon
+	map.on('pm:remove', (un_troncon) => {
+		var idTroncon = un_troncon.layer._leaflet_id;
+
+		delete tabTroncon['id_' + idTroncon];
 	});
 
 	// Quand on clique sur le bouton pour enregistrer
@@ -130,9 +137,7 @@ $(document).ready(function() {
 			}
 		);
 
-		// insert des tronçons en ajax
+		// Insert des tronçons en ajax
 		console.log(tabTroncon);
 	});
-
-
 });
