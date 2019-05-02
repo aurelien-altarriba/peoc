@@ -45,7 +45,6 @@
 					<th>Département</th>
 					<th>Niveau équestre</th>
 					<th>Distance</th>
-					<th>Dénivelé</th>
 					<th>Durée</th>
 					<th>Autonomie</th>
 					<th>Description</th>
@@ -91,7 +90,6 @@
 	            '<td>'. $ligne['nom_d'] .'</td>'.
 	            '<td>'. $ligne['nom_ne'] .'</td>'.
 	            '<td>'. $ligne['distance_t'] .'</td>'.
-	            '<td> </td>'.
 	            '<td>'. $ligne['duree_t'] .'</td>');
 					if ($ligne['autonomie_p'] == TRUE){
 						print('<td><input type="checkbox" name="cc_auto" value="1" checked disabled></td>');

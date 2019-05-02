@@ -103,11 +103,11 @@
 
     <script type="text/javascript">
     // Récupération des informations renseignées par les cavaliers
-    // type: "G" global au parcours
+    // type: "R" global au parcours
     // 			 "L" liste de tous les commentaires
     function getData(id, type) {
     	// Récupération des commentaires
-    	$.post('fonction/recup_data_commentaire.php',
+    	$.post('/fonction/recup_data_commentaire.php',
     		// Récupération de l'ID du parcours
     		{
     			id: id,

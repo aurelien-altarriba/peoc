@@ -3,13 +3,13 @@
   $bdd = connect();
 
 	// Pour test
-	$id = 1;
-	$type = "R";
-	$liste_result = 'null';
+	//$id = 1;
+	//$type = "R";
+	//$liste_result = 'null';
 
   // Récupération des paramètres
-  //$id = $_POST['id'];
-  //$type = $_POST['type'];
+  $id = $_POST['id'];
+  $type = $_POST['type'];
 
   if ($type == 'R') {
     // Exécution de la requête et récupération des données

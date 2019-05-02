@@ -22,17 +22,21 @@
     $res = pg_query($bdd, $requete);
     $liste_troncons = pg_fetch_all($res);
 
-    // Pour chaque tronçon du parcours
-    foreach ($liste_troncons as $key2 => $value2) {
+		// Si le tableau est vide car aucun tronçon
+		if ($liste_troncons != null) {
 
-      // On ajoute le tronçon dans un tableau dans le parcours de la liste des parcours
-      $liste_parcours[$key]['troncons'][$value2['num_position_t']] = $value2;
-    }
+			// Pour chaque tronçon du parcours
+			foreach (array_filter($liste_troncons) as $key2 => $value2) {
+
+				// On ajoute le tronçon dans un tableau dans le parcours de la liste des parcours
+				$liste_parcours[$key]['troncons'][$value2['num_position_t']] = $value2;
+			}
+		}
 
 		// Requête de récupération du nombre de commentaires
 		$requete_comment = "SELECT count(commentaire_e)
-												FROM effectue
-												WHERE id_parcours_e = ". $value['id_parcours_p'];
+		FROM effectue
+		WHERE id_parcours_e = ". $value['id_parcours_p'];
 
 		$res_comment = pg_query($bdd, $requete_comment);
 		$nb_comment = pg_fetch_assoc($res_comment)['count'];

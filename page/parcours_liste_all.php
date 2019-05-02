@@ -35,7 +35,6 @@
 					<th>Département</th>
 					<th>Niveau équestre</th>
 					<th>Distance</th>
-					<th>Dénivelé</th>
 					<th>Durée</th>
 					<th>Créateur</th>
 					<th>Profil</th>
@@ -76,7 +75,6 @@
 	            '<td>'. $ligne['nom_d'] .'</td>'.
 	            '<td>'. $ligne['nom_ne'] .'</td>'.
 	            '<td>'. $ligne['distance_t'] .'</td>'.
-	            '<td> </td>'.
 	            '<td>'. $ligne['duree_t'] .'</td>');
 					if (!empty($ligne['id_membre_p'])){
 						print('<td>'. $ligne['nom_m'] .' '. $ligne['prenom_m'] .'</td>');

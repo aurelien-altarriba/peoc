@@ -80,7 +80,6 @@
 					$tel_ce = $ligne['tel_ce'];
 					$mail_ce = $ligne['mail_ce'];
 					$nb_cheval_ce = $ligne['nb_cheval_ce'];
-					$id_membre_ce = $ligne['id_membre_ce'];
 					$url_ce = $ligne['url_ce'];
 					$logo_ce = $ligne['logo_ce'];
 				}

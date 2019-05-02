@@ -5,7 +5,7 @@ function getDataCE(){
 	centres_equestres.clearLayers();
 
 	// Récupère les layers des centres équestres en POST
-	$.post('fonction/recup_data_centres_equestres.php',
+	$.post('/fonction/recup_data_centres_equestres.php',
 		function(data) {
 			var listeCE = JSON.parse(data);
 
@@ -51,7 +51,7 @@ function getDataCE(){
 
 // Affiche tout les parcours
 function getDataParcoursAll() {
-	$.post('fonction/recup_data_parcours_all.php',
+	$.post('/fonction/recup_data_parcours_all.php',
 		function(data) {
 			displayDataParcours(data);
 		}
@@ -83,7 +83,7 @@ function getDataParcoursFiltre() {
 	});
 
 	// Récupération des parcours avec le filtre
-	$.post('fonction/recup_data_filtre.php',
+	$.post('/fonction/recup_data_filtre.php',
 
 		// Valeur des filtres de recherche
 		{
@@ -107,7 +107,7 @@ function getDataTroncon(edition = false) {
 	var url = new URLSearchParams(location.search);
 
 	// Récupération des tronçons
-	$.post('fonction/recup_data_troncons_parcours.php',
+	$.post('/fonction/recup_data_troncons_parcours.php',
 
 		// Récupération de l'ID du parcours
 		{
@@ -134,7 +134,7 @@ function getDataPoint(type) {
 	var url = new URLSearchParams(location.search);
 
 	// Récupération des tronçons
-	$.post('fonction/recup_data_points_parcours.php',
+	$.post('/fonction/recup_data_points_parcours.php',
 
 		// Récupération de l'ID du parcours
 		{

@@ -189,8 +189,7 @@
 // Connexion en AJAX
 $(document).ready(function(){
 	$("#bt_connexion").on("click", function(e) {
-		$.post(
-			'/fonction/verif_connexion.php',
+		$.post('/fonction/verif_connexion.php',
 			{
 				login : $("#login").val(),
 				mdp : $("#mdp").val()
