@@ -5,8 +5,7 @@ function getDataCE(){
 	centres_equestres.clearLayers();
 
 	// Récupère les layers des centres équestres en POST
-	$.post(
-		'fonction/recup_data_centres_equestres.php',
+	$.post('fonction/recup_data_centres_equestres.php',
 		function(data) {
 			var listeCE = JSON.parse(data);
 
@@ -52,8 +51,7 @@ function getDataCE(){
 
 // Affiche tout les parcours
 function getDataParcoursAll() {
-	$.post(
-		'fonction/recup_data_parcours_all.php',
+	$.post('fonction/recup_data_parcours_all.php',
 		function(data) {
 			displayDataParcours(data);
 		}
@@ -109,7 +107,7 @@ function getDataTroncon(edition = false) {
 	var url = new URLSearchParams(location.search);
 
 	// Récupération des tronçons
-	$.post('../fonction/recup_data_troncons_parcours.php',
+	$.post('fonction/recup_data_troncons_parcours.php',
 
 		// Récupération de l'ID du parcours
 		{
@@ -136,7 +134,7 @@ function getDataPoint(type) {
 	var url = new URLSearchParams(location.search);
 
 	// Récupération des tronçons
-	$.post('../fonction/recup_data_points_parcours.php',
+	$.post('fonction/recup_data_points_parcours.php',
 
 		// Récupération de l'ID du parcours
 		{
@@ -185,7 +183,7 @@ function displayDataParcours(data) {
 
 		// On ajoute le parcours à la liste
 		$("#resParcours .list-group").append(
-		'<a href="page/parcours.php?id='+ un_parcours['id_parcours_p'] +'">'+
+		'<a href="/page/parcours.php?id='+ un_parcours['id_parcours_p'] +'">'+
 			'<li class="list-group-item niveau'+ un_parcours['id_niveau_p'] +'" id="parcours'+ un_parcours['id_parcours_p'] +'">'+
 				un_parcours['nom_p'] +
 				'<span class="badge badge-primary badge-pill">'+ un_parcours['comment'] +' 💬</span>'+
@@ -278,7 +276,7 @@ function displayDataTroncon(data) {
 	// On créé les marqueurs de debut et de fin de parcours
 	var marqueur_depart = new L.marker(debut, {
 			icon: L.icon({
-				iconUrl: '../image/depart_parcours.png',			// URL de l'image
+				iconUrl: '/image/depart_parcours.png',			// URL de l'image
 				iconSize: [25, 25],												// Taille de l'image
 				popupAnchor: [0, 0]											// Position d'ouverture de la popup
 			})
@@ -287,7 +285,7 @@ function displayDataTroncon(data) {
 
 	var marqueur_fin = new L.marker(fin, {
 			icon: L.icon({
-				iconUrl: '../image/arrivee_parcours.png',			// URL de l'image
+				iconUrl: '/image/arrivee_parcours.png',			// URL de l'image
 				iconSize: [25, 25],												// Taille de l'image
 				popupAnchor: [0, 0]											// Position d'ouverture de la popup
 			})
@@ -319,7 +317,7 @@ function displayDataPoint(data, type) {
 			// On créé le marqueur
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
-						iconUrl: '../image/ce.png',			// URL de l'image
+						iconUrl: '/image/ce.png',			// URL de l'image
 						iconSize: [20, 20],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
@@ -358,7 +356,7 @@ function displayDataPoint(data, type) {
 			// On créé le marqueur
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
-						iconUrl: '../image/ce.png',			// URL de l'image
+						iconUrl: '/image/ce.png',			// URL de l'image
 						iconSize: [20, 20],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
@@ -446,11 +444,11 @@ function displayDataTronconEdition(data) {
 
 	// Affichage des noeuds de chaque tronçon
 	var iconT = L.icon({
-		iconUrl: '../image/marker.png',
-		shadowUrl: '../image/marker-shadow.png',
+		iconUrl: '/image/marker.png',
+		shadowUrl: '/image/marker-shadow.png',
 		iconSize: [15, 15]
 	});
-	L.Icon.Default.imagePath = "../image/";
+	L.Icon.Default.imagePath = "/image/";
 	$.each(tab_coord, function(keyT,valTroncon){
 		$.each(valTroncon, function(keyP,valPoint){
 			//console.log(valPoint);

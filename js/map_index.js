@@ -88,7 +88,7 @@ $(document).ready(function() {
 
 		centres_equestres.eachLayer(function(layer) {
 			return layer.setIcon( L.icon({
-				iconUrl: 'image/ce.png',											// URL de l'image
+				iconUrl: '/image/ce.png',											// URL de l'image
 				iconSize: [currentZoom, currentZoom],					// Taille de l'image
 				popupAnchor: [0, ((currentZoom / 2) * -1)]		// Position d'ouverture de la popup
 			}))
@@ -103,7 +103,7 @@ $(document).ready(function() {
 
 /*
 	//Centres équestre
-	$.ajax("../fonction/recup_data_map.php",{
+	$.ajax("/fonction/recup_data_map.php",{
 		data:{
 			table: "centre_equestre",
 			//fields: fields_centres
@@ -115,7 +115,7 @@ $(document).ready(function() {
 	});
 
 	//Tronçons
-	$.ajax("../fonction/recup_data_map.php",{
+	$.ajax("/fonction/recup_data_map.php",{
 		data:{
 			table: "troncon",
 			//fields: fields_troncons
@@ -200,8 +200,8 @@ function displayDataMap(typeData){
 		};
 
 		var redIcon = L.icon({
-			iconUrl: '../image/leaf-red.png',
-			shadowUrl: '../image/leaf-shadow.png',
+			iconUrl: '/image/leaf-red.png',
+			shadowUrl: '/image/leaf-shadow.png',
 			iconSize:     [38, 95], // size of the icon
 			shadowSize:   [50, 64], // size of the shadow
 			iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location

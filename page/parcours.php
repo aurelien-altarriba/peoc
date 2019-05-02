@@ -1,11 +1,11 @@
 <?php
 	// Si l'id n'est pas définie dans l'URL
  	if(!isset($_GET['id'])) {
-		header('Location: ../');
+		header('Location: /');
 
 	// Si l'id n'est pas un entier et valide
 	} else if( ((int) htmlspecialchars($_GET['id'])) <= 0) {
-		header('Location: ../');
+		header('Location: /');
 	}
 
 	// Si l'id est bon on le récupère
@@ -19,27 +19,27 @@
 		<meta charset="utf-8">
 
 		<!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/leaflet.css">
 
-		<link rel="stylesheet" type="text/css" href="../css/header.css">
-		<link rel="stylesheet" type="text/css" href="../css/footer.css">
-		<link rel="stylesheet" type="text/css" href="../css/parcours.css">
+		<link rel="stylesheet" type="text/css" href="/css/header.css">
+		<link rel="stylesheet" type="text/css" href="/css/footer.css">
+		<link rel="stylesheet" type="text/css" href="/css/parcours.css">
 
 		<!-- JS -->
-		<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
-		<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
-		<script type="text/javascript" src="../js/lib/leaflet.js"></script>
-		<script type="text/javascript" src="../js/lib/leaflet.active-layers.min.js"></script>
+		<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/lib/leaflet.js"></script>
+		<script type="text/javascript" src="/js/lib/leaflet.active-layers.min.js"></script>
 
-		<script type="text/javascript" src="../js/fonctionsData.js"></script>
-		<script type="text/javascript" src="../js/map_parcours.js"></script>
+		<script type="text/javascript" src="/js/fonctionsData.js"></script>
+		<script type="text/javascript" src="/js/map_parcours.js"></script>
 	</head>
 
 	<body>
 		<?php
 			// HEADER
-			require_once('../include/header.php');
+			require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
 			$bdd = connect();
 
 			// On récupère les données du parcours
@@ -96,10 +96,10 @@
 		</div>
 
 		<!-- Formulaire -->
-		<?php //require_once('../form/parcours.php'); ?>
+		<?php //require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours.php"); ?>
 
 		<!-- FOOTER -->
-		<?php require_once('../include/footer.php'); ?>
+		<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 
     <script type="text/javascript">
     // Récupération des informations renseignées par les cavaliers
@@ -107,7 +107,7 @@
     // 			 "L" liste de tous les commentaires
     function getData(id, type) {
     	// Récupération des commentaires
-    	$.post('../fonction/recup_data_commentaire.php',
+    	$.post('fonction/recup_data_commentaire.php',
     		// Récupération de l'ID du parcours
     		{
     			id: id,

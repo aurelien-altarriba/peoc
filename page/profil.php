@@ -8,22 +8,22 @@
 	<meta charset="utf-8">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="../css/header.css">
-	<link rel="stylesheet" type="text/css" href="../css/footer.css">
-	<link rel="stylesheet" type="text/css" href="../css/index.css">
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/footer.css">
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
 
-	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/lib/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/lib/leaflet.css">
 
 	<!-- JS -->
-	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- HEADER -->
-	<?php require_once('./../include/header.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php"); ?>
 	<?php
-		//require_once('../include/connect.php');
+		//require_once($_SERVER['DOCUMENT_ROOT'] ."/include/connect.php");
 		$idc=connect();
 	?>
 
@@ -46,8 +46,8 @@
 				}
 
 				// Initialisation des variables
-				$fichier_dossier_dest = '../'.$CF['image']['photo'];
-				//$fichier_dossier_dest = '../image/photo/';
+				$fichier_dossier_dest = '/'.$CF['image']['photo'];
+				//$fichier_dossier_dest = '/image/photo/';
 
 				// Statut inscrit : visualisation /modification du profil
 				if ($id_membre != ''){
@@ -58,7 +58,7 @@
 								INNER JOIN info_connexion ON id_membre_ic = id_membre_m
 								LEFT JOIN cavalier ON id_membre_c = id_membre_m
 								LEFT JOIN niveau_equestre ON id_niveau_ne = id_niveau_c
-								LEFT JOIN centre_equestre ON id_membre_ce = id_membre_m 
+								LEFT JOIN centre_equestre ON id_membre_ce = id_membre_m
 								WHERE id_membre_m = '.$id_membre;
 
 					try{
@@ -93,12 +93,12 @@
 			?>
 			<!-- FORMULAIRE PROFIL MEMBRE -->
 			<div id="profil">
-				<?php require_once('../form/profil.php'); ?>
+				<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/profil.php"); ?>
 			</div>
 		</div>
 	</div>
 	<!-- FOOTER -->
-	<?php require_once('./../include/footer.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 	<script type="text/javascript">
 	//Déclenché une fois le document chargé : cache certaines div selon si checkbox cochée ou non
 	$(document).ready(function(){

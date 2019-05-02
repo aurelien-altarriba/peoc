@@ -83,12 +83,12 @@ $(document).ready(function() {
 
 		// Si on modifie le parcours
 		if (url.get('id')) {
-			var chemin = "../fonction/verif_parcours_modification.php";
+			var chemin = "/fonction/verif_parcours_modification.php";
 		}
 
 		// Si on créé le parcours
 		else {
-			var chemin = "../fonction/verif_parcours_creation.php";
+			var chemin = "/fonction/verif_parcours_creation.php";
 		}
 
 		// Mise à jour du parcours
@@ -109,7 +109,7 @@ $(document).ready(function() {
 				if (Number(id_parcours_p)) {
 
 					// On met à jour les tronçons
-					$.post("../fonction/verif_troncon.php",
+					$.post("/fonction/verif_troncon.php",
 						{
 							listeTroncons: JSON.stringify(tabTroncon)
 						},

@@ -3,10 +3,10 @@
   ini_set('display_errors', 1);
 
   //Include
-  require_once('../include/config.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
 
   //Connexion BDD
-  require_once('../include/connect.php');
+  require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $idc = connect();
 
 
@@ -95,7 +95,7 @@
       echo $e->getMessage(),"\n";
     };
     //echo 'OK';
-    header("Location: ./../page/parcours.php");
+    header("Location: /page/parcours.php");
   }
   //Insert
   else if ($action==1){
@@ -109,7 +109,7 @@
       echo $e->getMessage(),"\n";
     };
     //echo 'OK';
-    header("Location: ./../page/parcours.php");
+    header("Location: /page/parcours.php");
     }
   else { $erreur = "Aucune action réalisée"; }
 

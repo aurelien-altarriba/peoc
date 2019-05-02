@@ -3,7 +3,7 @@ ini_set('display_errors', 0);
 session_start();
 
 //Connexion BDD
-require_once('../include/connect.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
 $idc = connect();
 
 // Création des variables recupérant les données du formulaire

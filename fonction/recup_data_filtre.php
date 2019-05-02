@@ -1,5 +1,5 @@
 <?php
-	require_once('../include/connect.php');
+	require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $bdd = connect();
 
 	// Récupération des variables
