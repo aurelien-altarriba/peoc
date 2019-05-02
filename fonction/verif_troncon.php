@@ -1,12 +1,21 @@
 <?php
+ini_set('display_errors', 1);
+
 session_start();
 
 //Connexion BDD
 require_once('../include/connect.php');
 $idc = connect();
 
-// Tabkeau des coordonnées
-$listeTroncons = json_decode($_POST['listeTroncons']);
+// Tableau des coordonnées
+// $listeTroncons = json_decode($_POST['listeTroncons']);
+
+$test = json_decode('{"id_108":[{"lat":43.73786614486672,"lng":0.24075061317786697},{"lat":44.03903420665632,"lng":1.5648368261944336},{"lat":44.37799275153152,"lng":3.108688385769765}],"id_132":[{"lat":43.29526688349406,"lng":0.6857754399593753},{"lat":43.7497832247868,"lng":2.7790403659316185},{"lat":43.102867411770774,"lng":2.0922736579354684},{"lat":43.76169793239583,"lng":1.7736139054252398}]}');
+
+echo'<pre>';
+print_r($test);
+echo'</pre>';
+
 
 /*
 
