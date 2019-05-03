@@ -34,18 +34,20 @@
 					<th>Date publication</th>
 					<th>Département</th>
 					<th>Niveau équestre</th>
+					<th>Autonomie</th>
 					<th>Distance</th>
 					<th>Durée</th>
 					<th>Créateur</th>
 					<th>Profil</th>
-					<th>Autonomie</th>
 					<th>Description</th>
 				</tr>
 			</thead>
 
 			<tbody>
   			<?php
-      	// Requête SQL
+      	// Requête SQL st_length(ST_Transform(geom_t,4326)::geography))
+				//INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+				//ST_Transform(geom_t,4326)::geography)
 				$sql = "SELECT id_parcours_p, nom_p, autonomie_p, visible_p, dt_publication_p, id_niveau_p, nom_ne, id_departement_p,
 									nom_d, id_membre_p, nom_m, prenom_m, id_centre_p, nom_ce, description_p, duree_t, distance_t
 								FROM parcours AS p
@@ -73,8 +75,14 @@
 	            '<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
 	            '<td>'. $ligne['dt_publication_p'] .'</td>'.
 	            '<td>'. $ligne['nom_d'] .'</td>'.
-	            '<td>'. $ligne['nom_ne'] .'</td>'.
-	            '<td>'. $ligne['distance_t'] .'</td>'.
+	            '<td>'. $ligne['nom_ne'] .'</td>');
+					if ($ligne['autonomie_p'] == TRUE){
+						print('<td><input type="checkbox" name="cc_auto" value="1" checked disabled></td>');
+					}
+					else {
+						print('<td><input type="checkbox" name="cc_auto" value="1" disabled></td>');
+					}
+          print( '<td>'. $ligne['distance_t'] .'</td>'.
 	            '<td>'. $ligne['duree_t'] .'</td>');
 					if (!empty($ligne['id_membre_p'])){
 						print('<td>'. $ligne['nom_m'] .' '. $ligne['prenom_m'] .'</td>');
@@ -83,12 +91,6 @@
 					else {
 						print('<td>'. $ligne['nom_ce'] .'</td>');
 						print('<td>Centre</td>');
-					}
-					if ($ligne['autonomie_p'] == TRUE){
-						print('<td><input type="checkbox" name="cc_auto" value="1" checked disabled></td>');
-					}
-					else {
-						print('<td><input type="checkbox" name="cc_auto" value="1" disabled></td>');
 					}
 	        print('<td>'. $ligne['description_p'] .'</td>'.
 					'</tr>');

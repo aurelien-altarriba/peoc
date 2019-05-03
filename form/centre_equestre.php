@@ -1,10 +1,25 @@
 <form name="frm"  action="/fonction/verif_centre_equestre.php" method="POST" enctype="multipart/form-data">
   <div id="div_centre">
-    <?php
-      //Génération du code html
-      // !!! Sous firefox pb positionnement des listes de valeur sur la valeur par défaut
-      print('Numéro du centre équestre : <input type="text" name="zs_centre_ce" id="zs_centre_ce" value="'.$id_centre_ce.'" disabled="disabled"/><br/>'."\n");
-      print('Nom : <input type="text" name="zs_nom_ce" value="'.$nom_ce.'" disabled="disabled"/><br/>'."\n");
+
+      <div class="form-group">
+        <label for="zs_centre_ce">Numéro du centre équestre </label>
+        <input type="text" class="form-control" name="zs_centre_ce" id="zs_centre_ce" value="<?php echo($id_centre_ce)?>" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="zs_nom_ce">Nom </label>
+        <input type="text" class="form-control" name="zs_nom_ce" id="zs_nom_ce" value="<?php echo($nom_ce)?>" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="zs_nom_ce">Adresse </label>
+        <input type="text" class="form-control" name="zs_adresse_ce" value="<?php echo($adresse_ce)?>" readonly>
+      </div>
+
+
+
+<?php
+
       print('Adresse : <input type="text" name="zs_adresse_ce" value="'.$adresse_ce.'" disabled="disabled"/><br/>'."\n");
       print('Code postal : <input type="text" name="zs_cp_ce" value="'.$cp_ce.'" disabled="disabled"/><br/>'."\n");
       print('Ville : <input type="text" name="zs_ville_ce" value="'.$ville_ce.'" disabled="disabled"/><br/>'."\n");
@@ -14,6 +29,8 @@
       print('Nombre de chevaux : <input type="number" name="zs_nb_cheval_ce" id="zs_nb_cheval_ce" value="'.$nb_cheval_ce.'" /><br/>'."\n");
       print('Url site : <input type="text" name="zs_url_ce" id="zs_url_ce" value="'.$url_ce.'"/><br/>'."\n");
       print('Logo : <input type="file" name="zs_logo_up"/>');
+
+
       if (!empty($logo_ce)){
         $logo_ce = $fichier_dossier_dest.$logo_ce;
       }

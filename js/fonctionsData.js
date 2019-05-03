@@ -317,25 +317,22 @@ function displayDataPoint(data, type) {
 			// On créé le marqueur
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
-						iconUrl: '/image/ce.png',			// URL de l'image
-						iconSize: [20, 20],							// Taille de l'image
+						iconUrl: '/image/pi.png',			// URL de l'image
+						iconSize: [20, 15],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
 				}
 			);
 
 			// On créé le contenu en HTML
-			var popup_contenu = '<h1>TEST</h1>';
-			// '<div class="popup_CE">'+
-			// 	'<img src="image/logo/'+ CE['logo_ce'] +'"></img>'+
-			// 	'<h2>'+ CE['nom_ce'] +'</h2>'+
-			// 	'<hr>'+
-			// 	'<div><b>Adresse :</b> '+ CE['adresse_ce'] +' '+ CE['cp_ce'] +' '+ CE['ville_ce'] +' ('+ CE['id_departement_ce'] +')</div>'+
-			// 	'<div><b>Tel :</b> '+ CE['tel_ce'] +'</div>'+
-			// 	'<div><b>Mail :</b> <a href="mailto:'+ CE['mail_ce'] +'">'+ CE['mail_ce'] +'</a></div>'+
-			// 	'<div><b>Site web :</b> <a href="'+ CE['url_ce'] +'" target="_blank">'+ CE['url_ce'] +'</a></div>'+
-			// 	'<div><b>Nombre de chevaux :</b> '+ CE['nb_cheval_ce'] +'</div>'+
-			// '</div>';
+			var popup_contenu =
+			 '<div class="popup_PT">'+
+			 	'<img src="image/logo/'+ point['photo_pi'] +'"></img>'+
+			 	'<h2>'+ point['nom_pic'] +'</h2>'+
+			 	'<hr>'+
+			 	'<div><b>Description :</b> '+ point['description_pi'] +'</div>'+
+			 	'<div><b>Site web :</b> <a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a></div>'+
+			 '</div>';
 
 			// Ajoute le contenu HTML dans une popup au marqueur
 			marqueur.bindPopup(popup_contenu);
@@ -356,7 +353,7 @@ function displayDataPoint(data, type) {
 			// On créé le marqueur
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
-						iconUrl: '/image/ce.png',			// URL de l'image
+						iconUrl: '/image/pv.png',			// URL de l'image
 						iconSize: [20, 20],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
@@ -364,17 +361,17 @@ function displayDataPoint(data, type) {
 			);
 
 			// On créé le contenu en HTML
-			var popup_contenu = '<h1>TEST</h1>';
-			// '<div class="popup_CE">'+
-			// 	'<img src="image/logo/'+ CE['logo_ce'] +'"></img>'+
-			// 	'<h2>'+ CE['nom_ce'] +'</h2>'+
-			// 	'<hr>'+
-			// 	'<div><b>Adresse :</b> '+ CE['adresse_ce'] +' '+ CE['cp_ce'] +' '+ CE['ville_ce'] +' ('+ CE['id_departement_ce'] +')</div>'+
-			// 	'<div><b>Tel :</b> '+ CE['tel_ce'] +'</div>'+
-			// 	'<div><b>Mail :</b> <a href="mailto:'+ CE['mail_ce'] +'">'+ CE['mail_ce'] +'</a></div>'+
-			// 	'<div><b>Site web :</b> <a href="'+ CE['url_ce'] +'" target="_blank">'+ CE['url_ce'] +'</a></div>'+
-			// 	'<div><b>Nombre de chevaux :</b> '+ CE['nb_cheval_ce'] +'</div>'+
-			// '</div>';
+			var popup_contenu =
+			'<div class="popup_PT">'+
+			 '<img src="image/logo/'+ point['photo_pv'] +'"></img>'+
+			 '<h2>'+ point['nom_pvc'] +'</h2>'+
+			 '<hr>'+
+			 '<div><b>Description :</b> '+ point['description_pv'] +'</div>'+
+			 '<div><b>Date de début :</b> '+ point['dt_debut_pv'] +'</div>'+
+			 '<div><b>Date de fin :</b> '+ point['dt_fin_pv'] +'</div>'+
+			 '<div><b>Signalé par :</b> '+ point['id_membre_pv'] + ' - ' + point['nom_m'] + ' ' + point['prenom_m'] +'</div>'+
+			 '<div><b>Le :</b> '+ point['dt_creation_pv'] +'</div>'+
+			'</div>';
 
 			// Ajoute le contenu HTML dans une popup au marqueur
 			marqueur.bindPopup(popup_contenu);

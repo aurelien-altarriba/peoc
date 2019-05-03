@@ -115,3 +115,29 @@
 	padding: 0.3em;
 	border-radius: 0.5em;
 }
+
+
+
+/*** POPUP POINT ***/
+.popup_PT
+{
+	text-align: center;
+}
+
+.popup_PT img
+{
+	max-width: 80%;
+	max-height: 15em;
+	margin-bottom: 1em;
+}
+
+.popup_PT h2
+{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.popup_PT hr
+{
+	margin: 0.5em;
+}

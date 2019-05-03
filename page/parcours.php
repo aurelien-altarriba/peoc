@@ -48,7 +48,14 @@
 
 			// On récupère les données du parcours
 			try {
-				$res = pg_query_params($bdd, 'SELECT * FROM parcours WHERE id_parcours_p = $1', array($id_parcours));
+				$res = pg_query_params($bdd, 'SELECT * FROM parcours
+                                              INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+                                              FROM troncon WHERE id_hierarchie_t = $2 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  $1
+                                              LEFT JOIN (SELECT id_parcours_pv, COUNT(*) AS nb_pv
+                                              FROM point_vigilance GROUP BY id_parcours_pv) AS pv ON pv.id_parcours_pv =  $1
+                                              LEFT JOIN (SELECT id_parcours_pi, COUNT(*) AS nb_pi
+                                              FROM point_interet GROUP BY id_parcours_pi) AS pi ON pi.id_parcours_pi =  $1
+                                              WHERE id_parcours_p = $1', array($id_parcours,1));
 				$parcours = pg_fetch_all($res)[0];
 			} catch(Exception $e) {
 				echo('erreur : '. $e);
@@ -74,6 +81,19 @@
 			} catch(Exception $e) {
 				echo('erreur : '. $e);
 			}
+
+      // On récupère les données des tronçons du parcours
+			try {
+				$res = pg_query_params($bdd, 'SELECT * FROM troncon
+                                      INNER JOIN niveau_terrain ON id_niveau_nt = id_niveau_t
+                                      INNER JOIN type_terrain ON id_type_tt = id_type_t
+                                      INNER JOIN hierarchie ON id_hierarchie_h = id_hierarchie_t
+                                      WHERE id_parcours_t = $1
+                                      ORDER BY num_position_t', array($id_parcours));
+				$troncons = pg_fetch_all($res);
+			} catch(Exception $e) {
+				echo('erreur : '. $e);
+			}
 		?>
 
 		<div id="contenu">
@@ -83,7 +103,20 @@
 				<div class="autonomie">En autonomie : <span class=<?php echo $parcours['autonomie_p'] ? '"vrai">OUI' : '"faux">NON';?></span></div>
 				<div class="niveau">Niveau : <span class="niveau<?php echo $parcours['id_niveau_p']; ?>"><?php echo $parcours_rel['nom_ne']; ?></span></div>
 				<div class="departement">Département : <b><?php echo $parcours_rel['nom_d']; ?> (<?php echo $parcours['id_departement_p']; ?>)</b></div>
-				<div class="description"><?php echo $parcours['description_p']; ?></div>
+        <div class="interet">Nombre de points d'intérêt : <b><?php echo $parcours['nb_pi']; ?></b></div>
+        <div class="vigilance">Nombre de points de vigilance : <b><?php echo $parcours['nb_pv']; ?></b></div>
+        <div class="dureeestime">Durée estimée : <b><?php echo $parcours['duree_t']; ?></b></div>
+        <div class="distance">Distance : <b><?php echo $parcours['distance_t']; ?></b></div>
+        <div class="description"><?php echo $parcours['description_p']; ?></div>
+        <div id="listeTroncon"> Liste des tronçons du parcours :
+          <ul class="list-group">
+            <?php
+            foreach ($troncons as $key => $value) {
+              print('<li><p><small>Position : '.strval($value['num_position_t']).' - Hiérarchie : '.$value['nom_h'].' - Difficultée : '.$value['nom_nt'].' - Type terrain : '.$value['nom_tt'].' - Durée estimée : '.strval($value['duree_estime_t']).'</small></p></li>');
+            }
+            ?>
+          </ul>
+        </div>
 			</div>
 
 			<div id="colonneDroite">
@@ -133,12 +166,12 @@
       // données récapitulatives au parcours
     	if (type == "R") {
     		$.each(data, function(index, recap) {
-      		$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' / Note moyenne : '+recap.moynote+' / Durée réelle moyenne : '+recap.dureereelle+'</li>');
+      		$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' - Note moyenne : '+recap.moynote+' - Durée réelle moyenne : '+recap.dureereelle+'</li>');
     		});
       // liste des commentaires
     	} else if (type == "L") {
     		$.each(data, function(index, com) {
-    		$("#resComment .list-group").append('<li class="list-group-item"> Date : '+com.datejour+' / Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' / Note : '+com.note_e+' / Durée : '+com.duree_reel_e+' / Commentaire : '+com.commentaire_e+'</li>');
+    		$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
     		});
     	}
     }

@@ -44,9 +44,9 @@
 					<th>Date publication</th>
 					<th>Département</th>
 					<th>Niveau équestre</th>
+					<th>Autonomie</th>
 					<th>Distance</th>
 					<th>Durée</th>
-					<th>Autonomie</th>
 					<th>Description</th>
 				</tr>
 			</thead>
@@ -88,15 +88,15 @@
 							'<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
 	            '<td>'. $ligne['dt_publication_p'] .'</td>'.
 	            '<td>'. $ligne['nom_d'] .'</td>'.
-	            '<td>'. $ligne['nom_ne'] .'</td>'.
-	            '<td>'. $ligne['distance_t'] .'</td>'.
-	            '<td>'. $ligne['duree_t'] .'</td>');
+	            '<td>'. $ligne['nom_ne'] .'</td>');
 					if ($ligne['autonomie_p'] == TRUE){
-						print('<td><input type="checkbox" name="cc_auto" value="1" checked disabled></td>');
+						print('<td><input type="checkbox" name="cc_auto" value="1" checked></td>');
 					}
 					else {
-						print('<td><input type="checkbox" name="cc_auto" value="1" disabled></td>');
+						print('<td><input type="checkbox" name="cc_auto" value="1"></td>');
 					}
+	          print('<td>'. $ligne['distance_t'] .'</td>'.
+	            '<td>'. $ligne['duree_t'] .'</td>');
 	        print('<td>'. $ligne['description_p'] .'</td>'.
 					'</tr>');
          }

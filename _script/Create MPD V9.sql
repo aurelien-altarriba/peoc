@@ -351,3 +351,12 @@ ALTER TABLE public.zone_allure 		ADD CONSTRAINT FK_zone_allure_id_parcours_za 		
 --- Ajout de la colonne altitude dans la table tronçon :
 --- va contenir une chaine de caractères avec les altitudes des points constituant le tronçon.
 --- ALTER TABLE public.troncon ADD COLUMN liste_z_t VARCHAR (2000);
+
+
+
+--- Changement de SRID de 3857 vers 4326 afin de faciliter l'utilisation de fonction pour les calculs
+SELECT updateGeometrySRID('centre_equestre', 'geom_ce', 4326);
+SELECT updateGeometrySRID('point_interet', 'geom_pi', 4326);
+SELECT updateGeometrySRID('point_vigilance', 'geom_pv', 4326);
+SELECT updateGeometrySRID('zone_allure', 'geom_za', 4326);
+SELECT updateGeometrySRID('troncon', 'geom_t', 4326);
