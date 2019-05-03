@@ -13,15 +13,21 @@
 
       <div class="form-group">
         <label for="zs_nom_ce">Adresse </label>
-        <input type="text" class="form-control" name="zs_adresse_ce" value="<?php echo($adresse_ce)?>" readonly>
+        <input type="text" class="form-control" name="zs_adresse_ce" id="zs_adresse_ce" value="<?php echo($adresse_ce)?>" readonly>
       </div>
 
+      <div class="form-group">
+        <label for="zs_nom_ce">Code postal </label>
+        <input type="text" class="form-control" name="zs_cp_ce" id="zs_cp_ce" value="<?php echo(cp_ce)?>" readonly>
+      </div>
 
+      <div class="form-group">
+        <label for="zs_nom_ce">Adresse </label>
+        <input type="text" class="form-control" name="zs_adresse_ce" id="zs_adresse_ce" value="<?php echo($adresse_ce)?>" readonly>
+      </div>
 
 <?php
 
-      print('Adresse : <input type="text" name="zs_adresse_ce" value="'.$adresse_ce.'" disabled="disabled"/><br/>'."\n");
-      print('Code postal : <input type="text" name="zs_cp_ce" value="'.$cp_ce.'" disabled="disabled"/><br/>'."\n");
       print('Ville : <input type="text" name="zs_ville_ce" value="'.$ville_ce.'" disabled="disabled"/><br/>'."\n");
       print('Département : <input type="text" name="zs_id_departement_ce" value="'.$id_departement_ce.'" disabled="disabled"/><br/>'."\n");
       print('Téléphone : <input type="text" name="zs_tel_ce" id="zs_tel_ce" value="'.$tel_ce.'" required="required"/><br/>'."\n");
