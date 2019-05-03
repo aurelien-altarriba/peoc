@@ -34,6 +34,10 @@
 
 		<script type="text/javascript" src="/js/fonctionsData.js"></script>
 		<script type="text/javascript" src="/js/map_parcours.js"></script>
+
+    <!-- A SUPPRIMER -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.css">
+    <script src="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.js"></script>
 	</head>
 
 	<body>
