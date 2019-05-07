@@ -325,14 +325,20 @@ function displayDataPoint(data, type) {
 			);
 
 			// On créé le contenu en HTML
-			var popup_contenu =
-			 '<div class="popup_PT">'+
-			 	'<img src="image/logo/'+ point['photo_pi'] +'"></img>'+
-			 	'<h2>'+ point['nom_pic'] +'</h2>'+
+			var popup_contenu = '<div class="popup_PT">';
+			if(point['photo_pi']!=null){
+				popup_contenu += '<img src="../image/photo_pi/'+ point['photo_pi'] +'"></img>';
+			}
+			else{
+			 	popup_contenu += '<img src="../image/pi2.png"></img>';
+			}
+			popup_contenu += '<h2>'+ point['nom_pic'] +'</h2>'+
 			 	'<hr>'+
 			 	'<div><b>Description :</b> '+ point['description_pi'] +'</div>'+
 			 	'<div><b>Site web :</b> <a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a></div>'+
 			 '</div>';
+
+			 console.log(popup_contenu);
 
 			// Ajoute le contenu HTML dans une popup au marqueur
 			marqueur.bindPopup(popup_contenu);
@@ -361,10 +367,15 @@ function displayDataPoint(data, type) {
 			);
 
 			// On créé le contenu en HTML
-			var popup_contenu =
-			'<div class="popup_PT">'+
-			 '<img src="image/logo/'+ point['photo_pv'] +'"></img>'+
-			 '<h2>'+ point['nom_pvc'] +'</h2>'+
+			var popup_contenu = '<div class="popup_PT">';
+			console.log(point['photo_pv']);
+			if(point['photo_pv']!=null){
+				popup_contenu += '<img src="../image/photo_pv/'+ point['photo_pv'] +'"></img>';
+			}
+			else{
+			 	popup_contenu += '<img src="../image/pv2.png"></img>';
+			}
+			 popup_contenu += '<h2>'+ point['nom_pvc'] +'</h2>'+
 			 '<hr>'+
 			 '<div><b>Description :</b> '+ point['description_pv'] +'</div>'+
 			 '<div><b>Date de début :</b> '+ point['dt_debut_pv'] +'</div>'+
