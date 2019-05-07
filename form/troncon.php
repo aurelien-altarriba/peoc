@@ -1,8 +1,26 @@
-<form method="post" action="/fonction/verif_troncon.php">
+<?php
+  if (isset($_POST['id'])) {
+    $id = htmlspecialchars($_POST['id']);
+  }
+?>
+
+<tr>
+  <th scope="row">
+    <input type="number" class="form-control" name="zs_num_position_t" id="zs_num_position_t" required>
+  </th>
+
+  <td>Mark</td>
+  <td>Otto</td>
+  <td>@mdo</td>
+</tr>
+
+<form class="ligne_troncon" <?php if (isset($_POST['id'])) { echo('id="id_' . $id . '"'); }?> >
 
   <!-- Zone de saisie de la durée estimée du tronçon -->
-  <div>
-    <label for="zs_duree_estime_t">Durée estimée (minutes) </label> <input type="number" name="zs_duree_estime_t" id="zs_duree_estime_t" required>
+  <div class="form-group">
+    <label for="zs_duree_estime_t">Durée estimée (en minutes)</label>
+    <input type="number" class="form-control" name="zs_duree_estime_t" id="zs_duree_estime_t"
+      placeholder="Temps en minutes du trajet" required>
   </div>
 
   <!-- Choix du type du tronçon -->

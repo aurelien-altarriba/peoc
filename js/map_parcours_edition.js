@@ -61,11 +61,20 @@ $(document).ready(function() {
 	// Objet contenant les coordonnées des troncons
 	tabTroncon = {};
 
-	// A chaque création de tronçon
+	// A chaque création de tronçon sur la carte
 	map.on('pm:create', (un_troncon) => {
 		var idTroncon = un_troncon.layer._leaflet_id;
 
 		tabTroncon['id_' + idTroncon] = un_troncon.layer.getLatLngs();
+
+		$.post('/form/troncon.php',
+			{
+				id: idTroncon
+			},
+			function(data) {
+				$('#contenuTroncon').append(data);
+			}
+		)
 	});
 
 	// A chaque suppression de troncon

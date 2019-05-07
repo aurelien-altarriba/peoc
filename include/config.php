@@ -7,7 +7,8 @@ $CF = [
     "photo" => "/image/photo/",
     "logo" => "/image/logo/",
   ],
-  "srid"=>"3857"
+
+  "srid" => "3857",
 ];
 
 // Exemple d'appel

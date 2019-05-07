@@ -1,0 +1,22 @@
+#contenu
+{
+	min-height: 70vh !important;
+	height: none !important;
+}
+
+#colonneDroite
+{
+	min-height: 100% !important;
+	height: none !important;
+}
+
+#map
+{
+	height: 70vh !important;
+	min-height: 70vh !important;
+}
+
+#listeTroncons
+{
+	margin-top: 1em;
+}
