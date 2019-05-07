@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
 	require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
 
   $bdd = connect();
@@ -7,7 +9,7 @@
 		// Requête de récupération des centres équestres
     $requete =
 			"SELECT id_centre_ce, nom_ce, adresse_ce, cp_ce, ville_ce, id_departement_ce, tel_ce, mail_ce, nb_cheval_ce, id_membre_ce, url_ce, logo_ce,
-        ST_AsGeoJSON(ST_Transform(geom_ce,3857))
+        ST_AsGeoJSON(ST_Transform(geom_ce,".$CF['srid']."))
       FROM centre_equestre;";
 
     $res = pg_query($bdd, $requete);
