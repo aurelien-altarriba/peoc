@@ -78,10 +78,6 @@
 	<!-- LIENS MENU -->
 	<div class="collapse navbar-collapse" id="navLiens">
 		<ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="navigation">
-			<li class="nav-item active">
-				<a class="nav-link" href="/">Accueil</a>
-			</li>
-
 				<li class="nav-item">
 					<div class="dropdown">
 					  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown_parcours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,6 +90,17 @@
 						    <a class="dropdown-item" href="/page/parcours_edition.php">Créer un parcours</a>
 							<?php } ?>
 					  </div>
+					</div>
+				</li>
+
+				<li class="nav-item">
+					<div class="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdown_centre_equestre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Centres Équestres
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown_centre_equestre">
+							<a class="dropdown-item" href="/page/centre_equestre_liste_all.php">Tous les centres équestres</a>
+						</div>
 					</div>
 				</li>
 

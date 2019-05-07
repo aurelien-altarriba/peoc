@@ -1,0 +1,17 @@
+#tab
+{
+  width: 100%;
+  text-align: center;
+}
+
+#contenu
+{
+  width: 95vw;
+  margin: auto;
+  margin-top: 2em;
+}
+
+
+#tab tbody tr td {
+  padding: 0.3em !important;
+}

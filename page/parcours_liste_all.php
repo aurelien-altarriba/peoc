@@ -104,7 +104,15 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#tab').DataTable();
+			var dataTable = $('#tab').DataTable();
+
+			// Récupération des paramètres
+			var url = new URLSearchParams(location.search);
+
+			// Si on modifie le parcours
+			if (url.get('ce')) {
+				dataTable.search(url.get('ce')).draw();
+			}
 		});
 	</script>
 </body>
