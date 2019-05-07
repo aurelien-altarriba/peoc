@@ -21,24 +21,11 @@
   }
   $id_membre_new = '';
 
-
-  //RECUPERATION DE L'ACTION A REALISER (selon le bouton exécuté)
-  //bouton création/modification
-  $action = '';
-  if (isset ($_POST['bt_submit_CM'])){
-    if ($_POST['bt_submit_CM']=="S'inscrire"){
-      $action=1;
-    }
-    else if($_POST['bt_submit_CM']=='Modifier'){
-      $action=2;
-    }
-  }
-  //bouton suppression
-  else if(isset ($_POST['bt_submit_S'])){
-    if($_POST['bt_submit_S']=='Supprimer'){
-      $action=3;
-    }
-  }
+  // Récupération de l'action à réaliser
+  // 1 = inscription
+  // 2 = modification
+  // 3 = suppression
+  $action = htmlspecialchars($_POST['bt_submit_CM']);
 
   //RECUPERATION DES DONNEES DU FORMULAIRE
   $statut_C=0;

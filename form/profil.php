@@ -152,14 +152,16 @@
 	</div>
 
 	<div id="div_inscription_bt">
-		<input type="submit" class="btn btn-primary btn-lg" name="bt_submit_CM" id="bt_submit_CM"
-			value="Valider mon inscription"/>
+		<button type="submit" class="btn btn-primary btn-lg" name="bt_submit_CM" id="bt_submit_CM"
+			value="1">
+			Valider mon inscription
+		</button>
 	</div>
 </form>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		
+
 		$('#div_cavalier').hide();
 		$('#div_centre').hide();
 
