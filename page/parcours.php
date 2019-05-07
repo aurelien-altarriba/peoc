@@ -199,7 +199,7 @@
     	} else if (type == "L") {
     		$.each(data, function(index, com) {
     		//$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
-        $("#tabComment").append('<tr><th scope="row">'+(index+1)+'</th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
+        $("#tabComment").append('<tr><th scope="row"><small>'+(index+1)+'</small></th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
     		});
 
 
