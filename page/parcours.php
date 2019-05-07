@@ -109,20 +109,20 @@
         <div class="distance">Distance : <b><?php echo $parcours['distance_t']; ?></b></div>
         <div class="description"><?php echo $parcours['description_p']; ?></div>
         <div id="listeTroncon"> Liste des tronçons du parcours :
-        <table class="table table-sm table-dark">
+        <table class="table table-sm table-dark table-hover">
           <thead>
             <tr>
-              <th scope="col">Position</th>
-              <th scope="col">Hiérarchie</th>
-              <th scope="col">Difficulté</th>
-              <th scope="col">Type terrain</th>
-              <th scope="col">Durée estimée</th>
+              <th scope="col"><small>Position</small></th>
+              <th scope="col"><small>Hiérarchie</small></th>
+              <th scope="col"><small>Difficulté</small></th>
+              <th scope="col"><small>Type terrain</small></th>
+              <th scope="col"><small>Durée estimée</small></th>
             </tr>
           </thead>
           <tbody>
             <?php
             foreach ($troncons as $key => $value) {
-              print('<tr><td>'.strval($value['num_position_t']).'</td><td>'.$value['nom_h'].'</td><td>'.$value['nom_nt'].'</td><td>'.$value['nom_tt'].'</td><td>'.strval($value['duree_estime_t']).'</td></tr>');
+              print('<tr><td><small>'.strval($value['num_position_t']).'</small></td><td><small>'.$value['nom_h'].'</small></td><td>'.$value['nom_nt'].'</small></td><td><small>'.$value['nom_tt'].'</small></td><td><small>'.strval($value['duree_estime_t']).'</small></td></tr>');
             }
             ?>
           </tbody>
@@ -133,36 +133,32 @@
 			<div id="colonneDroite">
 				<div id="map"></div>
 
-
         <!-- Commentaires -->
         <div id="resComment">
-          <h3>Commentaires</h3>
-          <table class="table table-sm">
-            <thead class="thead-dark">
+          <h3>Commentaires :</h3>
+          <div class="comment"></div>
+
+          <table class="table table-sm table-dark table-hover">
+            <thead class="thead">
               <tr>
-                <th scope="col"> Nombre de note</th>
-                <th scope="col">Note moyenne</th>
-                <th scope="col">Durée réelle moyenne</th>
-              </tr>
-            </thead>
-            <tbody id="tabMoyenne">
-            </tbody>
-          </table>
-          <table class="table table-sm table-hover">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">Cavalier</th>
-                <th scope="col">Note</th>
-                <th scope="col">Durée réelle</th>
-                <th scope="col">Commentaire</th>
+                <th scope="col"><small>#</small></th>
+                <th scope="col"><small>Date</small></th>
+                <th scope="col"><small>Cavalier</small></th>
+                <th scope="col"><small>Note</small></th>
+                <th scope="col"><small>Durée réelle</small></th>
+                <th scope="col"><small>Commentaire</small></th>
               </tr>
             </thead>
             <tbody id="tabComment">
             </tbody>
           </table>
+        </div> <br/>
+
+        <!-- FORMULAIRE COMMENTAIRE -->
+        <div id="parcours_commentaire">
+          <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
         </div>
+
       </div>
 		</div>
 
@@ -201,13 +197,14 @@
     	if (type == "R") {
     		$.each(data, function(index, recap) {
       		//$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' - Note moyenne : '+recap.moynote+' - Durée réelle moyenne : '+recap.dureereelle+'</li>');
-          $("#tabMoyenne").append('<tr><td>'+recap.nbnote+'</td><td>'+recap.moynote+'</td><td>'+recap.dureereelle+'</td></tr>');
+          //$("#tabMoyenne").append('<tr><td>'+recap.nbnote+'</td><td>'+recap.moynote+'</td><td>'+recap.dureereelle+'</td></tr>');
+          $(".comment").append('Nombre de note : '+recap.nbnote+'<br/>Note moyenne : '+recap.moynote+'<br/>Durée réelle moyenne : '+recap.dureereelle);
     		});
       // liste des commentaires
     	} else if (type == "L") {
     		$.each(data, function(index, com) {
     		//$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
-        $("#tabComment").append('<tr><th scope="row">'+(index+1)+'</th><td>'+com.datejour+'</td><td>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</td><td>'+com.note_e+'</td><td>'+com.duree_reel_e+'</td><td>'+com.commentaire_e+'</td></tr>');
+        $("#tabComment").append('<tr><th scope="row"><small>'+(index+1)+'</small></th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
     		});
 
 

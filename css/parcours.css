@@ -116,6 +116,14 @@
 	border-radius: 0.5em;
 }
 
+.comment
+{
+	font-size: 0.9em;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+
+	border-bottom: 1px solid grey;
+}
 
 
 /*** POPUP POINT ***/

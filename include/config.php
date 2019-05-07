@@ -7,8 +7,13 @@ $CF = [
     "photo" => "/image/photo/",
     "logo" => "/image/logo/",
   ],
+<<<<<<< HEAD
 
   "srid" => "3857",
+=======
+  "srid" => "3857",
+  "mail_admin" => "peoc@alwaysdata.net"
+>>>>>>> a7b99de195742c1e5e70debdd4ab68b912bf99a0
 ];
 
 // Exemple d'appel
