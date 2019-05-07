@@ -133,7 +133,6 @@
 			<div id="colonneDroite">
 				<div id="map"></div>
 
-
         <!-- Commentaires -->
         <div id="resComment">
           <h3>Commentaires :</h3>
@@ -153,7 +152,13 @@
             <tbody id="tabComment">
             </tbody>
           </table>
+        </div> <br/>
+
+        <!-- FORMULAIRE COMMENTAIRE -->
+        <div id="parcours_commentaire">
+          <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
         </div>
+
       </div>
 		</div>
 
