@@ -25,9 +25,10 @@
           </div>
           <div class="form-group">
             <label for="message">Votre message</label>
-             <textarea class="form-control" id="message" name="message" placeholder="Entrez votre message ici s'il vous plait..." rows="10"></textarea>
+             <textarea class="form-control" rows="5" id="message" name="message" placeholder="Entrez votre message ici s'il vous plait..."></textarea>
           </div>
-          <button id="bt_connexion" class="btn btn-success btn-block">Envoyer</button>
+          <button id="bt_contact" class="btn btn-success btn-block">Envoyer</button>
+          <div id="msgSubmit" class="h3 text-center hidden"></div>
         </form>
       </div>
     </div>

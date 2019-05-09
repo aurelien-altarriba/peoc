@@ -85,7 +85,7 @@
 						print('<td>Centre</td>');
 					}
 	        print(
-							'<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
+							'<td><a href="parcours_edition.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
 	            '<td>'. $ligne['dt_publication_p'] .'</td>'.
 	            '<td>'. $ligne['nom_d'] .'</td>'.
 	            '<td>'. $ligne['nom_ne'] .'</td>');

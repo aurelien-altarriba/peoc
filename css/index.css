@@ -46,7 +46,7 @@
 	font-size: 0.9em;
 }
 
-.form-control
+.form-control:not(textarea)
 {
 	font-size: 1em !important;
 	height: 2.5em !important;
