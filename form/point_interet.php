@@ -28,6 +28,7 @@
       print('Description : <input type="text" name="zs_description_pi" id="zs_description_pi" value="'.$description_pi.'"/><br/>'."\n");
     ?>
   </div>
+  
   <div>
     <input type="submit" name="bt_submit_CM" id="bt_submit_CM" value="Créer"/>
     <input type="submit" name="bt_submit_S" id="bt_submit_S" value="Supprimer"/>

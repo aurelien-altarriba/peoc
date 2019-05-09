@@ -4,7 +4,7 @@
 		header('Location: /');
 
 	// Si l'id n'est pas un entier et valide
-	} else if( ((int) htmlspecialchars($_GET['id'])) <= 0) {
+	} else if ( ((int) htmlspecialchars($_GET['id'])) <= 0) {
 		header('Location: /');
 	}
 
@@ -34,10 +34,6 @@
 
 		<script type="text/javascript" src="/js/fonctionsData.js"></script>
 		<script type="text/javascript" src="/js/map_parcours.js"></script>
-
-    <!-- A SUPPRIMER -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.css">
-    <script src="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.js"></script>
 	</head>
 
 	<body>
@@ -133,7 +129,6 @@
 			<div id="colonneDroite">
 				<div id="map"></div>
 
-
         <!-- Commentaires -->
         <div id="resComment">
           <h3>Commentaires :</h3>
@@ -153,12 +148,14 @@
             <tbody id="tabComment">
             </tbody>
           </table>
+        </div> <br/>
+
+        <!-- FORMULAIRE COMMENTAIRE -->
+        <div id="parcours_commentaire">
+          <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
         </div>
       </div>
 		</div>
-
-		<!-- Formulaire -->
-		<?php //require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours.php"); ?>
 
 		<!-- FOOTER -->
 		<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
@@ -190,6 +187,8 @@
 
       // données récapitulatives au parcours
     	if (type == "R") {
+        $(".comment").html('');
+
     		$.each(data, function(index, recap) {
       		//$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' - Note moyenne : '+recap.moynote+' - Durée réelle moyenne : '+recap.dureereelle+'</li>');
           //$("#tabMoyenne").append('<tr><td>'+recap.nbnote+'</td><td>'+recap.moynote+'</td><td>'+recap.dureereelle+'</td></tr>');
@@ -197,14 +196,12 @@
     		});
       // liste des commentaires
     	} else if (type == "L") {
+        $("#tabComment").html('');
+
     		$.each(data, function(index, com) {
     		//$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
         $("#tabComment").append('<tr><th scope="row"><small>'+(index+1)+'</small></th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
     		});
-
-
-
-
     	}
     }
 
@@ -214,6 +211,27 @@
       var id = url.get('id');
       getData(id,"R");
       getData(id,"L");
+
+      // Envoi du commentaire
+      $('#bt_submit_comm').on('click', function() {
+        $.post('/fonction/verif_data_commentaire.php',
+          {
+            note: $('#zs_note_e').val(),
+            duree: $('#zs_duree_reel_e').val(),
+            commentaire: $('#zs_commentaire_e').val(),
+            id_parcours: <?php echo($_GET['id']); ?>
+          },
+          function(data) {
+            if (data == "OK") {
+              getData(id,"R");
+              getData(id,"L");
+            }
+            else {
+              alert('Erreur : ' + data);
+            }
+          }
+        )
+      });
     });
     </script>
 	</body>

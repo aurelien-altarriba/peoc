@@ -12,6 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/header.css">
 		<link rel="stylesheet" type="text/css" href="/css/footer.css">
 		<link rel="stylesheet" type="text/css" href="/css/parcours.css">
+		<link rel="stylesheet" type="text/css" href="/css/parcours_edition.css">
 		<link rel="stylesheet" type="text/css" href="/css/lib/leaflet.pm.css">
 
 		<!-- JS -->
@@ -38,6 +39,21 @@
 
 			<div id="colonneDroite">
         <div id="map"></div>
+
+				<table class="table" id="listeTroncons">
+				  <thead class="thead-dark">
+				    <tr>
+							<th scope="col">Position</th>
+				      <th scope="col">Durée estimée</th>
+				      <th scope="col">Type</th>
+				      <th scope="col">Niveau</th>
+				      <th scope="col"></th>
+				    </tr>
+				  </thead>
+				  <tbody id="contenuTroncon">
+
+				  </tbody>
+				</table>
 		</div>
 
 		<!-- FOOTER -->
