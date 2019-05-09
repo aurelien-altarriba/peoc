@@ -152,7 +152,7 @@
 	</div>
 
 	<div id="div_inscription_bt">
-		<button type="submit" class="btn btn-primary btn-lg" name="bt_submit_CM" id="bt_submit_CM"
+		<button type="submit" class="btn btn-success btn-lg" name="bt_submit_CM" id="bt_submit_CM"
 			value="1">
 			Valider mon inscription
 		</button>

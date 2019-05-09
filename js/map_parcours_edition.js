@@ -1,3 +1,14 @@
+// Pour supprimer le tronçon de la liste et sur la carte
+function supprimer_troncon(id) {
+
+	// On supprime la ligne dans le tableau des tronçons
+	$('#ligne_'+ id).remove();
+
+	// On supprime le troncçon de la map et du tableau des tronçons
+	map.removeLayer(map._layers[id]);
+	delete tabTroncon['id_' + id];
+}
+
 $(document).ready(function() {
 
 	// CARTES
@@ -56,10 +67,14 @@ $(document).ready(function() {
 		drawPolygon: false,
 		dragMode: false,
 		cutPolygon: false,
+		removalMode: false,
 	});
 
 	// Objet contenant les coordonnées des troncons
 	tabTroncon = {};
+
+	// Pour incrémenter la position des tronçons
+	var _pos_troncon = 1;
 
 	// A chaque création de tronçon sur la carte
 	map.on('pm:create', (un_troncon) => {
@@ -69,19 +84,14 @@ $(document).ready(function() {
 
 		$.post('/form/troncon.php',
 			{
-				id: idTroncon
+				id: idTroncon,
+				pos: _pos_troncon,
 			},
 			function(data) {
 				$('#contenuTroncon').append(data);
+				_pos_troncon++;
 			}
 		)
-	});
-
-	// A chaque suppression de troncon
-	map.on('pm:remove', (un_troncon) => {
-		var idTroncon = un_troncon.layer._leaflet_id;
-
-		delete tabTroncon['id_' + idTroncon];
 	});
 
 	// Quand on clique sur le bouton pour enregistrer

@@ -448,8 +448,6 @@ function displayDataTronconEdition(data) {
 		troncons.addLayer(polyline);
 	});
 
-
-
 	// Affichage des noeuds de chaque tronçon
 	var iconT = L.icon({
 		iconUrl: '/image/marker.png',
