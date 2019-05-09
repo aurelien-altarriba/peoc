@@ -47,17 +47,6 @@ $(document).ready(function() {
 	// Pour appliquer la cartes et les calques sélectionnés
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
-	// A SUPPRIMER
-	var options = {
-    position: 'topright',
-    lengthUnit: {
-      factor: null,    //  from km to nm
-      display: 'km',
-      decimal: 2
-    }
-  };
-	L.control.ruler(options).addTo(map);
-
 	// Charge les données sur la carte
 	getDataTroncon();
 	getDataPoint('I');
