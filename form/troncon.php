@@ -1,76 +1,52 @@
 <?php
-  if (isset($_POST['id'])) {
+	require_once($_SERVER['DOCUMENT_ROOT'] ."/include/connect.php");
+
+  $idc = connect();
+
+  if (isset($_POST['id']) && isset($_POST['pos'])) {
     $id = htmlspecialchars($_POST['id']);
+    $pos = htmlspecialchars($_POST['pos']);
   }
 ?>
+<tr class="ligne_troncon" <?php if (isset($_POST['id'])) { echo('id="ligne_' . $id . '"'); }?>>
+  <td scope="row">
+    <input type="number" class="form-control" name="zs_num_position_t" id="zs_num_position_t"
+      value="<?php echo($pos); ?>" required>
+  </td>
 
-<tr>
-  <th scope="row">
-    <input type="number" class="form-control" name="zs_num_position_t" id="zs_num_position_t" required>
-  </th>
-
-  <td>Mark</td>
-  <td>Otto</td>
-  <td>@mdo</td>
-</tr>
-
-<form class="ligne_troncon" <?php if (isset($_POST['id'])) { echo('id="id_' . $id . '"'); }?> >
-
-  <!-- Zone de saisie de la durée estimée du tronçon -->
-  <div class="form-group">
-    <label for="zs_duree_estime_t">Durée estimée (en minutes)</label>
+  <td scope="row">
     <input type="number" class="form-control" name="zs_duree_estime_t" id="zs_duree_estime_t"
-      placeholder="Temps en minutes du trajet" required>
-  </div>
+      placeholder="Temps en minutes" required>
+  </td>
 
-  <!-- Choix du type du tronçon -->
-  <div>
-    <label>Type </label>
-    <select name="zl_id_type_t" id="zl_id_type_t" required>
-    <?php
+  <td scope="row">
+    <select class="form-control" name="zl_id_type_t" id="zl_id_type_t" required>
+      <?php
+      $sql = 'SELECT nom_tt, id_type_tt
+              FROM type_terrain;';
 
-    $sql='SELECT nom_tt, id_type_tt
-          FROM type_terrain;';
+      $rs = pg_exec($idc,$sql);
 
-    $rs=pg_exec($idc,$sql);
-
-      while($ligne=pg_fetch_assoc($rs)){
+      while ($ligne = pg_fetch_assoc($rs)) {
         print('<option value="'.$ligne['id_type_tt'].'">'.$ligne['nom_tt'].'</option>');
-      }
-    ?>
+      } ?>
     </select>
-  </div>
+  </td>
 
-  <!-- Choix du niveau du tronçon -->
-  <div>
-    <label>Niveau </label>
-    <select name="zl_id_niveau_nt" id="zl_id_niveau_nt" required>
+  <td scope="row">
+    <select class="form-control" name="zl_id_niveau_nt" id="zl_id_niveau_nt" required>
     <?php
+    $sql = 'SELECT nom_nt, id_niveau_nt
+            FROM niveau_terrain;';
 
-    $sql='SELECT nom_nt, id_niveau_nt
-          FROM niveau_terrain;';
+    $rs = pg_exec($idc,$sql);
 
-    $rs=pg_exec($idc,$sql);
-
-      while($ligne=pg_fetch_assoc($rs)){
-        print('<option value="'.$ligne['id_niveau_nt'].'">'.$ligne['nom_nt'].'</option>');
-      }
-    ?>
+    while ($ligne = pg_fetch_assoc($rs)) {
+      print('<option value="'.$ligne['id_niveau_nt'].'">'.$ligne['nom_nt'].'</option>');
+    } ?>
     </select>
-  </div>
-
-  <!-- Zone de saisie de la position du tronçon -->
-  <div>
-    <label for="zs_num_position_t">Position du tronçon </label> <input type="number" name="zs_num_position_t" id="zs_num_position_t" required>
-  </div>
-
-  <!-- Bouton de validation de la création du tronçon -->
-  <input type="submit" name="bt_submit_creation" id="bt_submit_creation" value="Valider la création du tronçon" /> </br>
-
-  <!-- Bouton de validation des modifications du tronçon -->
-  <input type="submit" name="bt_submit_modification" id="bt_submit_modification" value="Valider les modifications du tronçon" /> </br>
-
-  <!-- Bouton de suppression du tronçon -->
-  <input type="submit" name="bt_submit_suppression" id="bt_submit_suppression" value="Supprimer le tronçon" />
-
-</form>
+  </td>
+  <td scope="row">
+    <button type="button" class="btn btn-outline-danger" onclick="supprimer_troncon(<?php echo($id); ?>)">X</button>
+  </td>
+</tr>

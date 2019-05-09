@@ -1,13 +1,13 @@
 #contenu
 {
 	min-height: 70vh !important;
-	height: none !important;
+	height: auto !important;
 }
 
 #colonneDroite
 {
 	min-height: 100% !important;
-	height: none !important;
+	height: auto !important;
 }
 
 #map
@@ -19,4 +19,14 @@
 #listeTroncons
 {
 	margin-top: 1em;
+}
+
+#listeTroncons thead tr th:first-child, .ligne_troncon td:first-child
+{
+	width: 6em;
+}
+
+.ligne_troncon button
+{
+	border-radius: 100%;
 }
