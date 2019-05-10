@@ -98,7 +98,9 @@
     </div>
 
     <!-- Bouton d'enregistrement -->
-    <button type="button" class="btn btn-primary" id="bt_submit_data">Enregistrer le parcours</button>
+    <button type="button" class="btn btn-primary" name="bt_submit_enregistrer" id="bt_submit_enregistrer">
+      Enregistrer le parcours
+    </button>
 
   <?php if(isset($id)) { ?>
     <!-- Bouton de suppression du parcours -->
