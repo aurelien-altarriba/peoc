@@ -153,7 +153,13 @@
         <!-- FORMULAIRE COMMENTAIRE -->
         <div id="parcours_commentaire">
           <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
-        </div>
+        </div><br/>
+
+        <!-- FORMULAIRE POINT VIGILANCE -->
+  			<div id="point_vigilance">
+  				<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
+  			</div>
+
       </div>
 		</div>
 
