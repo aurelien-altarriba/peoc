@@ -55,6 +55,7 @@ INSERT INTO categorie_pv VALUES(6,'Arbre tombé');
 INSERT INTO type_allure VALUES(1,'Pas');
 INSERT INTO type_allure VALUES(2,'Trot');
 INSERT INTO type_allure VALUES(3,'Galop');
+INSERT INTO type_allure VALUES(4,'Saut');
 
 INSERT INTO service VALUES(1,'Location cheval');
 INSERT INTO service VALUES(2,'Accompagnement');

@@ -1,1 +1,0 @@
-Une passe sur chaque page pour nettoyer les liens css et js inutiles
