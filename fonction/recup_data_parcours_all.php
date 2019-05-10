@@ -6,7 +6,13 @@
   $bdd = connect();
 
 	// Requête de récupération des parcours
-	$requete = "SELECT * FROM parcours";
+	$requete = "SELECT * FROM parcours
+							LEFT JOIN (SELECT id_parcours_e, count(*) AS nb_comm FROM effectue GROUP BY id_parcours_e) AS e
+								ON e.id_parcours_e = id_parcours_p
+							WHERE ( SELECT count(*)
+											FROM troncon
+											WHERE id_parcours_t = id_parcours_p
+										) > 0";
 
 	// Exécution de la requête et récupération des données
 	$res = pg_query($bdd, $requete);
@@ -14,6 +20,9 @@
 
   // Pour chaque parcours
   foreach ($liste_parcours as $key => $value) {
+
+		// On ajoute le nombre de commentaires du parcours dans la liste des parcours
+		$liste_parcours[$key]['comment'] = $value['nb_comm'];
 
     // Requête de récupération des tronçons
     $requete = "SELECT id_troncon_t, id_parcours_t, num_position_t, id_hierarchie_t, id_type_t, id_niveau_t, duree_estime_t,
@@ -24,27 +33,12 @@
     $res = pg_query($bdd, $requete);
     $liste_troncons = pg_fetch_all($res);
 
-		// Si le tableau est vide car aucun tronçon
-		if ($liste_troncons != null) {
+		// Pour chaque tronçon du parcours
+		foreach (array_filter($liste_troncons) as $key2 => $value2) {
 
-			// Pour chaque tronçon du parcours
-			foreach (array_filter($liste_troncons) as $key2 => $value2) {
-
-				// On ajoute le tronçon dans un tableau dans le parcours de la liste des parcours
-				$liste_parcours[$key]['troncons'][$value2['num_position_t']] = $value2;
-			}
+			// On ajoute le tronçon dans un tableau dans le parcours de la liste des parcours
+			$liste_parcours[$key]['troncons'][$value2['num_position_t']] = $value2;
 		}
-
-		// Requête de récupération du nombre de commentaires
-		$requete_comment = "SELECT count(commentaire_e)
-		FROM effectue
-		WHERE id_parcours_e = ". $value['id_parcours_p'];
-
-		$res_comment = pg_query($bdd, $requete_comment);
-		$nb_comment = pg_fetch_assoc($res_comment)['count'];
-
-		// On ajoute le nombre de commentaires dans le parcours de la liste des parcours
-		$liste_parcours[$key]['comment'] = $nb_comment;
   }
 
 	// On renvoie le résultat dans un tableau encodé en JSON
