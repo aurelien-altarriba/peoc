@@ -51,4 +51,13 @@ $(document).ready(function() {
 	getDataTroncon();
 	getDataPoint('I');
 	getDataPoint('V');
+
+	// Stocke la lat/long dans les variables lat et lng
+	map.on('click', function(e) {
+		var lat = e.latlng.lat;
+		$("#zs_latitude_pv").val(lat);
+		var lng = e.latlng.lng;
+		$("#zs_longitude_pv").val(lng);
+	});
+
 });

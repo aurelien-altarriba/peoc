@@ -167,9 +167,9 @@
 		<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 
     <script type="text/javascript">
-    // Récupération des informations renseignées par les cavaliers
     // type: "R" global au parcours
     // 			 "L" liste de tous les commentaires
+
     function getData(id, type) {
     	// Récupération des commentaires
     	$.post('/fonction/recup_data_commentaire.php',
@@ -225,7 +225,7 @@
             note: $('#zs_note_e').val(),
             duree: $('#zs_duree_reel_e').val(),
             commentaire: $('#zs_commentaire_e').val(),
-            id_parcours: <?php echo($_GET['id']); ?>
+            id_parcours: id
           },
           function(data) {
             if (data == "OK") {
@@ -238,7 +238,24 @@
           }
         )
       });
+
+      // Envoi du point de vigilance
+      $('#bt_submit_pv').on('click', function() {
+        $.post('/fonction/verif_point_vigilance.php',
+          {
+            id_parcours: id,
+            dt_debut: $('#zs_dt_debut_pv').val(),
+            dt_fin: $('#zs_dt_fin_pv').val(),
+            dt_fin: $('#zs_dt_fin_pv').val(),
+            id_categorie: $('#zs_categorie_pv').val(),
+            description: $('#zs_description_pv').val(),
+            lat: $('#zs_latitude_pv').val(),
+            lng: $('#zs_longitude_pv').val()
+          }
+        )
+      });
     });
+
     </script>
 	</body>
 </html>
