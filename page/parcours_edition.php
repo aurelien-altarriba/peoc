@@ -12,7 +12,6 @@
 		<link rel="stylesheet" type="text/css" href="/css/header.css">
 		<link rel="stylesheet" type="text/css" href="/css/footer.css">
 		<link rel="stylesheet" type="text/css" href="/css/parcours.css">
-		<link rel="stylesheet" type="text/css" href="/css/parcours_edition.css">
 		<link rel="stylesheet" type="text/css" href="/css/lib/leaflet.pm.css">
 
 		<!-- JS -->
