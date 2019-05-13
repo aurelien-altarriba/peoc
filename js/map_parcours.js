@@ -22,6 +22,9 @@ $(document).ready(function() {
   // POINTS DE VIGILANCE
 	points_vigilance = new L.featureGroup();
 
+	// ZONES ALLURE
+	zone_allure = new L.LayerGroup();
+
 	// MENU DES CARTES
 	var cartes = {
     'Plan': OpenStreetMap,
@@ -34,11 +37,12 @@ $(document).ready(function() {
 		'Parcours': troncons,
     'Points d\'interêt': points_interet,
 		'Points de vigilance': points_vigilance
+		'Zones d\'allure': zone_allure
 	};
 
 	// CRÉATION DE LA MAP
 	map = L.map('map', {
-    layers: [Satellite, troncons, points_interet, points_vigilance]
+    layers: [Satellite, troncons, points_interet, points_vigilance,zone_allure]
 	});
 
 	// Coordonnées à l'initialisation de la map (Occitanie)
@@ -51,4 +55,5 @@ $(document).ready(function() {
 	getDataTroncon();
 	getDataPoint('I');
 	getDataPoint('V');
+	getDataZoneAllure();
 });

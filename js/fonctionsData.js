@@ -252,7 +252,7 @@ function displayDataTroncon(data) {
 			couleur = 'red';
 		}
 		else {
-			couleur = 'gray';
+			couleur = 'grey';
 		}
 
 		// Pour chaque coordonnées dans le troncon
@@ -429,6 +429,9 @@ function displayDataTronconEdition(data) {
 		else if (un_troncon['id_niveau_t'] == 3) {
 			couleur = 'red';
 		}
+		else {
+			couleur = 'grey';
+		}
 
 		// Pour chaque coordonnées dans le troncon
 		$.each(coords, function(index2, ligne) {
@@ -469,3 +472,95 @@ function displayDataTronconEdition(data) {
 	// Zoom sur le parcours
 	map.fitBounds(tab_coord);
 }
+
+
+
+
+
+
+
+// Récupération des zones allures d'un parcours
+function getDataZoneAllure(edition = false) {
+
+	// Récupération des paramètres
+	var url = new URLSearchParams(location.search);
+
+	// Récupération des tronçons
+	$.post('/fonction/verif_zone_allure.php',
+
+		// Récupération de l'ID du parcours
+		{
+			action: 0,
+			id: url.get('id')
+		},
+
+		function(data) {
+			if (edition != false) {
+				//displayDataZoneAllureEdition(data);
+
+			} else {
+				displayDataZoneAllure(data);
+			}
+		}
+	);
+}
+
+
+
+// Affichage des zones allure sur la carte
+function displayDataZoneAllure(data,mode,tp) {
+
+	// Supprime les zones allure de la carte (variable globale donc au cas où)
+	zone_allure.clearLayers();
+
+	// Récupération des données en JSON
+	var liste_za = JSON.parse(data);
+
+	// Pour chaque tronçons
+	$.each(liste_za, function(index, une_zoneAllure) {
+
+		// Tableau contenant les coordonnées du tronçons
+		var trace_za = [];
+    var type_za;
+
+		// On récupère les coordonnées du troncon
+		var coords = JSON.parse(une_zoneAllure['st_asgeojson'])['coordinates'];
+
+    if (mode=="all"){
+      type_za = une_zoneAllure['id_type_za']
+    }
+    else{
+      type_za = tp;
+    }
+		// Calculer couleur selon niveau difficulté
+		if (type_za== 1) {
+			couleur = 'black';
+		}
+		else if (type_za == 2) {
+			couleur = 'black';
+		}
+		else if (type_za == 3) {
+			couleur = 'black';
+		}
+    else if (type_za == 4) {
+      couleur = 'black';
+    }
+    else{
+      couleur = 'grey';
+    }
+
+		// Pour chaque coordonnées dans le troncon
+		$.each(coords, function(index2, ligne) {
+			// On la stocke dans les tableaux
+			trace_za.push([ligne[1], ligne[0]]);
+		});
+
+		// Création du polyline du troncon sur la carte
+		var polyline = L.polyline(trace_za, {color: couleur, opacity: 0.5, weight: 20});
+
+		// Ajout du polyline à la liste des parcours
+		zone_allure.addLayer(polyline);
+	});
+
+}
+*/

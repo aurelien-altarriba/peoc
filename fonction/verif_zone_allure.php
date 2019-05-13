@@ -10,26 +10,32 @@
   $idc = connect();
 
 
-  //bouton création/modification
+  //bouton chargement/création/suppression
   $action = $_POST['action'];
 
   $erreur = '';
+
 
   // chargement des zones allures
   if ($action==0){
     $id_parcours = $_POST['id_parcours'];
 
-    $res = pg_query_params($idc,
-      "SELECT id_zone_za_t, id_parcours_za,id_type_za,
-        ST_AsGeoJSON(ST_Transform(geom_za,".$CF['srid']."))
-       FROM zone_allure
-       WHERE id_parcours_za = $1",
-     array($id_parcours));
+    try{
+      $res = pg_query_params($idc,
+        "SELECT id_zone_za_t, id_parcours_za,id_type_za,
+          ST_AsGeoJSON(ST_Transform(geom_za,".$CF['srid']."))
+         FROM zone_allure
+         WHERE id_parcours_za = $1",
+       array($id_parcours));
 
-    $liste_za = pg_fetch_all($res);
+      $liste_za = pg_fetch_all($res);
 
-  	// On renvoie le résultat dans un tableau encodé en JSON
-    echo(json_encode($liste_za));
+    	// On renvoie le résultat dans un tableau encodé en JSON
+      echo(json_encode($liste_za));
+    }
+    catch (Exception $e) {
+      echo $e->getMessage(),"\n";
+    };
   }
 
 
@@ -42,9 +48,16 @@
     $point2 = explode(",",$_POST['point2']);
     $dist = $CF['dist_allure'];
 
-    $sql='SELECT id_ret, za_ret, msg_ret FROM create_allure('.$id_parcours.','.$id_type.','.$point1[0].','.$point1[1].','.$point2[0].','.$point2[1].','.$dist.')';
+    try{
+      $res = pg_query_params($idc,'SELECT id_ret, za_ret, msg_ret FROM create_allure('.$id_parcours.','.$id_type.','.$point1[0].','.$point1[1].','.$point2[0].','.$point2[1].','.$dist.')';
+      $za = pg_fetch_all($res);
 
-
+      // On renvoie le résultat dans un tableau encodé en JSON
+      echo(json_encode($za));
+    }
+    catch (Exception $e) {
+      echo $e->getMessage(),"\n";
+    };
   }
 
 
