@@ -172,7 +172,7 @@ function displayDataParcours(data) {
 	// Supprime les layers dans la liste des parcours
 	parcours.clearLayers();
 
-	// Vide la liste des parcours (innerHTML en JQuery)
+	// Vide la liste des parcours
 	$("#resParcours .list-group").html("");
 
 	// Récupération des données en JSON

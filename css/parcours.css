@@ -4,8 +4,8 @@
 	justify-content: space-around;
 	align-items: flex-start;
 
-	height: 70vh;
-
+	min-height: 70vh;
+	height: auto;
 	padding: 1em;
 }
 
@@ -38,7 +38,8 @@
 	justify-content: flex-start;
 	align-items: center;
 
-	height: 100%;
+	min-height: 100%;
+	height: auto;
 
 	flex: 3;
 }
@@ -46,6 +47,7 @@
 #map
 {
 	width: 100%;
+	min-height: 70vh;
 	height: 100%;
 
 	box-shadow: 0px 0px 3px black;
@@ -125,7 +127,6 @@
 	border-bottom: 1px solid grey;
 }
 
-
 /*** POPUP POINT ***/
 .popup_PT
 {
@@ -148,4 +149,20 @@
 .popup_PT hr
 {
 	margin: 0.5em;
+}
+
+/*** LISTE TRONCONS ***/
+#listeTroncons
+{
+	margin-top: 1em;
+}
+
+#listeTroncons thead tr th:first-child, .ligne_troncon td:first-child
+{
+	width: 6em;
+}
+
+.ligne_troncon button
+{
+	border-radius: 100%;
 }

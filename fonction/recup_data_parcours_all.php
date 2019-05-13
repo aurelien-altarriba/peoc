@@ -21,12 +21,16 @@
   // Pour chaque parcours
   foreach ($liste_parcours as $key => $value) {
 
+		if (empty($value['nb_comm'])) {
+			$value['nb_comm'] = 0;
+		}
+
 		// On ajoute le nombre de commentaires du parcours dans la liste des parcours
 		$liste_parcours[$key]['comment'] = $value['nb_comm'];
 
     // Requête de récupération des tronçons
     $requete = "SELECT id_troncon_t, id_parcours_t, num_position_t, id_hierarchie_t, id_type_t, id_niveau_t, duree_estime_t,
-                  ST_AsGeoJSON(ST_Transform(geom_t,".$CF['srid']."))
+                  ST_AsGeoJSON(ST_Transform(geom_t,". $CF['srid'] ."))
                 FROM troncon
                 WHERE id_parcours_t = ". $value['id_parcours_p'];
 

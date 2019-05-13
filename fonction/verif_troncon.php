@@ -4,14 +4,72 @@ session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
+
+// Connexion à la BDD
 $bdd = connect();
 
-// Tableau des coordonnées
-$listeTroncons = json_decode($_POST['listeTroncons']);
+// On récupère l'action à effectuer
+if (!empty($_POST['action'])) {
+  $action = htmlspecialchars($_POST['action']);
+}
+else {
+  return 0;
+}
 
-// Fonction de récupération de la commande POSTGIS avec les coordonnées
-function parseData($listeTroncons) {
-  global $CF; // Variable globale de config
+// On vérifie si l'id du parcours est transmis
+if (!empty($_POST['id_parcours'])) {
+  $id_parcours = htmlspecialchars($_POST['id_parcours']);
+} else {
+  return 0;
+}
+
+// Récupération de l'id du centre équestre connecté
+if (isset($_SESSION['membre']['ce']['id_centre_ce'])) {
+  $id_centre_p = $_SESSION['membre']['ce']['id_centre_ce'];
+}
+else {
+  $id_centre_p = 'NULL';
+}
+
+// Récupération de l'id du membre connecté
+if (isset($_SESSION['membre']['id'])) {
+  $id_membre = $_SESSION['membre']['id'];
+}
+else {
+  $id_membre = 'NULL';
+}
+
+// Récupération de l'id de ceux qui ont créé le parcours
+$res = pg_query($bdd,"SELECT DISTINCT id_membre_p, id_centre_p
+                      FROM parcours
+                      WHERE id_parcours_p = $id_parcours");
+$id_membre_p_parcours_selection = pg_fetch_all($res);
+
+// Si l'id du membre ET du centre connecté ne correspondent pas à ceux du parcours
+if ((!$id_membre_p_parcours_selection[0]['id_membre_p'] == $id_membre) &&
+    (!$id_membre_p_parcours_selection[0]['id_centre_p'] == $id_centre_p))
+{
+  return 0;
+}
+
+// Si on supprime le tronçon
+if ($action === 'supprimer') {
+
+  // Si l'id du tronçon est renseigné
+  if (!empty($_POST['id_troncon'])) {
+
+    // Requête de suppression d'un tronçon
+    $req = 'DELETE FROM troncon
+            WHERE id_troncon_t = ' . htmlspecialchars($_POST['id_troncon']);
+    pg_exec($bdd, $req);
+  }
+}
+
+// Sinon si c'est un ajout
+else if ($action === 'enregistrer') {
+
+  // Tableau des coordonnées
+  $listeTroncons = json_decode($_POST['listeTroncons']);
 
   // Pour chaque tronçon
   foreach ($listeTroncons as $troncon) {
@@ -19,91 +77,42 @@ function parseData($listeTroncons) {
     // Commande pour PostGis
     $commande = "'LINESTRING(";
 
+    $virgule = false;
+
     // Pour chaque coordonnée dans le tronçon
-    foreach ($troncon as $coord) {
+    foreach ($troncon->data as $coord) {
+
+      if ($virgule) {
+        $commande .= ', ';
+      } else {
+        $virgule = true;
+      }
 
       // Longitude Latitude | ex: 2.12345 48.12345
-      $commande .= $coord->lng . ' ' . $coord->lat . ', ';
+      $commande .= $coord->lng . ' ' . $coord->lat;
     }
 
-    $commande .= ")', " . $CF['srid'] . "));";
+    // Fin de commande pour PostGis
+    $commande .= ")', " . $CF['srid'];
 
+    // Récupération des variables
+    $num_position_t = htmlspecialchars($troncon->position);
+    $id_type_t = htmlspecialchars($troncon->type);
+    $id_niveau_nt = htmlspecialchars($troncon->niveau);
+    $duree_estime_t = htmlspecialchars($troncon->duree_estimee);
 
+    // Requête d'insertion d'un tronçon
+    $req = "INSERT INTO troncon
+              (id_parcours_t, num_position_t, id_hierarchie_t, id_type_t, id_niveau_t, duree_estime_t, geom_t)
+            VALUES ($id_parcours, $num_position_t, 1, $id_type_t, $id_niveau_nt, $duree_estime_t,
+                    ST_GeomFromText($commande));";
+    $res = pg_exec($bdd, $req);
   }
-}
 
-function creation($coords) {
-
-}
-
-// $test = json_decode('{"id_108":[{"lat":43.73786614486672,"lng":0.24075061317786697},{"lat":44.03903420665632,"lng":1.5648368261944336},{"lat":44.37799275153152,"lng":3.108688385769765}],"id_132":[{"lat":43.29526688349406,"lng":0.6857754399593753},{"lat":43.7497832247868,"lng":2.7790403659316185},{"lat":43.102867411770774,"lng":2.0922736579354684},{"lat":43.76169793239583,"lng":1.7736139054252398}]}');
-
-// echo('TEST V2');
-// print_r($listeTroncons);
-
-parseData($listeTroncons);
-
-
-// récupération de l'id du membre connecté
-if (isset($_SESSION['membre']['id'])){
-  $id_membre = $_SESSION['membre']['id'];
-}
-else {
-  $id_membre = 'NULL';
-}
-
-// récupération de l'id du centre équestre connecté
-if (isset($_SESSION['membre']['ce']['id_centre_ce'])){
-  $id_centre_p = $_SESSION['membre']['ce']['id_centre_ce'];
-}
-else {
-  $id_centre_p = 'NULL';
-}
-
-// récupération le l'id du membre qui à créé le parcours sélectionné
-$rs = pg_query($bdd,$sql = "SELECT DISTINCT id_membre_p
-                            FROM parcours
-                            INNER JOIN troncon ON parcours.id_parcours_p = troncon.id_parcours_t
-                            WHERE id_parcours_p = $id_parcours_p");
-$id_membre_p_parcours_selection = pg_fetch_result($rs,0,0);
-
-// récupération le l'id du centre équestre qui à créé le parcours sélectionné
-$rs = pg_query($bdd,$sql = "SELECT DISTINCT id_centre_p
-                            FROM parcours
-                            INNER JOIN troncon ON parcours.id_parcours_p = troncon.id_parcours_t
-                            WHERE id_parcours_p = $id_parcours_p");
-$id_centre_p_parcours_selection = pg_fetch_result($rs,0,0);
-
-// vérifie si l'utilisateur est propriétaire du parcours du tronçon pour pouvoir créer un tronçon
-if (isset($_POST['bt_submit_creation']) && ($id_membre==$id_membre_p_parcours_selection || $id_centre_p==$id_centre_p_parcours_selection)){
-  //Insertion du tronçon par un cavalier, id_membre_p est renseigné
-  $sql="INSERT INTO troncon(id_parcours_t,num_position_t,id_hierarchie_t,id_type_t,id_niveau_t,duree_estime_t,geom_t)
-        VALUES($id_parcours_p,$num_position_t,1,$id_type_t,$id_niveau_nt,$duree_estime_t,ST_GeomFromText('LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 3857));";
-  $rs=pg_exec($bdd,$sql);
-}
-
-// vérifie si l'utilisateur est propriétaire du parcours du tronçon pour pouvoir modifier un tronçon
-else if (isset($_POST['bt_submit_modification']) && ($id_membre==$id_membre_p_parcours_selection || $id_centre_p==$id_centre_p_parcours_selection)){
-  //Insertion du tronçon par un cavalier, id_membre_p est renseigné
-  $sql="UPDATE troncon
-        SET num_position_t = $num_position_t,
-            id_type_t = $id_type_t,
-            id_niveau_t = $id_niveau_nt,
-            duree_estime_t = $duree_estime_t
-        WHERE id_troncon_t = $id_troncon_t";
-  $rs=pg_exec($bdd,$sql);
-}
-
-// vérifie si l'utilisateur est propriétaire du parcours du tronçon pour pouvoir supprimer un tronçon
-else if (isset($_POST['bt_submit_suppression']) && ($id_membre==$id_membre_p_parcours_selection || $id_centre_p==$id_centre_p_parcours_selection)){
-  //Insertion du tronçon par un cavalier, id_membre_p est renseigné
-  $sql="DELETE FROM troncon
-        WHERE id_troncon_t = $id_troncon_t";
-  $rs=pg_exec($bdd,$sql);
+  echo('Parcours enregistré!');
 }
 
 else {
   echo('Vous pouvez seulement modifier vos propres parcours');
 }
-
 ?>

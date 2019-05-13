@@ -102,5 +102,3 @@ $(document).ready(function() {
 	map.addLayer(Satellite);
 	map.addLayer(parcours);
 });
-
-// layers: [Satellite, centres_equestres, parcours]

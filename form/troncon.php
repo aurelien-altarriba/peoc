@@ -10,17 +10,20 @@
 ?>
 <tr class="ligne_troncon" <?php if (isset($_POST['id'])) { echo('id="ligne_' . $id . '"'); }?>>
   <td scope="row">
-    <input type="number" class="form-control" name="zs_num_position_t" id="zs_num_position_t"
+    <input type="number" class="form-control" name="zs_num_position_t"
+			id="zs_num_position_t<?php if (isset($_POST['id'])) { echo($id); }?>"
       value="<?php echo($pos); ?>" required>
   </td>
 
   <td scope="row">
-    <input type="number" class="form-control" name="zs_duree_estime_t" id="zs_duree_estime_t"
+    <input type="number" class="form-control" name="zs_duree_estime_t"
+			id="zs_duree_estime_t<?php if (isset($_POST['id'])) { echo($id); }?>"
       placeholder="Temps en minutes" required>
   </td>
 
   <td scope="row">
-    <select class="form-control" name="zl_id_type_t" id="zl_id_type_t" required>
+    <select class="form-control" name="zl_id_type_t"
+			id="zl_id_type_t<?php if (isset($_POST['id'])) { echo($id); }?>" required>
       <?php
       $sql = 'SELECT nom_tt, id_type_tt
               FROM type_terrain;';
@@ -34,7 +37,8 @@
   </td>
 
   <td scope="row">
-    <select class="form-control" name="zl_id_niveau_nt" id="zl_id_niveau_nt" required>
+    <select class="form-control" name="zl_id_niveau_nt"
+			id="zl_id_niveau_nt<?php if (isset($_POST['id'])) { echo($id); }?>" required>
     <?php
     $sql = 'SELECT nom_nt, id_niveau_nt
             FROM niveau_terrain;';

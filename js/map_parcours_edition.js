@@ -9,6 +9,16 @@ function supprimer_troncon(id) {
 	delete tabTroncon['id_' + id];
 }
 
+function actualiser_var_troncon(idTroncon, un_troncon) {
+	tabTroncon[idTroncon] = {
+		'data': un_troncon.layer.getLatLngs(),
+		'position': $('#zs_num_position_t'+ idTroncon).val(),
+		'duree_estimee': $('#zs_duree_estime_t'+ idTroncon).val(),
+		'type': $('#zl_id_type_t'+ idTroncon).val(),
+		'niveau': $('#zl_id_niveau_nt'+ idTroncon).val(),
+	}
+}
+
 $(document).ready(function() {
 
 	// CARTES
@@ -76,26 +86,31 @@ $(document).ready(function() {
 	// Pour incrémenter la position des tronçons
 	var _pos_troncon = 1;
 
-	// A chaque création de tronçon sur la carte
+	// À chaque création de tronçon sur la carte
 	map.on('pm:create', (un_troncon) => {
 		var idTroncon = un_troncon.layer._leaflet_id;
 
-		tabTroncon['id_' + idTroncon] = un_troncon.layer.getLatLngs();
-
+		// On ajoute un formulaire pour le tronçon
 		$.post('/form/troncon.php',
 			{
 				id: idTroncon,
 				pos: _pos_troncon,
 			},
 			function(data) {
-				$('#contenuTroncon').append(data);
+				$('#contenuTroncon')
+					.append(data)
+					.change(function() {
+						actualiser_var_troncon(idTroncon, un_troncon);
+					})
+
+				actualiser_var_troncon(idTroncon, un_troncon);
 				_pos_troncon++;
 			}
 		)
 	});
 
 	// Quand on clique sur le bouton pour enregistrer
-	$('#bt_submit_data').on('click', function(e) {
+	$('#bt_submit_enregistrer').on('click', function(e) {
 
 		// Récupération des paramètres
 		var url = new URLSearchParams(location.search);
@@ -127,24 +142,22 @@ $(document).ready(function() {
 				// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
 				if (Number(id_parcours_p)) {
 
+					alert(id_parcours_p);
+
 					// On met à jour les tronçons
 					$.post("/fonction/verif_troncon.php",
 						{
-							listeTroncons: JSON.stringify(tabTroncon)
+							listeTroncons: JSON.stringify(tabTroncon),
+							id_parcours: id_parcours_p,
+							action: 'enregistrer',
 						},
 
 						// Quand le PHP a fini d'être exécuté
 						function(data) {
 
 							alert(data);
-							// if (data === "OK") {
-							// 	alert('Enregistrement réussi!');
-							// }
-							//
-							// // Sinon on affiche l'erreur
-							// else {
-							// 	alert(data);
-							// }
+							console.log(data);
+
 						}
 					);
 				}
@@ -155,8 +168,5 @@ $(document).ready(function() {
 				}
 			}
 		);
-
-		// Insert des tronçons en ajax
-		console.log(tabTroncon);
 	});
 });

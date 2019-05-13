@@ -45,13 +45,13 @@
 			// On récupère les données du parcours
 			try {
 				$res = pg_query_params($bdd, 'SELECT * FROM parcours
-                                              INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
-                                              FROM troncon WHERE id_hierarchie_t = $2 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  $1
-                                              LEFT JOIN (SELECT id_parcours_pv, COUNT(*) AS nb_pv
-                                              FROM point_vigilance GROUP BY id_parcours_pv) AS pv ON pv.id_parcours_pv =  $1
-                                              LEFT JOIN (SELECT id_parcours_pi, COUNT(*) AS nb_pi
-                                              FROM point_interet GROUP BY id_parcours_pi) AS pi ON pi.id_parcours_pi =  $1
-                                              WHERE id_parcours_p = $1', array($id_parcours,1));
+                                      INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+                                      FROM troncon WHERE id_hierarchie_t = $2 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  $1
+                                      LEFT JOIN (SELECT id_parcours_pv, COUNT(*) AS nb_pv
+                                      FROM point_vigilance GROUP BY id_parcours_pv) AS pv ON pv.id_parcours_pv =  $1
+                                      LEFT JOIN (SELECT id_parcours_pi, COUNT(*) AS nb_pi
+                                      FROM point_interet GROUP BY id_parcours_pi) AS pi ON pi.id_parcours_pi =  $1
+                                      WHERE id_parcours_p = $1', array($id_parcours,1));
 				$parcours = pg_fetch_all($res)[0];
 			} catch(Exception $e) {
 				echo('erreur : '. $e);
@@ -94,7 +94,7 @@
 
 		<div id="contenu">
 			<div id="colonneGauche">
-				<h3><?php echo($parcours['nom_p']) ?></h3>
+        <h3><?php echo($parcours['nom_p']) ?></h3>
 				<div class="date">Créé le <?php echo date_format(date_create($parcours['dt_publication_p']), 'd/m/Y'); ?> par <?php echo $parcours_rel['prenom_m'] .' '. $parcours_rel['nom_m']; ?> (<?php echo $parcours_rel['nom_pa']; ?>)</div>
 				<div class="autonomie">En autonomie : <span class=<?php echo $parcours['autonomie_p'] ? '"vrai">OUI' : '"faux">NON';?></span></div>
 				<div class="niveau">Niveau : <span class="niveau<?php echo $parcours['id_niveau_p']; ?>"><?php echo $parcours_rel['nom_ne']; ?></span></div>
@@ -104,25 +104,55 @@
         <div class="dureeestime">Durée estimée : <b><?php echo $parcours['duree_t']; ?></b></div>
         <div class="distance">Distance : <b><?php echo $parcours['distance_t']; ?></b></div>
         <div class="description"><?php echo $parcours['description_p']; ?></div>
-        <div id="listeTroncon"> Liste des tronçons du parcours :
-        <table class="table table-sm table-dark table-hover">
-          <thead>
-            <tr>
-              <th scope="col"><small>Position</small></th>
-              <th scope="col"><small>Hiérarchie</small></th>
-              <th scope="col"><small>Difficulté</small></th>
-              <th scope="col"><small>Type terrain</small></th>
-              <th scope="col"><small>Durée estimée</small></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($troncons as $key => $value) {
-              print('<tr><td><small>'.strval($value['num_position_t']).'</small></td><td><small>'.$value['nom_h'].'</small></td><td>'.$value['nom_nt'].'</small></td><td><small>'.$value['nom_tt'].'</small></td><td><small>'.strval($value['duree_estime_t']).'</small></td></tr>');
-            }
-            ?>
-          </tbody>
-        </table>
+
+        <?php
+        // On regarde si l'utilisateur est propriétaire du parcours
+        $modif = false;
+
+        if ($parcours['id_centre_p']) {
+          $id_ce = ( isset($_SESSION['membre']['ce']['id_centre_ce']) ) ? $_SESSION['membre']['ce']['id_centre_ce'] : '';
+
+          if ($id_ce == $parcours['id_centre_p']) {
+            $modif = true;
+          }
+        }
+        else if (isset($_SESSION['membre']['id_membre_m'])) {
+          $id_membre = $_SESSION['membre']['id'];
+
+          if ($id_membre == $parcours['id_membre_p']) {
+            $modif = true;
+          }
+        }
+
+        // Si il est propriétaire, on affiche le bouton
+        if ($modif) {?>
+            <a class="btn btn-outline-secondary" href="/page/parcours_edition.php?id=<?php echo($id_parcours); ?>" role="button">
+              Modifier le parcours
+            </a>
+        <?php }?>
+
+        <hr>
+
+        <div id="listeTroncon">
+          <h5>Tronçons du parcours :</h5>
+          <table class="table table-sm table-dark table-hover">
+            <thead>
+              <tr>
+                <th scope="col"><small>Position</small></th>
+                <th scope="col"><small>Hiérarchie</small></th>
+                <th scope="col"><small>Difficulté</small></th>
+                <th scope="col"><small>Type terrain</small></th>
+                <th scope="col"><small>Durée estimée</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach ($troncons as $key => $value) {
+                print('<tr><td><small>'.strval($value['num_position_t']).'</small></td><td><small>'.$value['nom_h'].'</small></td><td>'.$value['nom_nt'].'</small></td><td><small>'.$value['nom_tt'].'</small></td><td><small>'.strval($value['duree_estime_t']).'</small></td></tr>');
+              }
+              ?>
+            </tbody>
+          </table>
         </div>
 			</div>
 
@@ -153,7 +183,13 @@
         <!-- FORMULAIRE COMMENTAIRE -->
         <div id="parcours_commentaire">
           <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
-        </div>
+        </div><br/>
+
+        <!-- FORMULAIRE POINT VIGILANCE -->
+  			<div id="point_vigilance">
+  				<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
+  			</div>
+
       </div>
 		</div>
 
