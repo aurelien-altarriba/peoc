@@ -251,6 +251,9 @@ function displayDataTroncon(data) {
 		else if (un_troncon['id_niveau_t'] == 3) {
 			couleur = 'red';
 		}
+		else {
+			couleur = 'gray';
+		}
 
 		// Pour chaque coordonnées dans le troncon
 		$.each(coords, function(index2, ligne) {
