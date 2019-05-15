@@ -30,7 +30,8 @@
 		<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/js/lib/leaflet.js"></script>
-		<script type="text/javascript" src="/js/lib/leaflet.active-layers.min.js"></script>
+    <script type="text/javascript" src="/js/lib/leaflet.active-layers.min.js"></script>
+		<script type="text/javascript" src="/js/lib/rater.min.js"></script>
 
 		<script type="text/javascript" src="/js/fonctionsData.js"></script>
 		<script type="text/javascript" src="/js/map_parcours.js"></script>
@@ -228,8 +229,28 @@
     		$.each(data, function(index, recap) {
       		//$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' - Note moyenne : '+recap.moynote+' - Durée réelle moyenne : '+recap.dureereelle+'</li>');
           //$("#tabMoyenne").append('<tr><td>'+recap.nbnote+'</td><td>'+recap.moynote+'</td><td>'+recap.dureereelle+'</td></tr>');
-          $(".comment").append('Nombre de note : '+recap.nbnote+'<br/>Note moyenne : '+recap.moynote+'<br/>Durée réelle moyenne : '+recap.dureereelle);
-    		});
+
+          var listeNote = `
+            <div class="rating" data-rate-value=3></div>
+          `;
+
+          $(".comment").append('<br/>Nombre de note : '+recap.nbnote+'<br/>Note moyenne : '+listeNote+'<br/>Durée réelle moyenne : '+recap.dureereelle);
+
+          var options = {
+            max_value: 5,
+            step_size: 1,
+            selected_symbol_type: 'perso',
+            symbols: {
+              perso: {
+                base: '🐎',
+                hover: '🐎',
+                selected: '🐎',
+              }
+            }
+            // only_select_one_symbol: true,
+          }
+          $(".rating").rate(options);
+        });
       // liste des commentaires
     	} else if (type == "L") {
         $("#tabComment").html('');

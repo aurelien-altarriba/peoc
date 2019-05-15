@@ -4,4 +4,5 @@ Une passe sur chaque page pour nettoyer les liens css et js inutiles
 Serveur de mail.
 Rejouer les scripts bdd pour vérifier que toujours ok
 Installer procédure stockée.
-Véirifier enregistrement des images et pas n'importe quel type de fichier.
+Vérifier enregistrement des images et pas n'importe quel type de fichier.
+Format des dates en Français

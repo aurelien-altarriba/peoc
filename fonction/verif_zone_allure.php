@@ -10,37 +10,14 @@
   $idc = connect();
 
 
-  //bouton chargement/création/suppression
+  //bouton création/suppression
   $action = $_POST['action'];
 
   $erreur = '';
 
 
-  // chargement des zones allures
-  if ($action==0){
-    $id_parcours = $_POST['id_parcours'];
-
-    try{
-      $res = pg_query_params($idc,
-        "SELECT id_zone_za_t, id_parcours_za,id_type_za,
-          ST_AsGeoJSON(ST_Transform(geom_za,".$CF['srid']."))
-         FROM zone_allure
-         WHERE id_parcours_za = $1",
-       array($id_parcours));
-
-      $liste_za = pg_fetch_all($res);
-
-    	// On renvoie le résultat dans un tableau encodé en JSON
-      echo(json_encode($liste_za));
-    }
-    catch (Exception $e) {
-      echo $e->getMessage(),"\n";
-    };
-  }
-
-
   // creation d'une zone allure
-  elseif ($action==1){
+  if ($action==1){
 
     $id_parcours = $_POST['id_parcours'];
     $id_type = $_POST['id_type'];
@@ -73,8 +50,6 @@
       echo $e->getMessage(),"\n";
     };
   }
-
-
 
 
   // Si une erreur est apparue
