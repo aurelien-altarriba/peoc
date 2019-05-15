@@ -419,20 +419,6 @@ function displayDataTronconEdition(data) {
 		// On récupère les coordonnées du troncon
 		var coords = JSON.parse(un_troncon['st_asgeojson'])['coordinates'];
 
-		// Calculer couleur selon niveau difficulté
-		if (un_troncon['id_niveau_t'] == 1) {
-			couleur = 'yellow';
-		}
-		else if (un_troncon['id_niveau_t'] == 2) {
-			couleur = 'orange';
-		}
-		else if (un_troncon['id_niveau_t'] == 3) {
-			couleur = 'red';
-		}
-		else {
-			couleur = 'grey';
-		}
-
 		// Pour chaque coordonnées dans le troncon
 		$.each(coords, function(index2, ligne) {
 
@@ -448,35 +434,15 @@ function displayDataTronconEdition(data) {
 		});
 
 		// Création du polyline du troncon sur la carte
-		var polyline = L.polyline(trace_troncon, {color: couleur});
+		var polyline = L.polyline(trace_troncon);
 
 		// Ajout du polyline à la liste des parcours
 		troncons.addLayer(polyline);
 	});
 
-	// Affichage des noeuds de chaque tronçon
-	var iconT = L.icon({
-		iconUrl: '/image/marker.png',
-		shadowUrl: '/image/marker-shadow.png',
-		iconSize: [15, 15]
-	});
-	L.Icon.Default.imagePath = "/image/";
-	$.each(tab_coord, function(keyT,valTroncon){
-		$.each(valTroncon, function(keyP,valPoint){
-			//console.log(valPoint);
-			var marker = L.marker([valPoint[0],valPoint[1]],{"title":"point "+keyP,"icon":iconT,"draggable":true}).addTo(map);
-		});
-	});
-
-
 	// Zoom sur le parcours
 	map.fitBounds(tab_coord);
 }
-
-
-
-
-
 
 
 // Récupération des zones allures d'un parcours
@@ -563,4 +529,3 @@ function displayDataZoneAllure(data,mode,tp) {
 	});
 
 }
-*/

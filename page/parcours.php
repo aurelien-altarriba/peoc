@@ -110,7 +110,7 @@
         $modif = false;
 
         if ($parcours['id_centre_p']) {
-          $id_ce = ( isset($_SESSION['membre']['ce']['id_centre_ce']) ) ? $_SESSION['membre']['ce']['id_centre_ce'] : '';
+          $id_ce = ( isset($_SESSION['membre']['ce']['id_centre_ce']) ) ? $_SESSION['membre']['ce']['id_centre_ce'] : 'non';
 
           if ($id_ce == $parcours['id_centre_p']) {
             $modif = true;

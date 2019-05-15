@@ -5,7 +5,7 @@
   $bdd = connect();
 
   // Récupération de l'id du parcours
-	$id = $_POST['id'];
+	$id = htmlspecialchars($_POST['id']);
 
 	// Exécution de la requête et récupération des données
 	$res = pg_query_params($bdd,
