@@ -95,7 +95,7 @@ CREATE TABLE public.centre_equestre(
 	logo_ce       		VARCHAR (2000)   ,
 	CONSTRAINT prk_constraint_centre_equestre PRIMARY KEY (id_centre_ce)
 )WITHOUT OIDS;
-SELECT AddGeometryColumn('centre_equestre', 'geom_ce', 3857, 'GEOMETRY', 2);
+SELECT AddGeometryColumn('centre_equestre', 'geom_ce', 4326, 'GEOMETRY', 2);
 
 
 ------------------------------------------------------------
@@ -139,7 +139,7 @@ CREATE TABLE public.point_interet(
 	description_pi  	VARCHAR (2000)   ,
 	CONSTRAINT prk_constraint_point_interet PRIMARY KEY (id_interet_pi)
 )WITHOUT OIDS;
-SELECT AddGeometryColumn('point_interet', 'geom_pi', 3857, 'GEOMETRY', 2);
+SELECT AddGeometryColumn('point_interet', 'geom_pi', 4326, 'GEOMETRY', 2);
 
 
 ------------------------------------------------------------
@@ -168,7 +168,7 @@ CREATE TABLE public.point_vigilance(
 	description_pv   	VARCHAR (2000)  NOT NULL ,
 	CONSTRAINT prk_constraint_point_vigilance PRIMARY KEY (id_vigilance_pv)
 )WITHOUT OIDS;
-SELECT AddGeometryColumn('point_vigilance', 'geom_pv', 3857, 'GEOMETRY', 2);
+SELECT AddGeometryColumn('point_vigilance', 'geom_pv', 4326, 'GEOMETRY', 2);
 
 
 ------------------------------------------------------------
@@ -190,7 +190,7 @@ CREATE TABLE public.zone_allure(
 	id_type_za    		INT  NOT NULL ,
 	CONSTRAINT prk_constraint_zone_allure PRIMARY KEY (id_zone_za)
 )WITHOUT OIDS;
-SELECT AddGeometryColumn('zone_allure', 'geom_za', 3857, 'GEOMETRY', 2);
+SELECT AddGeometryColumn('zone_allure', 'geom_za', 4326, 'GEOMETRY', 2);
 
 
 ------------------------------------------------------------
@@ -236,7 +236,7 @@ CREATE TABLE public.troncon(
 	duree_estime_t  	FLOAT   ,
 	CONSTRAINT prk_constraint_troncon PRIMARY KEY (id_troncon_t)
 )WITHOUT OIDS;
-SELECT AddGeometryColumn('troncon', 'geom_t', 3857, 'GEOMETRY', 2);
+SELECT AddGeometryColumn('troncon', 'geom_t', 4326, 'GEOMETRY', 2);
 
 
 ------------------------------------------------------------
@@ -355,8 +355,8 @@ ALTER TABLE public.zone_allure 		ADD CONSTRAINT FK_zone_allure_id_parcours_za 		
 
 
 --- Changement de SRID de 3857 vers 4326 afin de faciliter l'utilisation de fonction pour les calculs
-SELECT updateGeometrySRID('centre_equestre', 'geom_ce', 4326);
-SELECT updateGeometrySRID('point_interet', 'geom_pi', 4326);
-SELECT updateGeometrySRID('point_vigilance', 'geom_pv', 4326);
-SELECT updateGeometrySRID('zone_allure', 'geom_za', 4326);
-SELECT updateGeometrySRID('troncon', 'geom_t', 4326);
+--- SELECT updateGeometrySRID('centre_equestre', 'geom_ce', 4326);
+--- SELECT updateGeometrySRID('point_interet', 'geom_pi', 4326);
+--- SELECT updateGeometrySRID('point_vigilance', 'geom_pv', 4326);
+--- SELECT updateGeometrySRID('zone_allure', 'geom_za', 4326);
+--- SELECT updateGeometrySRID('troncon', 'geom_t', 4326);

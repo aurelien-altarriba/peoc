@@ -36,7 +36,7 @@ $(document).ready(function() {
 	var menu_data = {
 		'Parcours': troncons,
     'Points d\'interêt': points_interet,
-		'Points de vigilance': points_vigilance
+		'Points de vigilance': points_vigilance,
 		'Zones d\'allure': zone_allure
 	};
 
@@ -55,9 +55,8 @@ $(document).ready(function() {
 	getDataTroncon();
 	getDataPoint('I');
 	getDataPoint('V');
-<<<<<<< HEAD
-	getDataZoneAllure();
-=======
+	//getDataZoneAllure();
+
 
 	// Stocke la lat/long dans les variables lat et lng
 	map.on('click', function(e) {
@@ -67,5 +66,4 @@ $(document).ready(function() {
 		$("#zs_longitude_pv").val(lng);
 	});
 
->>>>>>> 53b106bd3fe2b92dc4f1917dc4075e6b9c7e4606
 });

@@ -35,7 +35,7 @@
 					<th>Département</th>
 					<th>Niveau équestre</th>
 					<th>Autonomie</th>
-					<th>Distance</th>
+					<th>Distance (m)</th>
 					<th>Durée</th>
 					<th>Créateur</th>
 					<th>Profil</th>
@@ -46,12 +46,12 @@
 			<tbody>
   			<?php
       	// Requête SQL st_length(ST_Transform(geom_t,4326)::geography))
-				//INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+				//INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t::geography))::numeric,2) AS distance_t
 				//ST_Transform(geom_t,4326)::geography)
 				$sql = "SELECT id_parcours_p, nom_p, autonomie_p, visible_p, dt_publication_p, id_niveau_p, nom_ne, id_departement_p,
 									nom_d, id_membre_p, nom_m, prenom_m, id_centre_p, nom_ce, description_p, duree_t, distance_t
 								FROM parcours AS p
-								INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+								INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t::geography))::numeric,2) AS distance_t
 														FROM troncon WHERE id_hierarchie_t = 1 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  p.id_parcours_p
 								INNER JOIN departement ON id_departement_d = id_departement_p
 								LEFT JOIN cavalier ON id_membre_c = id_membre_p

@@ -8,7 +8,7 @@ $CF = [
     "logo" => "/image/logo/",
   ],
 
-  "srid" => "3857",
+  "srid" => "4326",
   "mail_admin" => "peoc@alwaysdata.net",
   "dist_allure" => "0.01"
 ];

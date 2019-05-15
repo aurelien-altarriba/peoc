@@ -45,7 +45,7 @@
 			// On récupère les données du parcours
 			try {
 				$res = pg_query_params($bdd, 'SELECT * FROM parcours
-                                      INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t))::numeric,2) AS distance_t
+                                      INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t::geography))::numeric,2) AS distance_t
                                       FROM troncon WHERE id_hierarchie_t = $2 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  $1
                                       LEFT JOIN (SELECT id_parcours_pv, COUNT(*) AS nb_pv
                                       FROM point_vigilance GROUP BY id_parcours_pv) AS pv ON pv.id_parcours_pv =  $1
@@ -101,8 +101,8 @@
 				<div class="departement">Département : <b><?php echo $parcours_rel['nom_d']; ?> (<?php echo $parcours['id_departement_p']; ?>)</b></div>
         <div class="interet">Nombre de points d'intérêt : <b><?php echo $parcours['nb_pi']; ?></b></div>
         <div class="vigilance">Nombre de points de vigilance : <b><?php echo $parcours['nb_pv']; ?></b></div>
-        <div class="dureeestime">Durée estimée : <b><?php echo $parcours['duree_t']; ?></b></div>
-        <div class="distance">Distance : <b><?php echo $parcours['distance_t']; ?></b></div>
+        <div class="dureeestime">Durée estimée (min) : <b><?php echo $parcours['duree_t']; ?></b></div>
+        <div class="distance">Distance (m) : <b><?php echo $parcours['distance_t']; ?></b></div>
         <div class="description"><?php echo $parcours['description_p']; ?></div>
 
         <?php
