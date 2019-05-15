@@ -438,6 +438,12 @@ function displayDataTronconEdition(data) {
 
 		// Ajout du polyline à la liste des parcours
 		troncons.addLayer(polyline);
+
+		var id_troncon = troncons.getLayerId(polyline);
+
+		var troncon_map = troncons.getLayer(id_troncon);
+
+		creer_ligne_troncon(id_troncon, troncon_map, un_troncon);
 	});
 
 	// Zoom sur le parcours
@@ -445,14 +451,6 @@ function displayDataTronconEdition(data) {
 }
 
 
-<<<<<<< HEAD
-=======
-
-
-
-
-/*
->>>>>>> 689013b64609be6722fa2210f95e437ce02c0991
 // Récupération des zones allures d'un parcours
 function getDataZoneAllure(edition = false) {
 
