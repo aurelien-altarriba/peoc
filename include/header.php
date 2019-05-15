@@ -88,6 +88,7 @@
 							<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
 						    <a class="dropdown-item" href="/page/parcours_liste_perso.php">Mes parcours</a>
 						    <a class="dropdown-item" href="/page/parcours_edition.php">Créer un parcours</a>
+						    <a class="dropdown-item" href="/page/parcours_liste_effectue.php">Parcours effectués</a>
 							<?php } ?>
 					  </div>
 					</div>
