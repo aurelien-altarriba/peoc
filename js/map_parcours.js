@@ -52,10 +52,10 @@ $(document).ready(function() {
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
 	// Charge les données sur la carte
+	getDataZoneAllure();
 	getDataTroncon();
 	getDataPoint('I');
 	getDataPoint('V');
-	//getDataZoneAllure();
 
 
 	// Stocke la lat/long dans les variables lat et lng

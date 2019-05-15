@@ -475,22 +475,16 @@ function displayDataTronconEdition(data) {
 
 
 
-
-
-
-/*
 // Récupération des zones allures d'un parcours
 function getDataZoneAllure(edition = false) {
-
 	// Récupération des paramètres
 	var url = new URLSearchParams(location.search);
 
 	// Récupération des tronçons
-	$.post('/fonction/verif_zone_allure.php',
+	$.post('/fonction/recup_data_zones_allure_parcours.php',
 
 		// Récupération de l'ID du parcours
 		{
-			action: 0,
 			id: url.get('id')
 		},
 
@@ -499,7 +493,7 @@ function getDataZoneAllure(edition = false) {
 				//displayDataZoneAllureEdition(data);
 
 			} else {
-				displayDataZoneAllure(data);
+				displayDataZoneAllure(data,"all");
 			}
 		}
 	);
@@ -509,7 +503,6 @@ function getDataZoneAllure(edition = false) {
 
 // Affichage des zones allure sur la carte
 function displayDataZoneAllure(data,mode,tp) {
-
 	// Supprime les zones allure de la carte (variable globale donc au cas où)
 	zone_allure.clearLayers();
 
@@ -522,16 +515,20 @@ function displayDataZoneAllure(data,mode,tp) {
 		// Tableau contenant les coordonnées du tronçons
 		var trace_za = [];
     var type_za;
+		var nom_za;
 
 		// On récupère les coordonnées du troncon
 		var coords = JSON.parse(une_zoneAllure['st_asgeojson'])['coordinates'];
 
     if (mode=="all"){
-      type_za = une_zoneAllure['id_type_za']
+      type_za = une_zoneAllure['id_type_za'];
+			nom_za = une_zoneAllure['nom_ta'];
     }
     else{
       type_za = tp;
+			nom_za = '';
     }
+
 		// Calculer couleur selon niveau difficulté
 		if (type_za== 1) {
 			couleur = 'black';
@@ -556,11 +553,11 @@ function displayDataZoneAllure(data,mode,tp) {
 		});
 
 		// Création du polyline du troncon sur la carte
-		var polyline = L.polyline(trace_za, {color: couleur, opacity: 0.5, weight: 20});
+		var polyline = L.polyline(trace_za, {color: couleur, opacity: 0.5, weight: 20}).bindTooltip(nom_za, {direction: top, permanent: true, opacity: 0.5});
 
 		// Ajout du polyline à la liste des parcours
 		zone_allure.addLayer(polyline);
+		polyline.openTooltip();
 	});
 
 }
-*/
