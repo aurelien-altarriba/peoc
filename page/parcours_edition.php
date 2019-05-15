@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title>PÉ-OC</title>
 		<meta charset="utf-8">
@@ -29,6 +28,49 @@
 		<?php
 			// HEADER
 			require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
+			$bdd = connect();
+
+			// Si l'id est défini et est un chiffre
+			if (isset($_GET['id'])) {
+				if (is_numeric($_GET['id'])) {
+					$id_parcours = $_GET['id'];
+
+					// On récupère les données du parcours
+					try {
+						$res = pg_query_params($bdd,
+							 'SELECT * FROM parcours
+			          WHERE id_parcours_p = $1',
+									array($id_parcours));
+
+						$parcours = pg_fetch_all($res)[0];
+					} catch(Exception $e) {
+						echo('Erreur : '. $e->getMessage());
+					}
+
+					$modif = false;
+
+					// On regarde si le membre connecté est propriétaire du parcours
+	        if ($parcours['id_centre_p']) {
+	          $id_ce = ( isset($_SESSION['membre']['ce']['id_centre_ce']) ) ? $_SESSION['membre']['ce']['id_centre_ce'] : 'non';
+
+	          if ($id_ce == $parcours['id_centre_p']) {
+	            $modif = true;
+	          }
+	        }
+	        else if (isset($_SESSION['membre']['id_membre_m'])) {
+	          $id_membre = $_SESSION['membre']['id'];
+
+	          if ($id_membre == $parcours['id_membre_p']) {
+	            $modif = true;
+	          }
+	        }
+
+					// Si la personne n'a pas le droit de modifier le parcours
+					if (!$modif) {
+						exit;
+					}
+				}
+			}
     ?>
 
 		<div id="contenu">
@@ -57,5 +99,9 @@
 
 		<!-- FOOTER -->
 		<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
+
+		<?php if ($modif)  { ?>
+			<script type="text/javascript" src="/js/map_parcours_edition_chargement.js"></script>
+		<?php }?>
 	</body>
 </html>

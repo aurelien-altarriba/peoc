@@ -10,13 +10,48 @@ function supprimer_troncon(id) {
 }
 
 function actualiser_var_troncon(idTroncon, un_troncon) {
+	if (un_troncon.layer) {
+		var data = un_troncon.layer.getLatLngs();
+	} else {
+		var data = un_troncon.getLatLngs();
+	}
+
 	tabTroncon[idTroncon] = {
-		'data': un_troncon.layer.getLatLngs(),
+		'data': data,
 		'position': $('#zs_num_position_t'+ idTroncon).val(),
 		'duree_estimee': $('#zs_duree_estime_t'+ idTroncon).val(),
 		'type': $('#zl_id_type_t'+ idTroncon).val(),
 		'niveau': $('#zl_id_niveau_nt'+ idTroncon).val(),
 	}
+}
+
+function creer_ligne_troncon(id_troncon, troncon, param = false) {
+
+	// On ajoute un formulaire pour le tronçon
+	$.post('/form/troncon.php',
+		{
+			id: id_troncon,
+			pos: _pos_troncon,
+		},
+		function(data) {
+			$('#contenuTroncon')
+				.append(data)
+				.change(function() {
+					actualiser_var_troncon(id_troncon, troncon);
+				});
+
+			if (param) {
+				console.log(param);
+				$('#zs_num_position_t'+ id_troncon).val(param['num_position_t']);
+				$('#zs_duree_estime_t'+ id_troncon).val(param['duree_estime_t']);
+				$('#zl_id_type_t'+ id_troncon).val(param['id_type_t']);
+				$('#zl_id_niveau_nt'+ id_troncon).val(param['id_niveau_t']);
+			}
+
+			actualiser_var_troncon(id_troncon, troncon);
+			_pos_troncon++;
+		}
+	)
 }
 
 $(document).ready(function() {
@@ -84,29 +119,13 @@ $(document).ready(function() {
 	tabTroncon = {};
 
 	// Pour incrémenter la position des tronçons
-	var _pos_troncon = 1;
+	_pos_troncon = 1;
 
 	// À chaque création de tronçon sur la carte
 	map.on('pm:create', (un_troncon) => {
 		var idTroncon = un_troncon.layer._leaflet_id;
 
-		// On ajoute un formulaire pour le tronçon
-		$.post('/form/troncon.php',
-			{
-				id: idTroncon,
-				pos: _pos_troncon,
-			},
-			function(data) {
-				$('#contenuTroncon')
-					.append(data)
-					.change(function() {
-						actualiser_var_troncon(idTroncon, un_troncon);
-					})
-
-				actualiser_var_troncon(idTroncon, un_troncon);
-				_pos_troncon++;
-			}
-		)
+		creer_ligne_troncon(idTroncon, un_troncon);
 	});
 
 	// Quand on clique sur le bouton pour enregistrer
