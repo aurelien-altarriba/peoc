@@ -341,7 +341,6 @@ function displayDataPoint(data, type) {
 			 	'<div><b>Site web :</b> <a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a></div>'+
 			 '</div>';
 
-			 console.log(popup_contenu);
 
 			// Ajoute le contenu HTML dans une popup au marqueur
 			marqueur.bindPopup(popup_contenu);
@@ -371,7 +370,6 @@ function displayDataPoint(data, type) {
 
 			// On créé le contenu en HTML
 			var popup_contenu = '<div class="popup_PT">';
-			console.log(point['photo_pv']);
 			if(point['photo_pv']!=null){
 				popup_contenu += '<img src="../image/photo_pv/'+ point['photo_pv'] +'"></img>';
 			}
@@ -442,6 +440,10 @@ function displayDataTronconEdition(data) {
 		var id_troncon = troncons.getLayerId(polyline);
 
 		var troncon_map = troncons.getLayer(id_troncon);
+
+		troncon_map.on('pm:edit', function(e) {
+			actualiser_var_troncon(e.target._leaflet_id, e.target);
+		});
 
 		creer_ligne_troncon(id_troncon, troncon_map, un_troncon);
 	});
