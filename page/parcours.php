@@ -136,8 +136,8 @@
 
         <div id="listeTroncon">
           <h5>Tronçons du parcours :</h5>
-          <table class="table table-sm table-dark table-hover">
-            <thead>
+          <table class="table table-sm table-hover">
+            <thead class="thead-dark">
               <tr>
                 <th scope="col"><small>Position</small></th>
                 <th scope="col"><small>Hiérarchie</small></th>
@@ -162,11 +162,11 @@
 
         <!-- Commentaires -->
         <div id="resComment">
-          <h3>Commentaires :</h3>
           <div class="comment"></div>
 
-          <table class="table table-sm table-dark table-hover">
-            <thead class="thead">
+          <h3 class="titre_comm">Commentaires</h3>
+          <table class="table table-sm table-hover">
+            <thead class="thead-dark">
               <tr>
                 <th scope="col"><small>#</small></th>
                 <th scope="col"><small>Date</small></th>
@@ -231,33 +231,43 @@
           //$("#tabMoyenne").append('<tr><td>'+recap.nbnote+'</td><td>'+recap.moynote+'</td><td>'+recap.dureereelle+'</td></tr>');
 
           var listeNote = `
-            <div class="rating" data-rate-value=3></div>
+            <div class="bloc_note">
+              <h4>Notes <span class="badge badge-primary">👤 ${ recap.nbnote }</span></h4>
+              <div class="note_globale"></div>
+              <div class="txt_note">${ +recap.moynote } / 5</div>
+            </div>
+            <div class="alert alert-warning">
+              Durée réelle moyenne : <b>${ recap.dureereelle } minutes</b>
+            </div>
           `;
 
-          $(".comment").append('<br/>Nombre de note : '+recap.nbnote+'<br/>Note moyenne : '+listeNote+'<br/>Durée réelle moyenne : '+recap.dureereelle);
+          $(".comment").append(listeNote);
 
-          var options = {
+          var options_global = {
             max_value: 5,
             step_size: 1,
-            selected_symbol_type: 'perso',
+            initial_value: +recap.moynote,
+            selected_symbol_type: 'cheval',
             symbols: {
-              perso: {
-                base: '🐎',
-                hover: '🐎',
-                selected: '🐎',
+              cheval: {
+                base: '<span class="note_base">🐎</span>',
+                hover: '<span class="note_hover">🐎</span>',
+                selected: '<span class="note_selected">🐎</span>',
               }
-            }
-            // only_select_one_symbol: true,
+            },
+            cursor: 'pointer',
+            readonly: true,
           }
-          $(".rating").rate(options);
+
+          $(".note_globale").rate(options_global);
         });
       // liste des commentaires
     	} else if (type == "L") {
         $("#tabComment").html('');
 
     		$.each(data, function(index, com) {
-    		//$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
-        $("#tabComment").append('<tr><th scope="row"><small>'+(index+1)+'</small></th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
+      		//$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
+          $("#tabComment").append('<tr><th scope="row"><small>'+(index+1)+'</small></th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
     		});
     	}
     }
