@@ -4,9 +4,9 @@ function supprimer_troncon(id) {
 	// On supprime la ligne dans le tableau des tronçons
 	$('#ligne_'+ id).remove();
 
-	// On supprime le troncçon de la map et du tableau des tronçons
+	// On supprime le tronçon de la map et du tableau des tronçons
 	map.removeLayer(map._layers[id]);
-	delete tabTroncon['id_' + id];
+	delete tabTroncon[id];
 }
 
 function actualiser_var_troncon(idTroncon, un_troncon) {
@@ -41,7 +41,6 @@ function creer_ligne_troncon(id_troncon, troncon, param = false) {
 				});
 
 			if (param) {
-				console.log(param);
 				$('#zs_num_position_t'+ id_troncon).val(param['num_position_t']);
 				$('#zs_duree_estime_t'+ id_troncon).val(param['duree_estime_t']);
 				$('#zl_id_type_t'+ id_troncon).val(param['id_type_t']);
@@ -125,6 +124,10 @@ $(document).ready(function() {
 	map.on('pm:create', (un_troncon) => {
 		var idTroncon = un_troncon.layer._leaflet_id;
 
+		un_troncon.layer.on('pm:edit', function(e) {
+			actualiser_var_troncon(e.target._leaflet_id, e.target);
+		});
+
 		creer_ligne_troncon(idTroncon, un_troncon);
 	});
 
@@ -137,16 +140,19 @@ $(document).ready(function() {
 		// Si on modifie le parcours
 		if (url.get('id')) {
 			var chemin = "/fonction/verif_parcours_modification.php";
+			var action = 'maj';
 		}
 
 		// Si on créé le parcours
 		else {
 			var chemin = "/fonction/verif_parcours_creation.php";
+			var action = 'enregistrer';
 		}
 
 		// Mise à jour du parcours
 		$.post(chemin,
 			{
+				zl_id_p: url.get('id'),
 				zs_nom_p: $('#zs_nom_p')[0].value,
 				zs_description_p: $('#zs_description_p')[0].value,
 				zl_id_niveau_ne: $('#zl_id_niveau_ne')[0].value,
@@ -158,25 +164,22 @@ $(document).ready(function() {
 			// Quand le PHP a fini d'être exécuté
 			function(id_parcours_p){
 
+				console.log(id_parcours_p);
+
 				// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
 				if (Number(id_parcours_p)) {
-
-					alert(id_parcours_p);
 
 					// On met à jour les tronçons
 					$.post("/fonction/verif_troncon.php",
 						{
 							listeTroncons: JSON.stringify(tabTroncon),
 							id_parcours: id_parcours_p,
-							action: 'enregistrer',
+							action: action,
 						},
 
 						// Quand le PHP a fini d'être exécuté
 						function(data) {
-
-							alert(data);
-							console.log(data);
-
+							alert('Parcours enregistré!');
 						}
 					);
 				}

@@ -4,27 +4,6 @@
 
 <form onsubmit="return(false);">
 
-    <!-- Choix du parcours à modifier-->
-    <div>
-      <?php if(isset($id)) { ?>
-
-      <label>Parcours à modifier</label>
-      <select name="zl_id_p" id="zl_id_p" required>
-      <?php
-
-      $sql='SELECT nom_p, id_parcours_p
-            FROM parcours';
-
-      $rs=pg_exec($idc,$sql);
-
-        while($ligne=pg_fetch_assoc($rs)){
-          print('<option value="'.$ligne['id_parcours_p'].'">'.$ligne['nom_p'].'</option>');
-        }
-      ?>
-      </select>
-    <?php } ?>
-    </div>
-
     <!-- Zone de saisie du nom du parcours -->
     <div class="form-group">
       <label for="zs_nom_p">Nom du parcours</label>
@@ -131,7 +110,8 @@
       Enregistrer le parcours
     </button>
 
-  <?php if(isset($id)) { ?>
+  <?php if(isset($id_parcours)) { ?>
+    
     <!-- Bouton de suppression du parcours -->
     <button type="submit" class="btn btn-danger" name="bt_submit_suppression" id="bt_submit_suppression">
       Supprimer le parcours

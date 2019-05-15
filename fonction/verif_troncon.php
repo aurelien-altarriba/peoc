@@ -52,67 +52,55 @@ if ((!$id_membre_p_parcours_selection[0]['id_membre_p'] == $id_membre) &&
   return 0;
 }
 
-// Si on supprime le tronçon
-if ($action === 'supprimer') {
+// Tableau des coordonnées
+$listeTroncons = json_decode($_POST['listeTroncons']);
 
-  // Si l'id du tronçon est renseigné
-  if (!empty($_POST['id_troncon'])) {
+// Si on fait une maj, on supprime les tronçons
+if ($action === 'maj') {
 
     // Requête de suppression d'un tronçon
-    $req = 'DELETE FROM troncon
-            WHERE id_troncon_t = ' . htmlspecialchars($_POST['id_troncon']);
+    $req = "DELETE FROM troncon
+            WHERE id_parcours_t = $id_parcours";
     pg_exec($bdd, $req);
-  }
 }
 
-// Sinon si c'est un ajout
-else if ($action === 'enregistrer') {
+// Pour chaque tronçon
+foreach ($listeTroncons as $troncon) {
 
-  // Tableau des coordonnées
-  $listeTroncons = json_decode($_POST['listeTroncons']);
+  // Commande pour PostGis
+  $commande = "'LINESTRING(";
 
-  // Pour chaque tronçon
-  foreach ($listeTroncons as $troncon) {
+  $virgule = false;
 
-    // Commande pour PostGis
-    $commande = "'LINESTRING(";
+  // Pour chaque coordonnée dans le tronçon
+  foreach ($troncon->data as $coord) {
 
-    $virgule = false;
-
-    // Pour chaque coordonnée dans le tronçon
-    foreach ($troncon->data as $coord) {
-
-      if ($virgule) {
-        $commande .= ', ';
-      } else {
-        $virgule = true;
-      }
-
-      // Longitude Latitude | ex: 2.12345 48.12345
-      $commande .= $coord->lng . ' ' . $coord->lat;
+    if ($virgule) {
+      $commande .= ', ';
+    } else {
+      $virgule = true;
     }
 
-    // Fin de commande pour PostGis
-    $commande .= ")', " . $CF['srid'];
-
-    // Récupération des variables
-    $num_position_t = htmlspecialchars($troncon->position);
-    $id_type_t = htmlspecialchars($troncon->type);
-    $id_niveau_nt = htmlspecialchars($troncon->niveau);
-    $duree_estime_t = htmlspecialchars($troncon->duree_estimee);
-
-    // Requête d'insertion d'un tronçon
-    $req = "INSERT INTO troncon
-              (id_parcours_t, num_position_t, id_hierarchie_t, id_type_t, id_niveau_t, duree_estime_t, geom_t)
-            VALUES ($id_parcours, $num_position_t, 1, $id_type_t, $id_niveau_nt, $duree_estime_t,
-                    ST_GeomFromText($commande));";
-    $res = pg_exec($bdd, $req);
+    // Longitude Latitude | ex: 2.12345 48.12345
+    $commande .= $coord->lng . ' ' . $coord->lat;
   }
 
-  echo('Parcours enregistré!');
+  // Fin de commande pour PostGis
+  $commande .= ")', " . $CF['srid'];
+
+  // Récupération des variables
+  $num_position_t = htmlspecialchars($troncon->position);
+  $id_type_t = htmlspecialchars($troncon->type);
+  $id_niveau_nt = htmlspecialchars($troncon->niveau);
+  $duree_estime_t = htmlspecialchars($troncon->duree_estimee);
+
+  // Requête d'insertion d'un tronçon
+  $req = "INSERT INTO troncon
+            (id_parcours_t, num_position_t, id_hierarchie_t, id_type_t, id_niveau_t, duree_estime_t, geom_t)
+          VALUES ($id_parcours, $num_position_t, 1, $id_type_t, $id_niveau_nt, $duree_estime_t,
+                  ST_GeomFromText($commande));";
+  $res = pg_exec($bdd, $req);
 }
 
-else {
-  echo('Vous pouvez seulement modifier vos propres parcours');
-}
+echo('Parcours enregistré!');
 ?>
