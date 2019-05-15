@@ -451,10 +451,7 @@ function displayDataTronconEdition(data) {
 }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 728177a538db52185fa46fb01563cce1cb190cd4
 // Récupération des zones allures d'un parcours
 function getDataZoneAllure(edition = false) {
 	// Récupération des paramètres
