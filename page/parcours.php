@@ -181,7 +181,9 @@
               </tbody>
             </table>
           </div>
-        </div> <br/>
+        </div>
+
+        <hr class="ligne_hr">
 
         <!-- FORMULAIRE COMMENTAIRE -->
         <div id="parcours_commentaire">
@@ -257,7 +259,7 @@
                 selected: '<span class="note_selected">🐎</span>',
               }
             },
-            cursor: 'pointer',
+            cursor: 'default',
             readonly: true,
           }
 

@@ -176,7 +176,7 @@
 	opacity: 0.5;
 }
 
-.note_selected
+.note_hover
 {
 	text-shadow: 0 0 3px #F50;
 }
@@ -194,9 +194,36 @@
 	z-index: 999;
 }
 
+.note_bloc_flex
+{
+	display: flex;
+	align-items: center;
+}
+
+.note_comm
+{
+	font-size: 2em;
+	margin-right: 0.5rem;
+}
+
 .table
 {
 	box-shadow: 0 0 4px #BBB;
+}
+
+.ligne_hr
+{
+	border-top: 1px solid #CCC !important;
+	width: 80%;
+}
+
+/*** FORMULAIRE COMMENTAIRE ***/
+#bloc_commentaire
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 }
 
 /*** POPUP POINT ***/
