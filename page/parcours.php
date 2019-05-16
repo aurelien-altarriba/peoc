@@ -226,7 +226,7 @@
 
       // données récapitulatives au parcours
     	if (type == "R") {
-        $(".comment").html('');
+        $(".notes").html('');
 
     		$.each(data, function(index, recap) {
       		//$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' - Note moyenne : '+recap.moynote+' - Durée réelle moyenne : '+recap.dureereelle+'</li>');
