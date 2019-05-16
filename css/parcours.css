@@ -121,20 +121,27 @@
 #resComment
 {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 1em;
-	width: 80%;
+	justify-content: space-between;
+	margin-top: 2em;
+	width: 95%;
 }
 
-.comment
+.notes
 {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: 100%;
-	margin-top: 1em;
-	margin-bottom: 3em;
+	margin-right: 3em;
+	text-align: center;
+	flex: 1;
+}
+
+.comments
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 3;
 }
 
 .bloc_note
@@ -149,12 +156,12 @@
 	font-size: 3em;
 }
 
-.comment .txt_note
+.notes .txt_note
 {
 	font-weight: bold;
 }
 
-.comment .alert
+.notes .alert
 {
 	margin-top: 2em;
 }
@@ -169,24 +176,21 @@
 	opacity: 0.6;
 }
 
-.note_hover
-{
-
-}
-
 .note_selected
 {
-	text-shadow: 0 0 2px #F50;
+	text-shadow: 0 0 3px #F50;
 }
 
 .titre_comm
 {
+	width: auto;
 	background-color: #212529;
 	color: white;
 	margin-bottom: 0;
 	padding: 0.3em 2em 0.3em 2em;
 	border-radius: 0.5em 0.5em 0 0;
 	box-shadow: 0px -2px 4px #BBB;
+	text-align: center;
 	z-index: 999;
 }
 

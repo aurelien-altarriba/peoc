@@ -104,7 +104,7 @@
         <div class="vigilance">Nombre de points de vigilance : <b><?php echo $parcours['nb_pv']; ?></b></div>
         <div class="dureeestime">Durée estimée (min) : <b><?php echo $parcours['duree_t']; ?></b></div>
         <div class="distance">Distance (m) : <b><?php echo $parcours['distance_t']; ?></b></div>
-        <div class="description"><?php echo $parcours['description_p']; ?></div>
+        <div class="description alert alert-secondary"><?php echo $parcours['description_p']; ?></div>
 
         <?php
         // On regarde si l'utilisateur est propriétaire du parcours
@@ -162,23 +162,25 @@
 
         <!-- Commentaires -->
         <div id="resComment">
-          <div class="comment"></div>
+          <div class="notes"></div>
 
-          <h3 class="titre_comm">Commentaires</h3>
-          <table class="table table-sm table-hover">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col"><small>#</small></th>
-                <th scope="col"><small>Date</small></th>
-                <th scope="col"><small>Cavalier</small></th>
-                <th scope="col"><small>Note</small></th>
-                <th scope="col"><small>Durée réelle</small></th>
-                <th scope="col"><small>Commentaire</small></th>
-              </tr>
-            </thead>
-            <tbody id="tabComment">
-            </tbody>
-          </table>
+          <div class="comments">
+            <h3 class="titre_comm">Commentaires</h3>
+            <table class="table table-sm table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col"><small>#</small></th>
+                  <th scope="col"><small>Date</small></th>
+                  <th scope="col"><small>Cavalier</small></th>
+                  <th scope="col"><small>Note</small></th>
+                  <th scope="col"><small>Durée réelle</small></th>
+                  <th scope="col"><small>Commentaire</small></th>
+                </tr>
+              </thead>
+              <tbody id="tabComment">
+              </tbody>
+            </table>
+          </div>
         </div> <br/>
 
         <!-- FORMULAIRE COMMENTAIRE -->
@@ -235,13 +237,13 @@
               <h4>Notes <span class="badge badge-primary">👤 ${ recap.nbnote }</span></h4>
               <div class="note_globale"></div>
               <div class="txt_note">${ +recap.moynote } / 5</div>
-            </div>
-            <div class="alert alert-warning">
-              Durée réelle moyenne : <b>${ recap.dureereelle } minutes</b>
+              <div class="alert alert-warning">
+                Durée réelle moyenne :<br><b>${ recap.dureereelle } minutes</b>
+              </div>
             </div>
           `;
 
-          $(".comment").append(listeNote);
+          $(".notes").append(listeNote);
 
           var options_global = {
             max_value: 5,
