@@ -1,36 +1,71 @@
-<form name="frm"  action="/fonction/verif_point_interet.php" method="POST" enctype="multipart/form-data">
+<?php
+  $idc = connect();
+?>
+
+<form name="frm"  action="/fonction/verif_point_interet.php" enctype="multipart/form-data" id="form_pi">
   <div id="div_point">
-    <?php
-      //Génération du code html
-      // !!! Sous firefox pb positionnement des listes de valeur sur la valeur par défaut
-      print('Numéro du point d\'intérêt : <input type="text" name="zs_interet_pi" id="zs_interet_pi" value="'.$id_interet_pi.'" disabled="disabled"/><br/>'."\n");
-      print('Parcours: <input type="text" name="zs_parcours_pi" value="'.$id_parcours_pi.'" disabled="disabled"/><input type="text" name="zs_nom_p" value="'.$nom_p.'" disabled="disabled"/><br/>'."\n");
-      print('Position : <input type="number" name="zs_num_point_pi" id="zs_num_point_pi" value="'.$num_point_pi.'" required="required"/><br/>'."\n");
-      print('Catégorie : ');
-      $sql='select id_categorie_pic, nom_pic from categorie_pi order by id_categorie_pic;';
-      $rs=pg_exec($idc,$sql);
-      print('<select name="zl_nom_pic" id="zl_nom_pic" required="required">'."\n");
-      while($ligne=pg_fetch_assoc($rs)){
-          if ($ligne['id_categorie_pic']==$id_categorie_pi){
-            print('<option value="'.$ligne['id_categorie_pic'].'" selected="selected">'.$ligne['nom_pic'].'</option>'."\n");
+
+      <!-- Choix de la catégorie du point d'intérêt -->
+      <div class="form-group">
+        <label for="zl_nom_pic">Catégorie</label>
+        <select class="form-control" name="zl_nom_pic" id="zl_nom_pic">
+          <?php
+          $sql = 'SELECT id_categorie_pic, nom_pic
+                  FROM categorie_pi';
+
+          $rs = pg_exec($idc,$sql);
+
+          while ($ligne = pg_fetch_assoc($rs)){
+            if ($ligne['id_categorie_pic'] == $id_categorie_pi){
+              print('<option value="'.$ligne['id_categorie_pic'].'" selected="selected">'.$ligne['nom_pic'].'</option>');
+            }
+            else{
+              print('<option value="'.$ligne['id_categorie_pic'].'">'.$ligne['nom_pic'].'</option>');
+            }
           }
-          else{
-            print('<option value="'.$ligne['id_categorie_pic'].'">'.$ligne['nom_pic'].'</option>'."\n");
-          }
-      }
-      print('</select><br/>'."\n");
-      print('Url site : <input type="text" name="zs_url_pi" id="zs_url_pi" value="'.$url_pi.'"/><br/>'."\n");
-      print('Photo : <input type="file" name="zs_photo_up"/>');
-      if (!empty($photo_pi)){
-        $photo_pi = $fichier_dossier_dest.$photo_pi;
-      }
-      print('<img src="'.$photo_pi.'" name="zs_photo_pi" width="60" alt="Point d\'intérêt" /><br/>'."\n");
-      print('Description : <input type="text" name="zs_description_pi" id="zs_description_pi" value="'.$description_pi.'"/><br/>'."\n");
-    ?>
-  </div>
-  
-  <div>
-    <input type="submit" name="bt_submit_CM" id="bt_submit_CM" value="Créer"/>
-    <input type="submit" name="bt_submit_S" id="bt_submit_S" value="Supprimer"/>
+          ?>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="zs_url_pi">URL</label>
+        <input type="text" class="form-control" name="zs_url_pi" id="zs_url_pi">
+      </div>
+
+      <!--
+      <div class="form-group" id="photo_cavalier">
+  	    <label for="zs_photo_up">Photo</label>
+  	    <input type="file" class="form-control-file" name="zs_photo_up" id="zs_photo_up">
+  	  </div>
+
+  		<img src="<?php echo($photo_c); ?>" name="zs_photo_pi" id="zs_photo_pi" style="max-width: 300px;" />
+      -->
+
+      <div class="form-group">
+        <label for="zs_description_pi">Description</label>
+        <input type="text" class="form-control" name="zs_description_pi" id="zs_description_pi">
+      </div>
   </div>
 </form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+		// Fonction de lecture d'une image importée par input
+		function readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+
+		    reader.onload = function(e) {
+		      $('#zs_photo_pi').attr('src', e.target.result);
+		    }
+
+		    reader.readAsDataURL(input.files[0]);
+		  }
+		}
+
+		$("#zs_photo_up").change(function() {
+		  readURL(this);
+		});
+});
+</script>

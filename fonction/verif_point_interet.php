@@ -43,10 +43,13 @@
   if (isset($_SESSION['parcours'])){
     $parcours = $_SESSION['parcours'];
   }
+
   $num_point = pg_escape_string($_POST['zs_num_point_pi']);
   $id_categorie = pg_escape_string($_POST['zl_nom_pic']);
   $url = pg_escape_string($_POST['zs_url_pi']);
   $description = pg_escape_string($_POST['zs_description_pi']);
+  $latitude = pg_escape_string($_POST['latitude']);
+  $longitude = pg_escape_string($_POST['longitude']);
 
   $erreur = '';
 
