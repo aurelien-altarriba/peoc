@@ -161,11 +161,15 @@
 	margin-top: 2em;
 }
 
+.note_globale, .rate-base-layer, .rate-select-layer
+{
+	height: 60px !important;
+}
+
 .note_base, .note_hover, .note_selected
 {
 	margin: 5px;
 	width: 60px;
-	margin-bottom: 3em;
 }
 
 .note_base
