@@ -104,7 +104,7 @@
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="titre_form_marqueur">Ajouter un marqueur</h5>
+						<h5 class="modal-title" id="titre_form_marqueur">Ajouter un point</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Annuler">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -112,12 +112,14 @@
 
 					<div class="modal-body">
 						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_interet.php"); ?>
+						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
 					</div>
 
 					<div class="modal-footer" id="modalAction">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-						<button type="button" class="btn btn-primary" id="ajouterMarqueur">Ajouter le marqueur</button>
-						<button type="button" class="btn btn-primary" id="modifierMarqueur" style="display: none;">Modifier le marqueur</button>
+						<button type="button" class="btn btn-primary" id="ajouterMarqueurPI">Ajouter le point d'intérêt</button>
+						<button type="button" class="btn btn-primary" id="ajouterMarqueurPV">Ajouter le point de vigilance</button>
+						<button type="button" class="btn btn-primary" id="modifierMarqueur" style="display: none;">Modifier le point</button>
 					</div>
 				</div>
 			</div>

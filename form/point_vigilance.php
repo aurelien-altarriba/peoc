@@ -2,26 +2,15 @@
   $idc = connect();
 ?>
 
-<form onsubmit="return(false);" enctype="multipart/form-data" id="form_pv">
-
-  <div class="form-group">
-    <label for="zs_latitude_pv">Latitude</label>
-    <input type="text" name="zs_latitude_pv" id="zs_latitude_pv">
-  </div>
-
-  <div class="form-group">
-    <label for="zs_longitude_pv">Longitude</label>
-    <input type="text" name="zs_longitude_pv" id="zs_longitude_pv">
-  </div>
-
+<form enctype="multipart/form-data" id="form_pv">
   <div class="form-group">
     <label for="zs_dt_debut_pv">Date de début</label>
-    <input type="date" name="zs_dt_debut_pv" id="zs_dt_debut_pv"/>
+    <input class="form-control" type="date" name="zs_dt_debut_pv" id="zs_dt_debut_pv"/>
   </div>
 
   <div class="form-group">
     <label for="zs_dt_fin_pv">Date de fin</label>
-    <input type="date" name="zs_dt_fin_pv" id="zs_dt_fin_pv"/>
+    <input class="form-control" type="date" name="zs_dt_fin_pv" id="zs_dt_fin_pv"/>
   </div>
 
   <!-- Choix de la catégorie du point de vigilance -->
@@ -50,6 +39,4 @@
     <label for="zs_categorie_pv">Description</label>
     <textarea class="form-control" name="zs_description_pv" id="zs_description_pv" rows="5"></textarea>
   </div>
-
-  <button class="btn btn-primary btn-block" type="submit" name="bt_submit_pv" id="bt_submit_pv"/>Valider le point de vigilance</button><br/>
 </form>
