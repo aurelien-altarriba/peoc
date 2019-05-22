@@ -10,15 +10,7 @@
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/header.css">
 	<link rel="stylesheet" type="text/css" href="/css/footer.css">
-	<style type="text/css">
-		#contenu
-		{
-		  margin: auto;
-		  min-width: 300px;
-		  width: 40vw;
-		  padding: 1em;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/css/centre_equestre.css">
 
 	<link rel="stylesheet" type="text/css" href="/css/lib//bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/lib/leaflet.css">
@@ -51,7 +43,7 @@
 			}
 
 			//Initialisation des variables
-			$fichier_dossier_dest = '/'.$CF['image']['logo'];
+			$fichier_dossier_dest = $CF['image']['logo'];
 			//$fichier_dossier_dest = '/image/logo/';
 
 			//Statut modification :

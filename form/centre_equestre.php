@@ -64,12 +64,42 @@
         }
       ?>
 
-      <div class="form-group">
-        <label for="zs_nom_ce">Logo </label>
-        <?php print('<img src="'.$logo_ce.'" name="zs_logo_ce" width="60" /><br/>'."\n"); ?>
-        <input type="file" class="form-control" name="zs_logo_up" id="zs_logo_up">
-      </div> <br/>
+  		<div class="form-group" id="logo_centre">
+  	    <label for="zs_logo_up">Logo du centre</label>
+  	    <input type="file" class="form-control-file" name="zs_logo_up" id="zs_logo_up">
+  	  </div>
+
+  		<img src="<?php echo($logo_ce); ?>" name="zs_logo_ce" id="zs_logo_ce" />
+
+
+      <div id="div_modification_bt">
+    		<button type="submit" class="btn btn-success btn-lg" name="bt_submit_CM" id="bt_submit_CM"
+    			value="Modifier">
+    			Modifier
+    		</button>
+    	</div>
 
   </div>
 
 </form>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+    // Fonction de lecture d'une image importée par input
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('#zs_logo_ce').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#zs_logo_up").change(function() {
+      readURL(this);
+    });
+  });
+</script>
