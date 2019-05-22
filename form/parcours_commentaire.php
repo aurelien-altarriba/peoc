@@ -28,9 +28,9 @@ var options_comm = {
   selected_symbol_type: 'cheval',
   symbols: {
     cheval: {
-      base: '<span class="note_base">🐎</span>',
-      hover: '<span class="note_hover">🐎</span>',
-      selected: '<span class="note_selected">🐎</span>',
+      base: '<img src="/image/cheval.png" class="note_base"/>',
+      hover: '<img src="/image/cheval.png" class="note_hover"/>',
+      selected: '<img src="/image/cheval.png" class="note_selected"/>',
     }
   },
   cursor: 'pointer',

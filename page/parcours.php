@@ -188,13 +188,7 @@
         <!-- FORMULAIRE COMMENTAIRE -->
         <div id="parcours_commentaire">
           <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
-        </div><br/>
-
-        <!-- FORMULAIRE POINT VIGILANCE -->
-  			<div id="point_vigilance">
-  				<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
-  			</div>
-
+        </div>
       </div>
 		</div>
 
@@ -254,9 +248,9 @@
             selected_symbol_type: 'cheval',
             symbols: {
               cheval: {
-                base: '<span class="note_base">🐎</span>',
-                hover: '<span class="note_hover">🐎</span>',
-                selected: '<span class="note_selected">🐎</span>',
+                base: '<img src="/image/cheval.png" class="note_base"/>',
+                hover: '<img src="/image/cheval.png" class="note_hover"/>',
+                selected: '<img src="/image/cheval.png" class="note_selected"/>',
               }
             },
             cursor: 'default',
