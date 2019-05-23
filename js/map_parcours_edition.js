@@ -322,100 +322,199 @@ $(document).ready(function() {
 		// On ajoute la div d'ajout de marqueur sur la carte
 	  new L.Control.Watermark({ position: 'topleft'}).addTo(map);
 
+		// SUPPRIMER POINT D'INTERET
+		$(document).on('click', '.supprimerMarqueurPI', function () {
+	    if (confirm("Supprimer définitivement ce marqueur ?")) {
+	    	var id = this.textContent;
+
+	    	$.ajax({
+          url : '/fonction/verif_point_interet_suppression.php',
+          type : 'POST',
+          dataType : 'text',
+          data: {
+          	id: id
+          },
+          success : function(resultat, statut){
+            getDataPoint('I');
+          }
+        });
+			}
+		});
+
+	// DÉPLACER POINT INTERET
+	$(document).on('click', '.deplacerMarqueurPI', function () {
+	    var id = this.textContent;
+		map.closePopup();
+
+		map._container.style.cursor = 'crosshair';
+		$('path.leaflet-interactive').css("cssText", "cursor: crosshair !important;");
+
+		$("#notif").html("<b>MODE DÉPLACEMENT :</b> <br>Cliquez sur la carte pour déplacer le point d'intérêt à ces coordonnées").show(200);
+
+		map.on("click", function(e) {
+			if (confirm("Déplacer le point d'intérêt ici ?")) {
+				$.ajax({
+            url : '/fonction/verif_point_interet_deplacement.php',
+            type : 'POST',
+            dataType : 'text',
+            data: {
+            	id: id,
+            	lat: e.latlng.lat,
+            	lng: e.latlng.lng
+            },
+            success : function(resultat, statut){
+              getDataPoint('I');
+            }
+        });
+			}
+
+			map.removeEventListener('click');
+			map._container.style.cursor = 'grab';
+			$("#notif").hide();
+    	$('path.leaflet-interactive').css("cssText", "cursor: grab !important;");
+		});
+	});
+
+	// MODIFIER POINT INTERET
+	id_modifier = null;
+	$(document).on('click', '.modifierMarqueurPI', function () {
+  	id_modifier = this.textContent;
+
+		$('#form_pv').hide();
+		$('#ajouterMarqueurPV').hide();
+		$('#form_pi').show();
+		$('#ajouterMarqueurPI').show();
+
+  	// On affiche le bouton et le titre pour l'ajout
+		$('#modifierMarqueurPI').show();
+		$('#titre_form_marqueur').text('Modifier le point d\'intérêt');
+		$('#ajouterMarqueurPI').hide();
+
+		$('#formulaireMarqueur').modal();
+
+  	reset_formulaire();
+	});
+
+	// Quand le bouton d'enregistrement des modifications du marqueur est cliqué
+	$('#modifierMarqueurPI').bind('click', function(event) {
+		var zl_nom_pic = $('#zl_nom_pic').val();
+		var zs_url_pi = $('#zs_url_pi').val();
+		var zs_description_pi = $('#zs_description_pi').val();
+
+  	// On charge pour le formulaire les données du marqueur
+  	$.ajax({
+      url : '/fonction/verif_point_interet_modification.php',
+      type : 'POST',
+      dataType : 'text',
+      data: {
+      	id: id_modifier,
+				zl_nom_pic: zl_nom_pic,
+				zs_url_pi: zs_url_pi,
+				zs_description_pi: zs_description_pi,
+      },
+      success : function(resultat, statut) {
+				getDataPoint('I');
+				$('#formulaireMarqueur').modal('hide');
+			}
+    });
+	});
 
 
-		// CONTRÔLE AJOUT D'UN POINT DE VIGILANCE
-	  L.Control.Watermark = L.Control.extend({
-	  	onAdd: function(map) {
-	  		this.map = map;
-	  		_this = this;
 
-	  		// Création du bouton pour entrer en mode ajout
-				var btPointInteret = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom bt_custom_map');
 
-		    btPointInteret.style.backgroundColor = 'white';
-		    btPointInteret.style.width = '30px';
-		    btPointInteret.style.height = '30px';
-				btPointInteret.style.cursor = 'pointer';
-				btPointInteret.innerHTML = '<img src="../image/pv.png" style="width: 80%;"/>';
-	  		btPointInteret.title = 'Ajouter un point de vigilance';
-	  		L.DomEvent.addListener(btPointInteret, 'click', L.DomEvent.stopPropagation)
-	  			.addListener(btPointInteret, 'click', L.DomEvent.preventDefault)
-	  			.addListener(btPointInteret, 'click', this.debutModeOutilAjouter.bind(this));
+	// CONTRÔLE AJOUT D'UN POINT DE VIGILANCE
+  L.Control.Watermark = L.Control.extend({
+  	onAdd: function(map) {
+  		this.map = map;
+  		_this = this;
 
-				return btPointInteret;
-	  	},
+  		// Création du bouton pour entrer en mode ajout
+			var btPointInteret = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom bt_custom_map');
 
-	  	debutModeOutilAjouter: function () {
-				$('#form_pv').show();
-				$('#ajouterMarqueurPV').show();
-				$('#form_pi').hide();
-				$('#ajouterMarqueurPI').hide();
+	    btPointInteret.style.backgroundColor = 'white';
+	    btPointInteret.style.width = '30px';
+	    btPointInteret.style.height = '30px';
+			btPointInteret.style.cursor = 'pointer';
+			btPointInteret.innerHTML = '<img src="../image/pv.png" style="width: 80%;"/>';
+  		btPointInteret.title = 'Ajouter un point de vigilance';
+  		L.DomEvent.addListener(btPointInteret, 'click', L.DomEvent.stopPropagation)
+  			.addListener(btPointInteret, 'click', L.DomEvent.preventDefault)
+  			.addListener(btPointInteret, 'click', this.debutModeOutilAjouter.bind(this));
 
-				$('#zs_photo_pi').attr('src', '');
-	  		this.map._container.style.cursor = 'crosshair';
-	  		$('path.leaflet-interactive').css("cssText", "cursor: crosshair !important;");
-	  		this.map.addEventListener('click', this.mapClicAjouter.bind(this));
+			return btPointInteret;
+  	},
 
-	  		$("#notif").html("<b>MODE CRÉATION :</b> <br>Cliquez sur la carte pour créer un point de vigilance").show(200);
-	  		$(".leaflet-left").hide();
-	  	},
+  	debutModeOutilAjouter: function () {
+			$('#form_pv').show();
+			$('#ajouterMarqueurPV').show();
+			$('#form_pi').hide();
+			$('#ajouterMarqueurPI').hide();
+			$('#modifierMarqueurPI').hide();
 
-	  	mapClicAjouter: function (e) {
-	  		this.map.removeEventListener('click');
+			$('#zs_photo_pi').attr('src', '');
+  		this.map._container.style.cursor = 'crosshair';
+  		$('path.leaflet-interactive').css("cssText", "cursor: crosshair !important;");
+  		this.map.addEventListener('click', this.mapClicAjouter.bind(this));
 
-	  		$("#notif").hide(200);
-	  		$(".leaflet-left").show();
+  		$("#notif").html("<b>MODE CRÉATION :</b> <br>Cliquez sur la carte pour créer un point de vigilance").show(200);
+  		$(".leaflet-left").hide();
+  	},
 
-	  		// On affiche le bouton et le titre pour l'ajout
-	  		$('#ajouterMarqueur').show();
-	  		$('#titre_form_marqueur').text('Ajouter le point');
-	  		$('#modifierMarqueur').hide();
+  	mapClicAjouter: function (e) {
+  		this.map.removeEventListener('click');
 
-	  		reset_formulaire();
+  		$("#notif").hide(200);
+  		$(".leaflet-left").show();
 
-	  		// On fait apparaître la fenêtre de création d'un marqueur au clic sur la carte
-	  		$('#formulaireMarqueur').modal();
+  		// On affiche le bouton et le titre pour l'ajout
+  		$('#ajouterMarqueur').show();
+  		$('#titre_form_marqueur').text('Ajouter le point');
+  		$('#modifierMarqueur').hide();
 
-	  		// On masque la fenêtre de création d'un marqueur quand on clique à côté
-	  		$('#formulaireMarqueur').on('hidden.bs.modal', function () {
-	  			$('#ajouterMarqueur').unbind('click');
-			});
+  		reset_formulaire();
 
-			// Quand le bouton d'ajout du marqueur est cliqué
-			$('#ajouterMarqueur').bind('click', function(event) {
+  		// On fait apparaître la fenêtre de création d'un marqueur au clic sur la carte
+  		$('#formulaireMarqueur').modal();
 
-				// Récupération des champs du formulaire
-				var zl_nom_pic = $('#zl_nom_pic').val();
-				var zs_url_pi = $('#zs_url_pi').val();
-				var zs_description_pi = $('#zs_description_pi').val();
-				// var zs_photo_up = $('#zs_photo_up').val();
-				var Latitude = e.latlng.lat;
-				var Longitude = e.latlng.lng;
+  		// On masque la fenêtre de création d'un marqueur quand on clique à côté
+  		$('#formulaireMarqueur').on('hidden.bs.modal', function () {
+  			$('#ajouterMarqueur').unbind('click');
+		});
 
-				// ENREGISTREMENT DU MARQUEUR VIA AJAX
-	    		$.ajax({
-	            url : '/fonction/verif_point_interet.php',
-	            type : 'POST',
-	            dataType : 'text',
-	            data: {
-	            	zl_nom_pic: zl_nom_pic,
-	            	zs_url_pi: zs_url_pi,
-	            	zs_description_pi: zs_description_pi,
-	            	latitude: Latitude,
-	            	longitude: Longitude,
-	            },
-	            success : function(data){
-								console.log(data);
-								reset_formulaire();
+		// Quand le bouton d'ajout du marqueur est cliqué
+		$('#ajouterMarqueur').bind('click', function(event) {
 
-								getDataPoint('V');
+			// Récupération des champs du formulaire
+			var zl_nom_pic = $('#zl_nom_pic').val();
+			var zs_url_pi = $('#zs_url_pi').val();
+			var zs_description_pi = $('#zs_description_pi').val();
+			// var zs_photo_up = $('#zs_photo_up').val();
+			var Latitude = e.latlng.lat;
+			var Longitude = e.latlng.lng;
 
-	              // On masque le formulaire
-	              $('#formulaireMarqueur').modal('hide');
-	            }
-	        });
-			});
+			// ENREGISTREMENT DU MARQUEUR VIA AJAX
+  		$.ajax({
+        url : '/fonction/verif_point_interet.php',
+        type : 'POST',
+        dataType : 'text',
+        data: {
+        	zl_nom_pic: zl_nom_pic,
+        	zs_url_pi: zs_url_pi,
+        	zs_description_pi: zs_description_pi,
+        	latitude: Latitude,
+        	longitude: Longitude,
+        },
+        success : function(data){
+					console.log(data);
+					reset_formulaire();
+
+					getDataPoint('V');
+
+          // On masque le formulaire
+          $('#formulaireMarqueur').modal('hide');
+        }
+      });
+		});
 
 			this.map._container.style.cursor = 'grab';
 	  		$('path.leaflet-interactive').css("cssText", "cursor: grab !important;");

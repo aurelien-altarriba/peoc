@@ -303,7 +303,7 @@ function displayDataTroncon(data) {
 
 
 // Fonction d'affichage des points sur la carte
-function displayDataPoint(data, type) {
+function displayDataPoint(data, type, id) {
 
 	// Récupération des données en JSON
 	var liste_points = JSON.parse(data);
@@ -328,18 +328,21 @@ function displayDataPoint(data, type) {
 			);
 
 			// On créé le contenu en HTML
-			var popup_contenu = '<div class="popup_PT">';
-			if(point['photo_pi']!=null){
-				popup_contenu += '<img src="../image/photo_pi/'+ point['photo_pi'] +'"></img>';
-			}
-			else{
-			 	popup_contenu += '<img src="../image/pi2.png"></img>';
-			}
-			popup_contenu += '<h2>'+ point['nom_pic'] +'</h2>'+
-			 	'<hr>'+
-			 	'<div><b>Description :</b> '+ point['description_pi'] +'</div>'+
-			 	'<div><b>Site web :</b> <a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a></div>'+
-			 '</div>';
+			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
+	        '<img src="../image/pi2.png"></img>'+
+	        '<h6 style="margin-bottom: 0.2em;">'+
+	          point['nom_pic'] +
+	        '</h6>'+
+	        '<div style="margin-top: 0.5em;">'+
+	          point['description_pi'] +
+	        '</div>'+
+					'<div style="margin-top: 0.5em;">'+
+	          '<a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a>'+
+	        '</div>'+
+	    '</center>'+
+	    '<div class="modifierMarqueurPI"><i class="fas fa-edit"><span style="display: none;">'+ point['id_interet_pi'] +'</span></i></div>'+
+	    '<div class="supprimerMarqueurPI"><i class="fas fa-trash-alt"><span style="display: none;">'+ point['id_interet_pi'] +'</span></i></div>'+
+	    '<div class="deplacerMarqueurPI"><i class="fas fa-arrows-alt"><span style="display: none;">'+ point['id_interet_pi'] +'</span></i></div>');
 
 
 			// Ajoute le contenu HTML dans une popup au marqueur

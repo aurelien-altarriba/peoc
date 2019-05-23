@@ -7,10 +7,6 @@
   require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $idc = connect();
 
-  //Définition du chemin des photos
-  $fichier_dossier_dest = $CF['image']['point_interet'];
-  //$fichier_dossier_dest = '../image/photo_pi/';
-
   // Récupération des données
   $id_categorie = pg_escape_string($_POST['zl_nom_pic']);
   $url = pg_escape_string($_POST['zs_url_pi']);

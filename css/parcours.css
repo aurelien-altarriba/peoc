@@ -286,6 +286,52 @@
 	align-items: center;
 }
 
+.leaflet-popup-content
+{
+	min-width: 100px !important;
+}
+
+.supprimerMarqueurPI, .supprimerMarqueurPV
+{
+	position: absolute;
+	top: 0;
+	left: 2em;
+	margin: 0.2em;
+	padding: 0.2em;
+	font-size: 1.2em;
+	color: #666;
+}
+
+.modifierMarqueurPI, .modifierMarqueurPV
+{
+	position: absolute;
+	top: 0;
+	left: 0.2em;
+	margin: 0.2em;
+	padding: 0.2em;
+	font-size: 1.2em;
+	color: #666;
+}
+
+.deplacerMarqueurPI, .deplacerMarqueurPV
+{
+	position: absolute;
+	top: 0;
+	left: 3.8em;
+	margin: 0.2em;
+	padding: 0.2em;
+	font-size: 1.2em;
+	color: #666;
+}
+
+.supprimerMarqueurPI:hover, .supprimerMarqueurPV:hover,
+.modifierMarqueurPI:hover, .modifierMarqueurPV:hover,
+.deplacerMarqueurPI:hover, .deplacerMarqueurPV:hover
+{
+	color: black;
+	cursor: pointer;
+}
+
 #notif
 {
 	position: absolute;
