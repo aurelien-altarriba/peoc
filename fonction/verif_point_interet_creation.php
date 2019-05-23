@@ -2,143 +2,76 @@
   session_start();
   ini_set('display_errors', 1);
 
-  //Include
   require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
   require_once($_SERVER['DOCUMENT_ROOT'] .'/fonction/verif_upload_image.php');
-
-  //Connexion BDD
   require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '/'.$CF['image']['point_interet'];
+  $fichier_dossier_dest = $CF['image']['point_interet'];
   //$fichier_dossier_dest = '../image/photo_pi/';
 
-
-  //RECUPERATION DE L'ACTION A REALISER (selon le bouton exécuté)
-  //bouton création/modification
-  $action = '';
-  if (isset ($_POST['bt_submit_CM'])){
-    if ($_POST['bt_submit_CM']=='Créer'){
-      $action=1;
-    }
-    else if($_POST['bt_submit_CM']=='Modifier'){
-      $action=2;
-    }
-  }
-  //bouton suppression
-  else if(isset ($_POST['bt_submit_S'])){
-    if($_POST['bt_submit_S']=="Supprimer"){
-      $action=3;
-    }
-  }
-
-
-  //RECUPERATION DES DONNEES DU FORMULAIRE
-  $id_point = '';
-  $parcours = '';
-  if (isset($_SESSION['point_interet'])){
-    $id_point = $_SESSION['point_interet'];
-  }
-  if (isset($_SESSION['parcours'])){
-    $parcours = $_SESSION['parcours'];
-  }
-
-  $num_point = pg_escape_string($_POST['zs_num_point_pi']);
+  // Récupération des données
   $id_categorie = pg_escape_string($_POST['zl_nom_pic']);
   $url = pg_escape_string($_POST['zs_url_pi']);
   $description = pg_escape_string($_POST['zs_description_pi']);
   $latitude = pg_escape_string($_POST['latitude']);
   $longitude = pg_escape_string($_POST['longitude']);
+  $id_parcours = pg_escape_string($_POST['parcours']);
 
-  $erreur = '';
-
-
-  //VERIFICATION DES CHAMPS OBLIGATOIRES
-  //cas de la modification et suppression
-  if (($action==2 || $action==3) && empty($id_point)){
-    $erreur = "Tous les champs obligatoires doivent être saisis";
+  // URL
+  if(strlen($url) > 2000) {
+    $erreur = 'L\'URL doit faire au maximum 2000 caractères';
     echo $erreur;
     return(0);
   }
 
-  //Hors supression
-  if ($action!=3){
-    //Cas de l'insertion et la modification d'un point
-    if (($action==1 || $action==2) && (empty($parcours) || empty($num_point) || empty($id_categorie))) {
-      $erreur = "Tous les champs obligatoires doivent être saisis";
-      echo $erreur;
-      return(0);
-    }
+  // Description
+  if(strlen($description) > 2000) {
+    $erreur = 'La description doit faire au maximum 2000 caractères';
+    echo $erreur;
+    return(0);
   }
 
+  $proj = $CF['srid'];
 
-  //VERIFICATION DU FORMAT DES DONNEES
-  if ($action!=3){
-    //Position
-    if(preg_match('#[^0-9]#', $num_point)) {
-      $erreur = 'Le numéro de position ne doit contenir que des chiffres';
-      echo $erreur;
-      return(0);
-    }
+  //Insertion du point en base
+  $sql = "INSERT INTO point_interet (id_parcours_pi, num_point_pi, id_categorie_pi, url_pi, description_pi, geom_pi)
+          VALUES($id_parcours, 1, $id_categorie, E'$url', E'$description',
+            ST_GeomFromText('POINT($longitude $latitude)', $proj)
+          ) returning id_interet_pi";
 
-    //Url
-    if(strlen($url) > 2000) {
-      $erreur = 'L\'URL doit faire au maximum 2000 caractères';
-      echo $erreur;
-      return(0);
-    }
-
-    //Description
-    if(strlen($description) > 2000) {
-      $erreur = 'La description doit faire au maximum 2000 caractères';
-      echo $erreur;
-      return(0);
-    }
+  try {
+    $rs = pg_exec($idc, $sql);
+    echo($rs);
   }
+  catch (Exception $e) {
+    echo $e->getMessage();
+  };
 
 
-  //GESTION DES PHOTOS
-  $fichier_a_charger = 0;
-  $fichier_temp = '';
-  $photo_new='';
-
-  //Récupération de la photo actuelle du point
-  $photo_old='';
-  if (!empty($id_point)){
-    $sql='SELECT photo_pi FROM point_interet WHERE id_interet_pi = '.$id_point.';';
-    try{
-      $rs=pg_exec($idc,$sql);
-    }
-    catch (Exception $e) {
-      echo $e->getMessage(),"\n";
-    };
-    $ligne=pg_fetch_assoc($rs);
-    if (!empty($ligne['photo_pi'])){
-      $photo_old=$fichier_dossier_dest.$ligne['photo_pi'];
-    }
-  }
-
-  //Vérification du format du fichier à uploader
-  if(!empty($_FILES['zs_photo_up']['name'])){
-    $fichier_temp = $_FILES['zs_photo_up']['tmp_name'];
-    $res_verif = verif_upload_image($fichier_temp);
-
-    //format ok
-    if ($res_verif[0]=='OK'){
-      $fichier_a_charger = 1;
-      // extension du fichier
-      $fichier_ext = substr($_FILES['zs_photo_up']['name'],strrpos($_FILES['zs_photo_up']['name'], '.')+1);
-    }
-    //format ko
-    else {
-      $erreur = $res_verif[1];
-      echo $erreur;
-      return(0);
-    }
-  }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
   // EXECUTION DE L'ACTION
   //Delete
   if ($action==3){

@@ -118,8 +118,9 @@
 					<div class="modal-footer" id="modalAction">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
 						<button type="button" class="btn btn-primary" id="ajouterMarqueurPI">Ajouter le point d'intérêt</button>
+						<button type="button" class="btn btn-primary" id="modifierMarqueurPI" style="display: none;">Modifier le point d'intérêt</button>
 						<button type="button" class="btn btn-primary" id="ajouterMarqueurPV">Ajouter le point de vigilance</button>
-						<button type="button" class="btn btn-primary" id="modifierMarqueur" style="display: none;">Modifier le point</button>
+						<button type="button" class="btn btn-primary" id="modifierMarqueurPV" style="display: none;">Modifier le point de vigilance</button>
 					</div>
 				</div>
 			</div>

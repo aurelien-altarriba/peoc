@@ -116,6 +116,13 @@ $(document).ready(function() {
 	// Pour appliquer la cartes et les calques sélectionnés
 	layersControl = L.control.layers(cartes, menu_data).addTo(map);
 
+	// Échelle
+	L.control.scale(
+		{
+			imperial: false,
+		}
+	).addTo(map);
+
 	// Ajout du pluggin de dessin "pm"
 	map.pm.addControls({
     position: 'topleft',
@@ -206,6 +213,7 @@ $(document).ready(function() {
 		);
 	});
 
+	// Si on est en mode modification
 	if (MODIF) {
 
 		// CONTRÔLE AJOUT D'UN POINT D'INTÉRÊT
@@ -252,9 +260,9 @@ $(document).ready(function() {
 	  		$(".leaflet-left").show();
 
 	  		// On affiche le bouton et le titre pour l'ajout
-	  		$('#ajouterMarqueur').show();
-	  		$('#titre_form_marqueur').text('Ajouter le point');
-	  		$('#modifierMarqueur').hide();
+	  		$('#ajouterMarqueurPI').show();
+	  		$('#titre_form_marqueur').text('Ajouter le point d\'intérêt');
+	  		$('#modifierMarqueurPI').hide();
 
 	  		reset_formulaire();
 
@@ -263,11 +271,11 @@ $(document).ready(function() {
 
 	  		// On masque la fenêtre de création d'un marqueur quand on clique à côté
 	  		$('#formulaireMarqueur').on('hidden.bs.modal', function () {
-	  			$('#ajouterMarqueur').unbind('click');
+	  			$('#ajouterMarqueurPI').unbind('click');
 			});
 
 			// Quand le bouton d'ajout du marqueur est cliqué
-			$('#ajouterMarqueur').bind('click', function(event) {
+			$('#ajouterMarqueurPI').bind('click', function(event) {
 
 				// Récupération des champs du formulaire
 				var zl_nom_pic = $('#zl_nom_pic').val();
@@ -277,9 +285,13 @@ $(document).ready(function() {
 				var Latitude = e.latlng.lat;
 				var Longitude = e.latlng.lng;
 
+				var url = new URLSearchParams(location.search);
+				// Si on modifie le parcours
+				var Parcours = url.get('id');
+
 				// ENREGISTREMENT DU MARQUEUR VIA AJAX
 	    		$.ajax({
-	            url : '/fonction/verif_point_interet.php',
+	            url : '/fonction/verif_point_interet_creation.php',
 	            type : 'POST',
 	            dataType : 'text',
 	            data: {
@@ -288,6 +300,7 @@ $(document).ready(function() {
 	            	zs_description_pi: zs_description_pi,
 	            	latitude: Latitude,
 	            	longitude: Longitude,
+								parcours: Parcours,
 	            },
 	            success : function(data){
 								console.log(data);
@@ -412,4 +425,7 @@ $(document).ready(function() {
 		// On ajoute la div d'ajout de marqueur sur la carte
 	  new L.Control.Watermark({ position: 'topleft'}).addTo(map);
 	}
+
+	getDataPoint('I');
+	getDataPoint('V');
 });
