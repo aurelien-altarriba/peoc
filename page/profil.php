@@ -7,7 +7,7 @@
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/header.css">
 	<link rel="stylesheet" type="text/css" href="/css/footer.css">
-	<link rel="stylesheet" type="text/css" href="/css/index.css">
+	<link rel="stylesheet" type="text/css" href="/css/inscription.css">
 
 	<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/lib/leaflet.css">
@@ -37,7 +37,7 @@
 		}
 
 		// Initialisation des variables
-		$fichier_dossier_dest = '/'.$CF['image']['photo'];
+		$fichier_dossier_dest = $CF['image']['photo'];
 		//$fichier_dossier_dest = '/image/photo/';
 
 		// Statut inscrit : visualisation /modification du profil
@@ -82,7 +82,7 @@
 			$nom_ce=$ligne['nom_ce'];
 		}
 	?>
-	
+
 		<!-- FORMULAIRE PROFIL MEMBRE -->
 		<div id="profil">
 			<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/profil.php"); ?>
@@ -91,6 +91,7 @@
 	<!-- FOOTER -->
 	<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 	<script type="text/javascript">
+	/*
 	//Déclenché une fois le document chargé : cache certaines div selon si checkbox cochée ou non
 	$(document).ready(function(){
 		if (document.getElementById("cc_cavalier").checked == false){
@@ -154,6 +155,7 @@
 			document.getElementById("zl_nom_ce").value="";
   		}
     }
+		*/
 	</script>
 </body>
 </html>

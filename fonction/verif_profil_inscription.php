@@ -11,7 +11,7 @@
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '/'.$CF['image']['photo'];
+  $fichier_dossier_dest = $_SERVER['DOCUMENT_ROOT'].$CF['image']['photo'];
   //$fichier_dossier_dest = '../image/photo/';
 
   //RECUPERATION VARIABLE DE SESSION
@@ -35,6 +35,7 @@
   if (isset ($_POST['cc_cavalier'])){
     $statut_C=1;
   }
+
   //Responsable centre équestre
   if (isset ($_POST['cc_centre'])){
       $statut_R=1;
@@ -43,6 +44,9 @@
   if (isset ($_POST['cc_mdp'])){
       $statut_P=1;
   };
+
+  print($action);
+  print($statut_C);
 
   $mail = htmlspecialchars($_POST['zs_mail_m']);
   $nom = htmlspecialchars($_POST['zs_nom_m']);
@@ -307,7 +311,7 @@
       unlink($photo_old);
     }
     //echo 'OK';
-    header("Location: /page/profil.php");
+    header("Location: /fonction/deconnexion.php");
   }
   else {
     //Insert
@@ -382,7 +386,7 @@
       }
 
       //echo 'OK';
-      header("Location: /page/profil.php");
+      header("Location: /");
     }
     //update
     else if ($action==2){
@@ -400,7 +404,7 @@
       //Mise à jour du mot de passe
       if ($statut_P==1){
         if (!empty($mdp_hash) && !empty($id_membre)){
-          $sql='UPDATE info_connexion SET mdp_ic = \''.$$mdp_hash.'\' WHERE id_membre_ic = '.$id_membre;
+          $sql='UPDATE info_connexion SET mdp_ic = \''.$mdp_hash.'\' WHERE id_membre_ic = '.$id_membre;
           try{
             $rs=pg_exec($idc,$sql);
           }
@@ -412,6 +416,7 @@
 
       //Mise à jour du cavalier
       if ($statut_C==1){
+        print('ALLOOOO');
         $sql='SELECT count(*) AS nb FROM cavalier WHERE id_membre_c = '.$id_membre;
         try{
           $rs=pg_exec($idc,$sql);
@@ -461,6 +466,7 @@
 
           //Copie photo sélectionnée sur le serveur
           if ($fichier_a_charger == 1 && !empty($photo_new)){
+            print('ALLOOOOO2');
             $photo_new = $id_membre.".".$fichier_ext;
             if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
               $sql='UPDATE cavalier SET photo_c = \''.$photo_new.'\' where id_membre_c = '.$id_membre.';';
@@ -529,7 +535,7 @@
       }
 
       //echo 'OK';
-      header("Location: /page/profil.php");
+      //header("Location: /");
     }
     else {$erreur = "Aucune action réalisée";}
   }

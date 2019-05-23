@@ -11,7 +11,7 @@
   $idc = connect();
 
   //Définition du chemin des photos
-  $fichier_dossier_dest = '/'.$CF['image']['logo'];
+  $fichier_dossier_dest = $_SERVER['DOCUMENT_ROOT'].$CF['image']['logo'];
   //$fichier_dossier_dest = '../image/logo/';
 
 
@@ -21,7 +21,6 @@
   if($_POST['bt_submit_CM']=='Modifier'){
     $action=1;
   }
-
 
 
   //RECUPERATION DES DONNEES DU FORMULAIRE
@@ -70,7 +69,6 @@
     echo $erreur;
     return(0);
   }
-
 
   //GESTION DES PHOTOS
   $fichier_a_charger = 0;
@@ -139,7 +137,7 @@
 
     //Copie logo sélectionné sur le serveur
     if ($fichier_a_charger == 1 && !empty($logo_new)){
-      move_uploaded_file($fichier_temp, $fichier_dossier_dest.$logonew);
+      move_uploaded_file($fichier_temp, $fichier_dossier_dest.$logo_new);
     }
   }
   else { $erreur = "Aucune action réalisée"; }

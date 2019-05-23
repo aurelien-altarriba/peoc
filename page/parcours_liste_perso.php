@@ -46,7 +46,7 @@
 					<th>Niveau équestre</th>
 					<th>Autonomie</th>
 					<th>Distance (m)</th>
-					<th>Durée</th>
+					<th>Durée (min)</th>
 					<th>Description</th>
 				</tr>
 			</thead>

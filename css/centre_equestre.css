@@ -1,28 +1,9 @@
-#div_statut
-{
-  margin-bottom: 2em;
-}
-
-#form_inscription
+#contenu
 {
   margin: auto;
   min-width: 300px;
-  width: 30vw;
+  width: 40vw;
   padding: 1em;
-}
-
-#zone_nbmembre
-{
-  font-size: 0.9em;
-  font-style: italic;
-  width: 20em;
-}
-
-h4
-{
-  margin-top: 1.5em !important;
-  padding-top: 0.5em;
-  border-top: 1px solid grey;
 }
 
 #div_inscription_bt
@@ -35,10 +16,10 @@ h4
 #bt_submit_CM
 {
   width: 100%;
-  margin: 1em;
+  /*margin: 1em;*/
 }
 
-#zs_photo_c
+#zs_logo_ce
 {
   border-radius: 10px;
   box-shadow: 1px 1px 5px grey;

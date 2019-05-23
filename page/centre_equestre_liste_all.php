@@ -37,9 +37,9 @@
 					<th>Département</th>
 					<th>Tél</th>
 					<th>Mail</th>
-					<th>Nombre de cheval</th>
+					<th>Nombre de chevaux</th>
 					<th>Responsable</th>
-					<th>site internet</th>
+					<th>Site internet</th>
 				</tr>
 			</thead>
 

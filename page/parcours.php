@@ -143,7 +143,7 @@
                 <th scope="col"><small>Hiérarchie</small></th>
                 <th scope="col"><small>Difficulté</small></th>
                 <th scope="col"><small>Type terrain</small></th>
-                <th scope="col"><small>Durée estimée</small></th>
+                <th scope="col"><small>Durée estimée (min)</small></th>
               </tr>
             </thead>
             <tbody>
@@ -173,7 +173,7 @@
                   <th scope="col"><small>Date</small></th>
                   <th scope="col"><small>Cavalier</small></th>
                   <th scope="col"><small>Note</small></th>
-                  <th scope="col"><small>Durée réelle</small></th>
+                  <th scope="col"><small>Durée réelle (min)</small></th>
                   <th scope="col"><small>Commentaire</small></th>
                 </tr>
               </thead>

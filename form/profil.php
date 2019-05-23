@@ -87,22 +87,51 @@
 				value="<?php echo($tel_m);?>">
 		</div>
 
-		<div class="form-group">
-			<label for="zs_login_ic">Login de connexion *</label>
-			<input type="text" class="form-control" name="zs_login_ic" id="zs_login_ic"
-				value="<?php echo($login_ic);?>" placeholder="Choisissez votre login de connexion" required>
+		<?php
+		 	$path = $_SERVER['PHP_SELF'];
+			$file = basename($path);
+			//echo $file;
+			if ($file=="inscription.php"){
+		?>
+			<div class="form-group">
+				<label for="zs_login_ic">Login de connexion *</label>
+				<input type="text" class="form-control" name="zs_login_ic" id="zs_login_ic"
+					value="<?php echo($login_ic);?>" placeholder="Choisissez votre login de connexion" required>
+			</div>
+			<div class="form-group">
+		    <label for="zs_mdp_ic">Mot de passe *</label>
+		    <input type="password" class="form-control" name="zs_mdp_ic" id="zs_mdp_ic" required>
+		  </div>
+
+			<div class="form-group">
+		    <label for="zs_mdp_ic2">Confirmer le mot de passe *</label>
+		    <input type="password" class="form-control" name="zs_mdp_ic2" id="zs_mdp_ic2" required>
+		  </div>
+		<?php
+			}
+			else if ($file=="profil.php"){
+		?>
+				<!-- Mot de passe -->
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="cc_mdp" id="cc_mdp"
+					<label class="form-check-label" for="cc_mdp">
+						Modifier mot de passe
+					</label>
+				</div>
+				<div id="div_mdp">
+					<div class="form-group">
+				    <label for="zs_mdp_ic">Mot de passe *</label>
+				    <input type="password" class="form-control" name="zs_mdp_ic" id="zs_mdp_ic">
+				  </div>
+					<div class="form-group">
+				    <label for="zs_mdp_ic2">Confirmer le mot de passe *</label>
+				    <input type="password" class="form-control" name="zs_mdp_ic2" id="zs_mdp_ic2">
+				  </div>
+				</div>
+		<?php
+			}
+		?>
 		</div>
-
-		<div class="form-group">
-	    <label for="zs_mdp_ic">Mot de passe *</label>
-	    <input type="password" class="form-control" name="zs_mdp_ic" id="zs_mdp_ic" required>
-	  </div>
-
-		<div class="form-group">
-	    <label for="zs_mdp_ic2">Confirmer le mot de passe *</label>
-	    <input type="password" class="form-control" name="zs_mdp_ic2" id="zs_mdp_ic2" required>
-	  </div>
-	</div>
 
 	<!-- INFOS CAVALIER -->
 	<div id="div_cavalier">
@@ -150,13 +179,35 @@
 			</select>
 		</div>
 	</div>
-
+	<?php
+	 	$path = $_SERVER['PHP_SELF'];
+		$file = basename($path);
+		//echo $file;
+		if ($file=="inscription.php"){
+	?>
 	<div id="div_inscription_bt">
 		<button type="submit" class="btn btn-success btn-lg" name="bt_submit_CM" id="bt_submit_CM"
 			value="1">
 			Valider mon inscription
 		</button>
 	</div>
+	<?php
+		}
+		else if ($file=="profil.php"){
+	?>
+	<div id="div_inscription_bt">
+		<button type="submit" class="btn btn-success btn-lg" name="bt_submit_CM" id="bt_submit_CM"
+			value="2">
+			Modifier profil
+		</button>
+		<button type="submit" class="btn btn-danger btn-lg" name="bt_submit_CM" id="bt_submit_CM"
+			value="3">
+			Suppression inscription
+		</button>
+	</div>
+	<?php
+		}
+	?>
 </form>
 
 <script type="text/javascript">
@@ -164,6 +215,7 @@
 
 		$('#div_cavalier').hide();
 		$('#div_centre').hide();
+		$('#div_mdp').hide();
 
 		// Si on clique sur cavalier
 		$('#cc_cavalier').on('click', function() {
@@ -199,28 +251,66 @@
 			}
 		});
 
+
+		// Si on clique sur mdp
+		$('#cc_mdp').on('click', function() {
+			if (this.checked) {
+				$('#div_mdp').show();
+				$('#zs_mdp_ic').attr('required', 'required');
+				$('#zs_mdp_ic2').attr('required', 'required');
+			}
+			else {
+				$('#div_mdp').hide();
+				$('#zs_mdp_ic').removeAttr('required');
+				$('#zs_mdp_ic2').removeAttr('required');
+			}
+		});
+
 		<?php if ($id_membre_m == '') { ?>
 			$('#zone_nbmembre').hide();
 		<?php } ?>
 
+		if ($("#cc_centre").is(':checked')){
+				$('#div_centre').show();
+		}
+		if ($("#cc_cavalier").is(':checked')){
+				$('#div_cavalier').show();
+		}
+
 		// On hydrate la liste des pays
 		$.post('/fonction/recup_pays.php',
+		{
+			id_pays: '<?php echo($id_pays_m); ?>',
+		},
 			function(data) {
 				var pays = JSON.parse(data);
 
 				$.each(pays, function(index, value) {
-					$('#zl_nom_pa').append(`<option value="${value.id_pays_pa}">${value.nom_pa}</option>`);
+					if ('<?php echo $id_pays_m ? $id_pays_m : 'null' ?>' != value.id_pays_pa){
+						$('#zl_nom_pa').append(`<option value="${value.id_pays_pa}">${value.nom_pa}</option>`);
+					}
+					else {
+						$('#zl_nom_pa').append(`<option value="${value.id_pays_pa}" SELECTED>${value.nom_pa}</option>`);
+					}
 				});
 			}
 		)
 
 		// On hydrate la liste des niveaux équestres
 		$.post('/fonction/recup_niveau_equestre.php',
+		{
+			id_niveau: '<?php echo($id_niveau_c); ?>',
+		},
 			function(data) {
 				var niveaux = JSON.parse(data);
 
 				$.each(niveaux, function(index, value) {
-					$('#zl_nom_ne').append(`<option value="${value.id_niveau_ne}">${value.nom_ne}</option>`);
+					if (<?php echo $id_niveau_c ? $id_niveau_c : 'null' ?> != value.id_niveau_ne){
+						$('#zl_nom_ne').append(`<option value="${value.id_niveau_ne}">${value.nom_ne}</option>`);
+					}
+					else {
+						$('#zl_nom_ne').append(`<option value="${value.id_niveau_ne}" SELECTED>${value.nom_ne}</option>`);
+					}
 				});
 			}
 		)
@@ -235,7 +325,12 @@
 				var centres = JSON.parse(data);
 
 				$.each(centres, function(index, value) {
-					$('#zl_nom_ce').append(`<option value="${value.id_centre_ce}">${value.nom_ce}</option>`);
+					if (<?php echo $id_centre_ce ? $id_centre_ce : 'null' ?> != value.id_centre_ce){
+						$('#zl_nom_ce').append(`<option value="${value.id_centre_ce}">${value.nom_ce}</option>`);
+					}
+					else {
+						$('#zl_nom_ce').append(`<option value="${value.id_centre_ce}" SELECTED>${value.nom_ce}</option>`);
+					}
 				});
 			}
 		)
