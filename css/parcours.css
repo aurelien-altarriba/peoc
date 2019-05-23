@@ -290,7 +290,7 @@
 {
 	position: absolute;
 	top: 5em;
-	left: calc(50% - 15vw);
+	left: calc(50%);
 	width: 30vw;
 
 	text-align: center;

@@ -1,4 +1,4 @@
-<div id="footer">© Copyright PÉ-OC 2019 - <a href="#" data-toggle="modal" data-target="#contact">Contact</a></div>
+<div id="footer">© Copyright PÉ-OC 2019 <a href="#" data-toggle="modal" data-target="#contact">Contact</a></div>
 
 <!-- POPUP DE CONTACT -->
 <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-hidden="true">
@@ -12,7 +12,7 @@
       </div>
 
       <div class="modal-body">
-        
+
         <!-- FORMULAIRE -->
         <form id="contactForm" onsubmit="return false;">
           <div class="form-group">
