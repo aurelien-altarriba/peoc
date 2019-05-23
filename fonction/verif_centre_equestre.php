@@ -124,8 +124,8 @@
     }
 
     $sql='UPDATE centre_equestre
-          SET tel_ce = \''.$tel.'\', mail_ce = \''.$mail.'\', nb_cheval_ce = '.$nb_cheval.', url_ce = \''.$url.'\', logo_ce = \''.$logo_new.'\'
-          WHERE id_centre_ce = '.$id_centre.' And id_membre_ce = '.$id_membre.';';
+          SET tel_ce = \''.$tel.'\', mail_ce = \''.$mail.'\', nb_cheval_ce = '.$nb_cheval.', url_ce = \''.$url.'\'
+          WHERE id_centre_ce = '.$id_centre.' AND id_membre_ce = '.$id_membre.';';
     try{
       $rs=pg_exec($idc,$sql);
     }
@@ -138,6 +138,15 @@
     //Copie logo sélectionné sur le serveur
     if ($fichier_a_charger == 1 && !empty($logo_new)){
       move_uploaded_file($fichier_temp, $fichier_dossier_dest.$logo_new);
+      $sql='UPDATE centre_equestre
+            SET logo_ce = \''.$logo_new.'\'
+            WHERE id_centre_ce = '.$id_centre.' AND id_membre_ce = '.$id_membre.';';
+      try{
+        $rs=pg_exec($idc,$sql);
+      }
+      catch (Exception $e) {
+        echo $e->getMessage(),"\n";
+      };
     }
   }
   else { $erreur = "Aucune action réalisée"; }

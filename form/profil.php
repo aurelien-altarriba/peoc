@@ -5,7 +5,7 @@
 		<!-- CAVALIER -->
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="cc_cavalier" id="cc_cavalier"
-				<?php if ($num_licence_c != '') { echo('checked disabled'); } ?> >
+				<?php if ($num_licence_c != '') { echo('checked'); } ?> >
 			<label class="form-check-label" for="cc_cavalier">
 				Je suis un <b>cavalier</b>
 			</label>
@@ -14,7 +14,7 @@
 		<!-- CENTRE ÉQUESTRE -->
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="cc_centre" id="cc_centre"
-				<?php if ($id_centre_ce != '') { echo('checked disabled'); } ?>
+				<?php if ($id_centre_ce != '') { echo('checked'); } ?>
 			onclick="$('#div_centre').toggle();">
 			<label class="form-check-label" for="cc_centre">
 				Je suis <b>responsable d'un centre équestre</b>
@@ -349,6 +349,10 @@
 		}
 
 		$("#zs_photo_up").change(function() {
+		  readURL(this);
+		});
+
+		$("#zs_photo_up").onload(function() {
 		  readURL(this);
 		});
 	});
