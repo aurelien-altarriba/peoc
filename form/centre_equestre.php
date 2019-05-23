@@ -101,5 +101,9 @@
     $("#zs_logo_up").change(function() {
       readURL(this);
     });
+
+    $("#zs_logo_up").onload(function() {
+		  readURL(this);
+		});
   });
 </script>

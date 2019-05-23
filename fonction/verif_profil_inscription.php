@@ -31,6 +31,7 @@
   $statut_C=0;
   $statut_R=0;
   $statut_P=0;
+
   //Cavalier
   if (isset ($_POST['cc_cavalier'])){
     $statut_C=1;
@@ -40,13 +41,10 @@
   if (isset ($_POST['cc_centre'])){
       $statut_R=1;
   }
-  //
+  // mot de passe à changer ou pas
   if (isset ($_POST['cc_mdp'])){
       $statut_P=1;
   };
-
-  print($action);
-  print($statut_C);
 
   $mail = htmlspecialchars($_POST['zs_mail_m']);
   $nom = htmlspecialchars($_POST['zs_nom_m']);
@@ -74,8 +72,8 @@
   //Récupération des variables responsable de centre équestre
   $responsable_CE = htmlspecialchars($_POST['zl_nom_ce']);
 
+  // variable message erreur
   $erreur = '';
-
 
   //date du jour
   $t=time();
@@ -266,7 +264,9 @@
   }
 
   //Vérification du format du fichier à uploader
+  print($_FILES['zs_photo_up']['name']);
   if(!empty($_FILES['zs_photo_up']['name'])){
+    print('ici');
     $fichier_temp = $_FILES['zs_photo_up']['tmp_name'];
     $res_verif = verif_upload_image($fichier_temp);
 
@@ -286,9 +286,10 @@
 
 
   // EXECUTION DE L'ACTION
-  //Delete
+
+  // ACTION DELETE
   if ($action==3){
-    //Update du centre equestre
+    //Update du centre equestre : on met à null le champ membre si était associé à un centre équestre
     $sql='UPDATE centre_equestre SET id_membre_ce = null WHERE id_membre_ce = '.$id_membre;
     try{
       $rs=pg_exec($idc,$sql);
@@ -314,7 +315,8 @@
     header("Location: /fonction/deconnexion.php");
   }
   else {
-    //Insert
+
+    // ACTION INSERT
     if ($action==1){
       //Insertion du membre
       $sql='INSERT INTO membre (nom_m,prenom_m,dt_naissance_m,adresse_m,cp_m,ville_m,id_pays_m,tel_m,mail_m)
@@ -352,6 +354,7 @@
             echo $e->getMessage(),"\n";
           };
 
+          // chemin complet de la nouvelle photo
           if ($fichier_a_charger==1){
             $photo_new = $id_membre_new.".".$fichier_ext;
           }
@@ -360,6 +363,7 @@
           if ($fichier_a_charger == 1 && !empty($photo_new)){
             $photo_new = $id_membre_new.".".$fichier_ext;
             if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
+              //Sauvegarde du nom de la photo du cavalier en base de données
               $sql='UPDATE cavalier SET photo_c = \''.$photo_new.'\' WHERE id_membre_c = '.$id_membre_new.';';
               try{
                 $rs=pg_exec($idc,$sql);
@@ -388,7 +392,8 @@
       //echo 'OK';
       header("Location: /");
     }
-    //update
+
+    // ACTION UPDATE
     else if ($action==2){
       // Mise à jour du membre
       $sql='UPDATE membre
@@ -416,7 +421,6 @@
 
       //Mise à jour du cavalier
       if ($statut_C==1){
-        print('ALLOOOO');
         $sql='SELECT count(*) AS nb FROM cavalier WHERE id_membre_c = '.$id_membre;
         try{
           $rs=pg_exec($idc,$sql);
@@ -427,7 +431,7 @@
         $ligne=pg_fetch_assoc($rs);
         $nb=$ligne['nb'];
 
-        //Déjà un enregistrement existant donc update des infos
+        //Un enregistrement déjà existant donc update des infos
         if ($nb == 1){
           //suppression ancienne photo du serveur
           if ($fichier_a_charger == 1){
@@ -439,7 +443,7 @@
           }
 
           $sql='UPDATE cavalier
-                SET num_licence_c= \''.$licence.'\',dt_exp_licence_c = \''.$expiration_licence.'\' ,id_niveau_c = '.$niveau_equestre.', photo_c= \''.$photo_new.'\'
+                SET num_licence_c= \''.$licence.'\',dt_exp_licence_c = \''.$expiration_licence.'\' ,id_niveau_c = '.$niveau_equestre.'
                 WHERE id_membre_c = '.$id_membre;
           try{
             $rs=pg_exec($idc,$sql);
@@ -451,6 +455,14 @@
           //Copie photo sélectionnée sur le serveur
           if ($fichier_a_charger == 1 && !empty($photo_new)){
             move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new);
+            //Sauvegarde du nom de la photo du cavalier en base de données
+            $sql='UPDATE cavalier SET photo_c = \''.$photo_new.'\' where id_membre_c = '.$id_membre.';';
+            try{
+              $rs=pg_exec($idc,$sql);
+            }
+            catch (Exception $e) {
+              echo $e->getMessage(),"\n";
+            };
           }
         }
         //Pas d'enregistrement déjà existant donc insert des infos
@@ -464,11 +476,16 @@
             echo $e->getMessage(),"\n";
           };
 
+          //suppression ancienne photo du serveur
+          if ($fichier_a_charger == 1){
+            //Nouvelle photo
+            $photo_new = $id_membre.".".$fichier_ext;
+          }
+
           //Copie photo sélectionnée sur le serveur
           if ($fichier_a_charger == 1 && !empty($photo_new)){
-            print('ALLOOOOO2');
-            $photo_new = $id_membre.".".$fichier_ext;
             if(move_uploaded_file($fichier_temp, $fichier_dossier_dest.$photo_new)){
+              //Sauvegarde du nom de la photo du cavalier en base de données
               $sql='UPDATE cavalier SET photo_c = \''.$photo_new.'\' where id_membre_c = '.$id_membre.';';
               try{
                 $rs=pg_exec($idc,$sql);
@@ -480,9 +497,10 @@
           }
         }
       }
+
+      // Suppression du cavalier (Membre non cavalier)
       else{
         if (!empty($id_membre)){
-          // Suppression du cavalier
           $sql='DELETE FROM cavalier WHERE id_membre_c = '.$id_membre.';';
           try{
             $rs=pg_exec($idc,$sql);
@@ -521,9 +539,10 @@
           };
         }
       }
+
+      //Mise à null du responsable sur l'ancien centre (Membre non responsable de centre)
       else{
          if (!empty($id_membre)){
-          //Mise à null du responsable sur l'ancien centre
           $sql='update centre_equestre set id_membre_ce = null where id_membre_ce = '.$id_membre;
           try{
             $rs=pg_exec($idc,$sql);
@@ -535,7 +554,7 @@
       }
 
       //echo 'OK';
-      //header("Location: /");
+      header("Location: /");
     }
     else {$erreur = "Aucune action réalisée";}
   }
