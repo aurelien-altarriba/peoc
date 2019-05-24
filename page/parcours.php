@@ -127,7 +127,7 @@
 
         // Si il est propriétaire, on affiche le bouton
         if ($modif) {?>
-            <a class="btn btn-outline-secondary" href="/page/parcours_edition.php?id=<?php echo($id_parcours); ?>" role="button">
+            <a class="btn btn-outline-info" href="/page/parcours_edition.php?id=<?php echo($id_parcours); ?>" role="button">
               Modifier le parcours
             </a>
         <?php }?>

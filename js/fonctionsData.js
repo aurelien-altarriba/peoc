@@ -215,6 +215,9 @@ function displayDataParcours(data) {
 		var polyline = new L.polylineCluster(trace_parcours, {color:'red'});
 
 		polyline.niveau = un_parcours['id_niveau_p'];
+		polyline.on('click', function(event) {
+			document.location.href = "/page/parcours.php?id=" + un_parcours['id_parcours_p'];
+		});
 
 		// Ajout du polyline à la liste des parcours
 		parcours.addLayer(polyline);
