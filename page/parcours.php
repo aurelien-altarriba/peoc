@@ -187,7 +187,13 @@
 
         <!-- FORMULAIRE COMMENTAIRE -->
         <div id="parcours_commentaire">
-          <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
+          <?php
+            if (!empty($_SESSION['membre']['id'])) {
+              require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php");
+            } else {
+              echo("<h5>Vous devez vous connecter pour commenter ce parcours</h5>");
+            }
+          ?>
         </div>
       </div>
 		</div>
