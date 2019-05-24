@@ -324,6 +324,7 @@
             if (data == "OK") {
               getData(id,"R");
               getData(id,"L");
+              alert('Merci pour votre commentaire !');
             }
             else {
               alert('Erreur : ' + data);
