@@ -303,7 +303,7 @@ function displayDataTroncon(data) {
 
 
 // Fonction d'affichage des points sur la carte
-function displayDataPoint(data, type, id) {
+function displayDataPoint(data, type) {
 
 	// Récupération des données en JSON
 	var liste_points = JSON.parse(data);

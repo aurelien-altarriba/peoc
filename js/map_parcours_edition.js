@@ -29,6 +29,7 @@ function actualiser_var_troncon(idTroncon, un_troncon) {
 function reset_formulaire() {
 	// On vide le formulaire
 	$("#form_pi")[0].reset();
+	$("#form_pv")[0].reset();
 }
 
 function creer_ligne_troncon(id_troncon, troncon, param = false) {
@@ -162,12 +163,14 @@ $(document).ready(function() {
 		if (url.get('id')) {
 			var chemin = "/fonction/verif_parcours_modification.php";
 			var action = 'maj';
+			var redirect = false;
 		}
 
 		// Si on créé le parcours
 		else {
 			var chemin = "/fonction/verif_parcours_creation.php";
 			var action = 'enregistrer';
+			var redirect = true;
 		}
 
 		// Mise à jour du parcours
@@ -200,6 +203,10 @@ $(document).ready(function() {
 
 						// Quand le PHP a fini d'être exécuté
 						function(data) {
+							if (redirect) {
+								document.location.href = "/page/parcours_edition.php?id=" + id_parcours_p;
+							}
+
 							alert('Parcours enregistré!');
 						}
 					);

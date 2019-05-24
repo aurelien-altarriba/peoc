@@ -9,7 +9,7 @@
 
   <div class="form-group">
     <label for="zs_note_e">Durée réelle en minutes</label>
-    <input type="text" name="zs_duree_reel_e" id="zs_duree_reel_e"/>
+    <input type="number" name="zs_duree_reel_e" id="zs_duree_reel_e"/>
   </div>
 
   <div class="form-group">
@@ -39,8 +39,10 @@ var options_comm = {
 
 $('.note_comm').rate(options_comm);
 
+var _note = 3;
 $(".note_comm").on("afterChange", function(ev, data){
     console.log(data.from, data.to);
+    _note = data.to;
     $('.note_comm_texte').html(data.to + " / 5");
 });
 </script>

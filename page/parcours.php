@@ -192,10 +192,33 @@
       </div>
 		</div>
 
+    <div class="modal fade" role="dialog" tabindex="-1" id="formulaireMarqueur" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="titre_form_marqueur">Ajouter un point</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Annuler">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
+					</div>
+
+					<div class="modal-footer" id="modalAction">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+						<button type="button" class="btn btn-primary" id="ajouterMarqueurPV">Ajouter le point de vigilance</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- FOOTER -->
 		<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 
     <script type="text/javascript">
+
     // type: "R" global au parcours
     // 			 "L" liste de tous les commentaires
 
@@ -271,6 +294,11 @@
     }
 
     $(document).ready(function() {
+
+      <?php if (empty($_SESSION['membre']['id'])) {
+        echo("$('.leaflet-control-custom.bt_custom_map').css('display', 'none');");
+      } ?>
+
       // Récupération des paramètres
       var url = new URLSearchParams(location.search);
       var id = url.get('id');
@@ -281,7 +309,7 @@
       $('#bt_submit_comm').on('click', function() {
         $.post('/fonction/verif_data_commentaire.php',
           {
-            note: $('#zs_note_e').val(),
+            note: _note,
             duree: $('#zs_duree_reel_e').val(),
             commentaire: $('#zs_commentaire_e').val(),
             id_parcours: id
