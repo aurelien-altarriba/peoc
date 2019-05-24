@@ -376,9 +376,9 @@ $(document).ready(function() {
 	});
 
 	// MODIFIER POINT INTERET
-	id_modifier = null;
+	id_modifier_pi = null;
 	$(document).on('click', '.modifierMarqueurPI', function () {
-  	id_modifier = this.textContent;
+  	id_modifier_pi = this.textContent;
 
 		$('#form_pv').hide();
 		$('#ajouterMarqueurPV').hide();
@@ -407,7 +407,7 @@ $(document).ready(function() {
       type : 'POST',
       dataType : 'text',
       data: {
-      	id: id_modifier,
+      	id: id_modifier_pi,
 				zl_nom_pic: zl_nom_pic,
 				zs_url_pi: zs_url_pi,
 				zs_description_pi: zs_description_pi,
@@ -467,9 +467,9 @@ $(document).ready(function() {
   		$(".leaflet-left").show();
 
   		// On affiche le bouton et le titre pour l'ajout
-  		$('#ajouterMarqueur').show();
-  		$('#titre_form_marqueur').text('Ajouter le point');
-  		$('#modifierMarqueur').hide();
+  		$('#ajouterMarqueurPV').show();
+  		$('#titre_form_marqueur').text('Ajouter le point de vigilance');
+  		$('#modifierMarqueurPV').hide();
 
   		reset_formulaire();
 
@@ -478,31 +478,38 @@ $(document).ready(function() {
 
   		// On masque la fenêtre de création d'un marqueur quand on clique à côté
   		$('#formulaireMarqueur').on('hidden.bs.modal', function () {
-  			$('#ajouterMarqueur').unbind('click');
+  			$('#ajouterMarqueurPV').unbind('click');
 		});
 
 		// Quand le bouton d'ajout du marqueur est cliqué
-		$('#ajouterMarqueur').bind('click', function(event) {
+		$('#ajouterMarqueurPV').bind('click', function(event) {
 
 			// Récupération des champs du formulaire
-			var zl_nom_pic = $('#zl_nom_pic').val();
-			var zs_url_pi = $('#zs_url_pi').val();
-			var zs_description_pi = $('#zs_description_pi').val();
+			var zs_dt_debut_pv = $('#zs_dt_debut_pv').val();
+			var zs_dt_fin_pv = $('#zs_dt_fin_pv').val();
+			var zs_categorie_pv = $('#zs_categorie_pv').val();
+			var zs_description_pv = $('#zs_description_pv').val();
 			// var zs_photo_up = $('#zs_photo_up').val();
 			var Latitude = e.latlng.lat;
 			var Longitude = e.latlng.lng;
 
-			// ENREGISTREMENT DU MARQUEUR VIA AJAX
+			var url = new URLSearchParams(location.search);
+			// Si on modifie le parcours
+			var Parcours = url.get('id');
+
+			// ENREGISTREMENT DU POINT DE VIGILANCE VIA AJAX
   		$.ajax({
-        url : '/fonction/verif_point_interet.php',
+        url : '/fonction/verif_point_vigilance_creation.php',
         type : 'POST',
         dataType : 'text',
         data: {
-        	zl_nom_pic: zl_nom_pic,
-        	zs_url_pi: zs_url_pi,
-        	zs_description_pi: zs_description_pi,
+        	zs_dt_debut_pv: zs_dt_debut_pv,
+        	zs_dt_fin_pv: zs_dt_fin_pv,
+        	zs_categorie_pv: zs_categorie_pv,
+					zs_description_pv: zs_description_pv,
         	latitude: Latitude,
         	longitude: Longitude,
+					parcours: Parcours,
         },
         success : function(data){
 					console.log(data);
@@ -525,6 +532,106 @@ $(document).ready(function() {
 	  new L.Control.Watermark({ position: 'topleft'}).addTo(map);
 	}
 
-	getDataPoint('I');
+	// SUPPRIMER POINT DE VIGILANCE
+	$(document).on('click', '.supprimerMarqueurPV', function () {
+		if (confirm("Supprimer définitivement ce point de vigilance ?")) {
+			var id = this.textContent;
+
+			$.ajax({
+				url : '/fonction/verif_point_vigilance_suppression.php',
+				type : 'POST',
+				dataType : 'text',
+				data: {
+					id: id
+				},
+				success : function(resultat, statut){
+					getDataPoint('V');
+				}
+			});
+		}
+	});
+
+	// DÉPLACER POINT DE VIGILANCE
+	$(document).on('click', '.deplacerMarqueurPV', function () {
+	    var id = this.textContent;
+		map.closePopup();
+
+		map._container.style.cursor = 'crosshair';
+		$('path.leaflet-interactive').css("cssText", "cursor: crosshair !important;");
+
+		$("#notif").html("<b>MODE DÉPLACEMENT :</b> <br>Cliquez sur la carte pour déplacer le point de vigilance à ces coordonnées").show(200);
+
+		map.on("click", function(e) {
+			if (confirm("Déplacer le point de vigilance ici ?")) {
+				$.ajax({
+            url : '/fonction/verif_point_vigilance_deplacement.php',
+            type : 'POST',
+            dataType : 'text',
+            data: {
+            	id: id,
+            	lat: e.latlng.lat,
+            	lng: e.latlng.lng
+            },
+            success : function(resultat, statut){
+              getDataPoint('V');
+            }
+        });
+			}
+
+			map.removeEventListener('click');
+			map._container.style.cursor = 'grab';
+			$("#notif").hide();
+    	$('path.leaflet-interactive').css("cssText", "cursor: grab !important;");
+		});
+	});
+
+	// MODIFIER POINT DE VIGILANCE
+	id_modifier_pv = null;
+	$(document).on('click', '.modifierMarqueurPV', function () {
+  	id_modifier_pv = this.textContent;
+
+		$('#form_pi').hide();
+		$('#ajouterMarqueurPI').hide();
+		$('#form_pv').show();
+		$('#ajouterMarqueurPV').show();
+
+  	// On affiche le bouton et le titre pour l'ajout
+		$('#modifierMarqueurPV').show();
+		$('#titre_form_marqueur').text('Modifier le point de vigilance');
+		$('#ajouterMarqueurPV').hide();
+
+		$('#formulaireMarqueur').modal();
+
+  	reset_formulaire();
+	});
+
+	// Quand le bouton d'enregistrement des modifications du marqueur est cliqué
+	$('#modifierMarqueurPV').bind('click', function(event) {
+		var zs_dt_debut_pv = $('#zs_dt_debut_pv').val();
+		var zs_dt_fin_pv = $('#zs_dt_fin_pv').val();
+		var zs_categorie_pv = $('#zs_categorie_pv').val();
+		var zs_description_pv = $('#zs_description_pv').val();
+
+  	// On charge pour le formulaire les données du marqueur
+  	$.ajax({
+      url : '/fonction/verif_point_vigilance_modification.php',
+      type : 'POST',
+      dataType : 'text',
+      data: {
+      	id: id_modifier_pv,
+				zs_dt_debut_pv: zs_dt_debut_pv,
+				zs_dt_fin_pv: zs_dt_fin_pv,
+				zs_categorie_pv: zs_categorie_pv,
+				zs_description_pv: zs_description_pv,
+      },
+      success : function(resultat, statut) {
+				getDataPoint('V');
+				$('#formulaireMarqueur').modal('hide');
+			}
+    });
+	});
+
+	// Chargement des données à l'initialisation
 	getDataPoint('V');
+	getDataPoint('I');
 });
