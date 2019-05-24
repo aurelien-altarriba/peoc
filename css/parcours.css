@@ -251,6 +251,12 @@
 	margin: 0.5em;
 }
 
+#zs_commentaire_e
+{
+	min-width: 300px;
+	width: 40vw;
+}
+
 /*** LISTE TRONCONS ***/
 #listeTroncons
 {

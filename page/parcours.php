@@ -127,7 +127,7 @@
 
         // Si il est propriétaire, on affiche le bouton
         if ($modif) {?>
-            <a class="btn btn-outline-secondary" href="/page/parcours_edition.php?id=<?php echo($id_parcours); ?>" role="button">
+            <a class="btn btn-outline-info" href="/page/parcours_edition.php?id=<?php echo($id_parcours); ?>" role="button">
               Modifier le parcours
             </a>
         <?php }?>
@@ -187,15 +187,44 @@
 
         <!-- FORMULAIRE COMMENTAIRE -->
         <div id="parcours_commentaire">
-          <?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php"); ?>
+          <?php
+            if (!empty($_SESSION['membre']['id'])) {
+              require_once($_SERVER['DOCUMENT_ROOT'] ."/form/parcours_commentaire.php");
+            } else {
+              echo("<h5>Vous devez vous connecter pour commenter ce parcours</h5>");
+            }
+          ?>
         </div>
       </div>
+		</div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="formulaireMarqueur" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="titre_form_marqueur">Ajouter un point</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Annuler">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
+					</div>
+
+					<div class="modal-footer" id="modalAction">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+						<button type="button" class="btn btn-primary" id="ajouterMarqueurPV">Ajouter le point de vigilance</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- FOOTER -->
 		<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/include/footer.php"); ?>
 
     <script type="text/javascript">
+
     // type: "R" global au parcours
     // 			 "L" liste de tous les commentaires
 
@@ -271,6 +300,11 @@
     }
 
     $(document).ready(function() {
+
+      <?php if (empty($_SESSION['membre']['id'])) {
+        echo("$('.leaflet-control-custom.bt_custom_map').css('display', 'none');");
+      } ?>
+
       // Récupération des paramètres
       var url = new URLSearchParams(location.search);
       var id = url.get('id');
@@ -281,7 +315,7 @@
       $('#bt_submit_comm').on('click', function() {
         $.post('/fonction/verif_data_commentaire.php',
           {
-            note: $('#zs_note_e').val(),
+            note: _note,
             duree: $('#zs_duree_reel_e').val(),
             commentaire: $('#zs_commentaire_e').val(),
             id_parcours: id
@@ -290,6 +324,7 @@
             if (data == "OK") {
               getData(id,"R");
               getData(id,"L");
+              alert('Merci pour votre commentaire !');
             }
             else {
               alert('Erreur : ' + data);
