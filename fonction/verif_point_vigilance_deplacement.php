@@ -12,9 +12,9 @@
 
   $proj = $CF['srid'];
 
-  $sql = "UPDATE point_interet
-          SET geom_pi = ST_GeomFromText('POINT($longitude $latitude)', $proj)
-          WHERE id_interet_pi = $id_point";
+  $sql = "UPDATE point_vigilance
+          SET geom_pv = ST_GeomFromText('POINT($longitude $latitude)', $proj)
+          WHERE id_vigilance_pv = $id_point";
 
   try {
     $rs = pg_exec($idc, $sql);

@@ -8,7 +8,7 @@
   $id_point = pg_escape_string($_POST['id']);
 
   // Suppression du point en base
-  $sql = "DELETE FROM point_interet WHERE id_interet_pi = $id_point";
+  $sql = "DELETE FROM point_vigilance WHERE id_vigilance_pv = $id_point";
 
   try {
     $rs = pg_exec($idc, $sql);

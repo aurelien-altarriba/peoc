@@ -329,16 +329,16 @@ function displayDataPoint(data, type, id) {
 
 			// On créé le contenu en HTML
 			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
-	        '<img src="../image/pi2.png"></img>'+
-	        '<h6 style="margin-bottom: 0.2em;">'+
-	          point['nom_pic'] +
-	        '</h6>'+
-	        '<div style="margin-top: 0.5em;">'+
-	          point['description_pi'] +
-	        '</div>'+
-					'<div style="margin-top: 0.5em;">'+
-	          '<a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a>'+
-	        '</div>'+
+        '<img src="../image/pi2.png"></img>'+
+        '<h6 style="margin-bottom: 0.2em;">'+
+          point['nom_pic'] +
+        '</h6>'+
+        '<div style="margin-top: 0.5em;">'+
+          point['description_pi'] +
+        '</div>'+
+				'<div style="margin-top: 0.5em;">'+
+          '<a href="'+ point['url_pi'] +'" target="_blank">'+ point['url_pi'] +'</a>'+
+        '</div>'+
 	    '</center>'+
 	    '<div class="modifierMarqueurPI"><i class="fas fa-edit"><span style="display: none;">'+ point['id_interet_pi'] +'</span></i></div>'+
 	    '<div class="supprimerMarqueurPI"><i class="fas fa-trash-alt"><span style="display: none;">'+ point['id_interet_pi'] +'</span></i></div>'+
@@ -371,22 +371,25 @@ function displayDataPoint(data, type, id) {
 				}
 			);
 
-			// On créé le contenu en HTML
-			var popup_contenu = '<div class="popup_PT">';
-			if(point['photo_pv']!=null){
-				popup_contenu += '<img src="../image/photo_pv/'+ point['photo_pv'] +'"></img>';
-			}
-			else{
-			 	popup_contenu += '<img src="../image/pv2.png"></img>';
-			}
-			 popup_contenu += '<h2>'+ point['nom_pvc'] +'</h2>'+
-			 '<hr>'+
-			 '<div><b>Description :</b> '+ point['description_pv'] +'</div>'+
-			 '<div><b>Date de début :</b> '+ point['dt_debut_pv'] +'</div>'+
-			 '<div><b>Date de fin :</b> '+ point['dt_fin_pv'] +'</div>'+
-			 '<div><b>Signalé par :</b> '+ point['id_membre_pv'] + ' - ' + point['nom_m'] + ' ' + point['prenom_m'] +'</div>'+
-			 '<div><b>Le :</b> '+ point['dt_creation_pv'] +'</div>'+
-			'</div>';
+			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
+        '<img src="../image/pv2.png" width="100px"></img>'+
+        '<h6 style="margin-bottom: 0.2em;">'+
+          point['nom_pvc'] +
+        '</h6>'+
+        '<div style="margin-top: 0.5em;">'+
+          point['description_pv'] +
+				'</div>'+
+				'<div style="margin-top: 0.5em;">'+
+					'<div><b>Date de début :</b> '+ point['dt_debut_pv'] +'</div>'+
+					'<div><b>Date de fin :</b> '+ point['dt_fin_pv'] +'</div>'+
+					'<div><b>Signalé par :</b> '+ point['nom_m'] + ' ' + point['prenom_m'] +'</div>'+
+					'<div><b>Le :</b> '+ point['dt_creation_pv'] +'</div>'+
+        '</div>'+
+	    '</center>'+
+	    '<div class="modifierMarqueurPV"><i class="fas fa-edit"><span style="display: none;">'+ point['id_vigilance_pv'] +'</span></i></div>'+
+	    '<div class="supprimerMarqueurPV"><i class="fas fa-trash-alt"><span style="display: none;">'+ point['id_vigilance_pv'] +'</span></i></div>'+
+	    '<div class="deplacerMarqueurPV"><i class="fas fa-arrows-alt"><span style="display: none;">'+ point['id_vigilance_pv'] +'</span></i></div>');
+
 
 			// Ajoute le contenu HTML dans une popup au marqueur
 			marqueur.bindPopup(popup_contenu);
