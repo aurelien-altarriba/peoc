@@ -117,6 +117,7 @@
 					<div class="modal-body">
 						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_interet.php"); ?>
 						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/point_vigilance.php"); ?>
+						<?php require_once($_SERVER['DOCUMENT_ROOT'] ."/form/zone_allure.php"); ?>
 					</div>
 
 					<div class="modal-footer" id="modalAction">
@@ -125,6 +126,8 @@
 						<button type="button" class="btn btn-primary" id="modifierMarqueurPI" style="display: none;">Modifier le point d'intérêt</button>
 						<button type="button" class="btn btn-primary" id="ajouterMarqueurPV">Ajouter le point de vigilance</button>
 						<button type="button" class="btn btn-primary" id="modifierMarqueurPV" style="display: none;">Modifier le point de vigilance</button>
+						<button type="button" class="btn btn-primary" id="ajouterMarqueurZA">Ajouter la zone allure</button>
+						<button type="button" class="btn btn-primary" id="modifierMarqueurZA" style="display: none;">Modifier la zone allure</button>
 					</div>
 				</div>
 			</div>
