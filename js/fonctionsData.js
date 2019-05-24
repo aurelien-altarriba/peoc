@@ -26,10 +26,14 @@ function getDataCE(){
 				);
 
 				// On créé le contenu en HTML
-				var popup_contenu =
-				'<div class="popup_CE">'+
-					'<img src="image/logo/'+ CE['logo_ce'] +'"></img>'+
-					'<h2>'+ CE['nom_ce'] +'</h2>'+
+				var popup_contenu = '<div class="popup_CE">';
+					if(CE['logo_ce']!=null){
+						popup_contenu += '<img src="image/logo/'+ CE['logo_ce'] +'"></img>';
+					}
+					else{
+						popup_contenu += '<img src="image/ce_default.png"></img>';
+					}
+					popup_contenu += '<h2>'+ CE['nom_ce'] +'</h2>'+
 					'<hr>'+
 					'<div><b>Adresse :</b> '+ CE['adresse_ce'] +' '+ CE['cp_ce'] +' '+ CE['ville_ce'] +' ('+ CE['id_departement_ce'] +')</div>'+
 					'<div><b>Tel :</b> '+ CE['tel_ce'] +'</div>'+
