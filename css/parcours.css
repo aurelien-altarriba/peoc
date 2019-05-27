@@ -356,3 +356,55 @@
 	white-space: nowrap;
 	z-index: 1001;
 }
+
+.legende
+{
+	padding: 0.5rem;
+	background-color: white;
+	border: 2px solid #888A;
+	border-radius: 5px;
+}
+
+#logo_legende
+{
+	width: 1.7rem;
+}
+
+.ligne_legende
+{
+	display: flex;
+	align-items: center;
+	padding-bottom: 0.3rem;
+}
+
+.ligne_legende:not(:nth-child(2)) {
+	border-top: 1px solid #DDD;
+	padding-top: 0.3rem;
+}
+
+.ligne_legende img
+{
+	width: 2rem;
+	margin-right: 0.8rem;
+}
+
+.ligne_legende h5
+{
+	font-size: 0.8rem;
+	margin: 0;
+}
+
+.legende .ligne_legende
+{
+	display: none;
+}
+
+.legende:hover .ligne_legende
+{
+	display: flex;
+}
+
+.legende:hover #logo_legende
+{
+	display: none;
+}

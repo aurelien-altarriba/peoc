@@ -372,7 +372,7 @@ function displayDataPoint(data, type) {
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
 						iconUrl: '/image/pv.png',			// URL de l'image
-						iconSize: [20, 20],							// Taille de l'image
+						iconSize: [25, 25],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
 				}
