@@ -357,21 +357,6 @@
 	z-index: 1001;
 }
 
-<<<<<<< HEAD
-.supprimerZA
-{
-	font-size: 3rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-
-	transition: color 0.5s ease-in-out;
-}
-
-.supprimerZA:hover{
-	color: red;
-=======
 .legende
 {
 	padding: 0.5rem;
@@ -422,5 +407,19 @@
 .legende:hover #logo_legende
 {
 	display: none;
->>>>>>> f21a4ef18313f4eab3f341531274026f71b66b6d
+}
+
+.supprimerZA
+{
+	font-size: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+	transition: color 0.5s ease-in-out;
+}
+
+.supprimerZA:hover{
+	color: red;
 }
