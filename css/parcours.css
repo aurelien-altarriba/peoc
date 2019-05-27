@@ -356,3 +356,18 @@
 	white-space: nowrap;
 	z-index: 1001;
 }
+
+.supprimerZA
+{
+	font-size: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+	transition: color 0.5s ease-in-out;
+}
+
+.supprimerZA:hover{
+	color: red;
+}

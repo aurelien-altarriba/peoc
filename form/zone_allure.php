@@ -15,12 +15,7 @@
           $rs = pg_exec($idc,$sql);
 
           while ($ligne = pg_fetch_assoc($rs)){
-            if ($ligne['id_type_ta'] == $id_categorie_pi){
-              print('<option value="'.$ligne['id_type_ta'].'" selected="selected">'.$ligne['nom_ta'].'</option>');
-            }
-            else{
-              print('<option value="'.$ligne['id_type_ta'].'">'.$ligne['nom_ta'].'</option>');
-            }
+            print('<option value="'.$ligne['id_type_ta'].'">'.$ligne['nom_ta'].'</option>');
           }
           ?>
         </select>

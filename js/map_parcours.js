@@ -175,7 +175,7 @@ $(document).ready(function() {
   new L.Control.Watermark({ position: 'topleft'}).addTo(map);
 
 	// Charge les données sur la carte
-	getDataZoneAllure();
+	getDataZoneAllure('all',null);
 	getDataTroncon();
 	getDataPoint('I');
 	getDataPoint('V');

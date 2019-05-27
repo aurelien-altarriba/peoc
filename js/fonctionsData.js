@@ -468,7 +468,7 @@ function displayDataTronconEdition(data) {
 
 
 // Récupération des zones allures d'un parcours
-function getDataZoneAllure(edition = false) {
+function getDataZoneAllure(mode,id_za) {
 	// Récupération des paramètres
 	var url = new URLSearchParams(location.search);
 
@@ -477,16 +477,13 @@ function getDataZoneAllure(edition = false) {
 
 		// Récupération de l'ID du parcours
 		{
-			id: url.get('id')
+			id_parcours: url.get('id'),
+			mode: mode,
+			id_za: id_za
 		},
 
 		function(data) {
-			if (edition != false) {
-				//displayDataZoneAllureEdition(data);
-
-			} else {
-				displayDataZoneAllure(data,"all");
-			}
+			displayDataZoneAllure(data,mode);
 		}
 	);
 }
@@ -494,9 +491,11 @@ function getDataZoneAllure(edition = false) {
 
 
 // Affichage des zones allure sur la carte
-function displayDataZoneAllure(data,mode,tp) {
+function displayDataZoneAllure(data,mode) {
 	// Supprime les zones allure de la carte (variable globale donc au cas où)
-	zone_allure.clearLayers();
+	if (mode=="all"){
+		zone_allure.clearLayers();
+	}
 
 	// Récupération des données en JSON
 	var liste_za = JSON.parse(data);
@@ -512,13 +511,9 @@ function displayDataZoneAllure(data,mode,tp) {
 		// On récupère les coordonnées du troncon
 		var coords = JSON.parse(une_zoneAllure['st_asgeojson'])['coordinates'];
 
-    if (mode=="all"){
+    if (mode=="all" || mode=="one" ){
       type_za = une_zoneAllure['id_type_za'];
 			nom_za = une_zoneAllure['nom_ta'];
-    }
-    else{
-      type_za = tp;
-			nom_za = '';
     }
 
 		// Calculer couleur selon niveau difficulté
@@ -547,9 +542,14 @@ function displayDataZoneAllure(data,mode,tp) {
 		// Création du polyline du troncon sur la carte
 		var polyline = L.polyline(trace_za, {color: couleur, opacity: 0.5, weight: 20}).bindTooltip(nom_za, {direction: top, permanent: true, opacity: 0.5});
 
+		popup_contenu = `<div class="supprimerZA"><i class="fas fa-trash-alt"><span style="display: none;">${ une_zoneAllure['id_zone_za'] }</span></i></div>`;
+
+		// Ajoute le contenu HTML dans une popup au marqueur
+		polyline.bindPopup(popup_contenu);
+
 		// Ajout du polyline à la liste des parcours
 		zone_allure.addLayer(polyline);
-		polyline.openTooltip();
+		//polyline.openTooltip();
 	});
 
 }

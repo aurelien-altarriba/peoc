@@ -27,6 +27,7 @@
 		if (isset($_SESSION['membre']['id'])){
 			$id_membre = $_SESSION['membre']['id'];
 		}
+		print($id_membre);
 
 		$id_centre = '';
 		if (isset($_SESSION['membre']['ce']['id_centre_ce'])){
@@ -61,13 +62,8 @@
 									INNER JOIN (SELECT id_parcours_t, ROUND(SUM(duree_estime_t)::numeric,2) AS duree_t, ROUND(SUM(st_length(geom_t::geography))::numeric,2) AS distance_t
 															FROM troncon WHERE id_hierarchie_t = 1 GROUP BY id_parcours_t) AS t ON t.id_parcours_t =  p.id_parcours_p
 									INNER JOIN departement ON id_departement_d = id_departement_p
-									LEFT JOIN niveau_equestre ON id_niveau_ne = id_niveau_p";
-					if (!empty($id_membre)){
-						$sql = $sql." WHERE (id_membre_p = ".intval($id_membre)." AND id_centre_p IS NULL);";
-					}
-					else{
-						$sql = $sql." WHERE (id_centre_p = ".intval($id_centre)." AND id_membre_p IS NULL);";
-					}
+									LEFT JOIN niveau_equestre ON id_niveau_ne = id_niveau_p
+									WHERE (id_membre_p = ".intval($id_membre)." OR id_centre_p = ".intval($id_centre).")";
 
 					// Exécution de la requête
 					try {
