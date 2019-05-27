@@ -286,8 +286,8 @@ function displayDataTroncon(data) {
 	// On créé les marqueurs de debut et de fin de parcours
 	var marqueur_depart = new L.marker(debut, {
 			icon: L.icon({
-				iconUrl: '/image/depart_parcours.png',			// URL de l'image
-				iconSize: [25, 25],												// Taille de l'image
+				iconUrl: '/image/depart_parcours_4.png',			// URL de l'image
+				iconSize: [40, 40],												// Taille de l'image
 				popupAnchor: [0, 0]											// Position d'ouverture de la popup
 			})
 		}
@@ -295,8 +295,8 @@ function displayDataTroncon(data) {
 
 	var marqueur_fin = new L.marker(fin, {
 			icon: L.icon({
-				iconUrl: '/image/arrivee_parcours.png',			// URL de l'image
-				iconSize: [25, 25],												// Taille de l'image
+				iconUrl: '/image/logo_arrivee_petit.png',			// URL de l'image
+				iconSize: [30, 30],												// Taille de l'image
 				popupAnchor: [0, 0]											// Position d'ouverture de la popup
 			})
 		}
@@ -327,8 +327,8 @@ function displayDataPoint(data, type) {
 			// On créé le marqueur
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
-						iconUrl: '/image/pi.png',			// URL de l'image
-						iconSize: [20, 15],							// Taille de l'image
+						iconUrl: '/image/pi_1.png',			// URL de l'image
+						iconSize: [24, 35],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
 				}
@@ -372,7 +372,7 @@ function displayDataPoint(data, type) {
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
 						iconUrl: '/image/pv.png',			// URL de l'image
-						iconSize: [20, 20],							// Taille de l'image
+						iconSize: [25, 25],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
 				}

@@ -240,7 +240,7 @@ $(document).ready(function() {
 		    btPointInteret.style.width = '30px';
 		    btPointInteret.style.height = '30px';
 				btPointInteret.style.cursor = 'pointer';
-				btPointInteret.innerHTML = '<img src="../image/pi.png" style="width: 80%;"/>';
+				btPointInteret.innerHTML = '<img src="../image/pi_1.png" style="width: 80%;"/>';
 	  		btPointInteret.title = 'Ajouter un point d\'intérêt';
 	  		L.DomEvent.addListener(btPointInteret, 'click', L.DomEvent.stopPropagation)
 	  			.addListener(btPointInteret, 'click', L.DomEvent.preventDefault)

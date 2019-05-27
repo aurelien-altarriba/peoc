@@ -65,6 +65,37 @@ $(document).ready(function() {
 		$("#zs_longitude_pv").val(lng);
 	});
 
+	var legend = L.control({position: 'topright'});
+
+	legend.onAdd = function (map) {
+
+	    var div = L.DomUtil.create('div', 'legende'),
+	        liste = [
+						['ligne_jaune.png', "Tronçon facile"],
+						['ligne_orange.png', "Tronçon moyen"],
+						['ligne_rouge.png', "Tronçon difficile"],
+						['depart_parcours_4.png', "Départ"],
+						['logo_arrivee_petit.png', "Arrivée"],
+						['pi_1.png', "Point d'interêt"],
+						['pv.png', "Point de vigilance"],
+					];
+
+			div.innerHTML = '<img id="logo_legende" src="/image/logo_legende.png"/>';
+
+			liste.forEach((val) => {
+					div.innerHTML += `
+					<div class="ligne_legende">
+						<img src="/image/${val[0]}"/>
+						<h5>${val[1]}</h5>
+					</div>`;
+			});
+
+	    return div;
+	};
+
+	legend.addTo(map);
+
+
 	// CONTRÔLE AJOUT D'UN POINT DE VIGILANCE
   L.Control.Watermark = L.Control.extend({
   	onAdd: function(map) {
