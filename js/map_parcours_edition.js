@@ -47,7 +47,7 @@ function creer_ligne_troncon(id_troncon, troncon, param = false, importFile = fa
 			$('#contenuTroncon')
 				.append(data)
 				.change(function() {
-					actualiser_var_troncon(id_troncon, troncon, importFile);
+					actualiser_var_troncon(id_troncon, troncon, false, importFile);
 				});
 
 			if (param) {
@@ -57,7 +57,7 @@ function creer_ligne_troncon(id_troncon, troncon, param = false, importFile = fa
 				$('#zl_id_niveau_nt'+ id_troncon).val(param['id_niveau_t']);
 			}
 
-			actualiser_var_troncon(id_troncon, troncon, importFile);
+			actualiser_var_troncon(id_troncon, troncon, false, importFile);
 			_pos_troncon++;
 		}
 	)
@@ -185,7 +185,7 @@ $(document).ready(function() {
 	loadFile.loader.on('data:loaded', function (un_troncon) {
     // event.layer gives you access to the layers you just uploaded!
 		var idTroncon = un_troncon.layer._leaflet_id - 1;
-		
+
 		un_troncon.layer.on('pm:edit', function(e) {
 			actualiser_var_troncon(e.target._leaflet_id - 1, e.target, false, true);
 		});
@@ -196,68 +196,79 @@ $(document).ready(function() {
 	// Quand on clique sur le bouton pour enregistrer
 	$('#bt_submit_enregistrer').on('click', function(e) {
 
-		// Récupération des paramètres
-		var url = new URLSearchParams(location.search);
+		var erreur = false;
 
-		// Si on modifie le parcours
-		if (url.get('id')) {
-			var chemin = "/fonction/verif_parcours_modification.php";
-			var action = 'maj';
-			var redirect = false;
-		}
-
-		// Si on créé le parcours
-		else {
-			var chemin = "/fonction/verif_parcours_creation.php";
-			var action = 'enregistrer';
-			var redirect = true;
-		}
-
-		// Mise à jour du parcours
-		$.post(chemin,
-			{
-				zl_id_p: url.get('id'),
-				zs_nom_p: $('#zs_nom_p')[0].value,
-				zs_description_p: $('#zs_description_p')[0].value,
-				zl_id_niveau_ne: $('#zl_id_niveau_ne')[0].value,
-				zl_id_departement_p: $('#zl_id_departement_p')[0].value,
-				autonomie_p: $("input[name='autonomie_p']:checked").val(),
-				visible_p: $("input[name='visible_p']:checked").val()
-			},
-
-			// Quand le PHP a fini d'être exécuté
-			function(id_parcours_p){
-
-				console.log(id_parcours_p);
-
-				// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
-				if (Number(id_parcours_p)) {
-
-					// On met à jour les tronçons
-					$.post("/fonction/verif_troncon.php",
-						{
-							listeTroncons: JSON.stringify(tabTroncon),
-							id_parcours: id_parcours_p,
-							action: action,
-						},
-
-						// Quand le PHP a fini d'être exécuté
-						function(data) {
-							if (redirect) {
-								document.location.href = "/page/parcours_edition.php?id=" + id_parcours_p;
-							}
-
-							alert('Parcours enregistré!');
-						}
-					);
-				}
-
-				// Sinon on affiche l'erreur
-				else {
-					alert(id_parcours_p);
-				}
+		$.each(tabTroncon, (troncon) => {
+			if (tabTroncon[troncon].duree_estimee == '') {
+				alert('Vous devez renseigner la durée estimée du tronçon pour pouvoir enregistrer le parcours');
+				erreur = true;
 			}
-		);
+		})
+
+		if (!erreur) {
+			// Récupération des paramètres
+			var url = new URLSearchParams(location.search);
+
+			// Si on modifie le parcours
+			if (url.get('id')) {
+				var chemin = "/fonction/verif_parcours_modification.php";
+				var action = 'maj';
+				var redirect = false;
+			}
+
+			// Si on créé le parcours
+			else {
+				var chemin = "/fonction/verif_parcours_creation.php";
+				var action = 'enregistrer';
+				var redirect = true;
+			}
+
+			// Mise à jour du parcours
+			$.post(chemin,
+				{
+					zl_id_p: url.get('id'),
+					zs_nom_p: $('#zs_nom_p')[0].value,
+					zs_description_p: $('#zs_description_p')[0].value,
+					zl_id_niveau_ne: $('#zl_id_niveau_ne')[0].value,
+					zl_id_departement_p: $('#zl_id_departement_p')[0].value,
+					autonomie_p: $("input[name='autonomie_p']:checked").val(),
+					visible_p: $("input[name='visible_p']:checked").val()
+				},
+
+				// Quand le PHP a fini d'être exécuté
+				function(id_parcours_p){
+
+					console.log(id_parcours_p);
+
+					// Si il n'y a pas eu d'erreurs à la mise à jour du parcours
+					if (Number(id_parcours_p)) {
+
+						// On met à jour les tronçons
+						$.post("/fonction/verif_troncon.php",
+							{
+								listeTroncons: JSON.stringify(tabTroncon),
+								id_parcours: id_parcours_p,
+								action: action,
+							},
+
+							// Quand le PHP a fini d'être exécuté
+							function(data) {
+								if (redirect) {
+									document.location.href = "/page/parcours_edition.php?id=" + id_parcours_p;
+								}
+
+								alert('Parcours enregistré!');
+							}
+						);
+					}
+
+					// Sinon on affiche l'erreur
+					else {
+						alert(id_parcours_p);
+					}
+				}
+			);
+		}
 	});
 
 	// Si on est en mode modification
