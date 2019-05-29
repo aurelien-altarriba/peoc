@@ -745,39 +745,39 @@ INSERT INTO cavalier VALUES(2,'222222','2019-05-01',1,'2.jpg');
 
 INSERT INTO info_connexion VALUES('FFF',1,'$2y$10$YZq.wSaIu6Tw2JONwZ6/8uYvTdxvO.SoodlQYsDVKvD7eTYR.8cQC','2019-01-01',NULL);
 INSERT INTO info_connexion VALUES('AAA',2,'$2y$10$M0qEEcO51RNapgtwwpgdeOS9W6ZxCVCxIn1MqMrrLImdajOMemKIu','2018-01-01',NULL);
-INSERT INTO info_connexion VALUES('BBR',3,'$2y$10$KYeU9.mvInPTI3ByobREK.dH0awqu3qjmCVyaEm3brv37jyF4G4ge','2019-01-01',NULL);
+INSERT INTO info_connexion VALUES('BBB',3,'$2y$10$uDnazR.7OckRUbHxgxJlIO1TkABLZv0As4kS1FAkuEU9/Wnp.Srum','2019-01-01',NULL);
 
-INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',1,'11',1,NULL,'test description');
-INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,TRUE,'2019-01-05',2,'11',NULL,1,'test description');
-INSERT INTO parcours VALUES(3,'Troisième parcours',FALSE,FALSE,'2019-01-08',3,'11',2,NULL,'test description');
+-- INSERT INTO parcours VALUES(1,'Premier parcours',TRUE,TRUE,'2019-01-05',1,'11',1,NULL,'test description');
+-- INSERT INTO parcours VALUES(2,'Deuxième parcours',FALSE,TRUE,'2019-01-05',2,'11',NULL,1,'test description');
+-- INSERT INTO parcours VALUES(3,'Troisième parcours',FALSE,FALSE,'2019-01-08',3,'11',2,NULL,'test description');
 
-INSERT INTO zone_allure VALUES(1,1,1,ST_GeomFromText( 'LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 4326));
-INSERT INTO zone_allure VALUES(2,1,3,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 4326));
+-- INSERT INTO zone_allure VALUES(1,1,1,ST_GeomFromText( 'LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 4326));
+-- INSERT INTO zone_allure VALUES(2,1,3,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 4326));
 
-INSERT INTO troncon VALUES(1,1,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 4326));
-INSERT INTO troncon VALUES(2,1,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(2.8525 43.2748, 2.8765 43.2533)', 4326));
-INSERT INTO troncon VALUES(3,1,3,1,3,1,5,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 4326));
-INSERT INTO troncon VALUES(4,1,4,1,1,1,3,ST_GeomFromText( 'LINESTRING(2.899 43.2753, 2.8876 43.2845)', 4326));
-INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 4326));
-INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 4326));
-INSERT INTO troncon VALUES(7,3,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.3829 42.0101, 0.7767 42.667, 0.786 43.2401)', 4326));
+-- INSERT INTO troncon VALUES(1,1,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(2.8876 43.2845, 2.8525 43.2748)', 4326));
+-- INSERT INTO troncon VALUES(2,1,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(2.8525 43.2748, 2.8765 43.2533)', 4326));
+-- INSERT INTO troncon VALUES(3,1,3,1,3,1,5,ST_GeomFromText( 'LINESTRING(2.8765 43.2533, 2.899 43.2753)', 4326));
+-- INSERT INTO troncon VALUES(4,1,4,1,1,1,3,ST_GeomFromText( 'LINESTRING(2.899 43.2753, 2.8876 43.2845)', 4326));
+-- INSERT INTO troncon VALUES(5,2,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.2829 43.0101, 0.8767 42.967, 0.686 42.8401)', 4326));
+-- INSERT INTO troncon VALUES(6,2,2,1,2,2,2,ST_GeomFromText( 'LINESTRING(0.686 42.8401, 1.1475 42.7327, 1.2829 43.0101)', 4326));
+-- INSERT INTO troncon VALUES(7,3,1,1,1,1,4,ST_GeomFromText( 'LINESTRING(1.3829 42.0101, 0.7767 42.667, 0.786 43.2401)', 4326));
+--
+-- INSERT INTO point_interet VALUES(1,1,1,1,NULL,NULL,E'Point d\'intérêt de test',ST_GeomFromText('POINT(2.8723 43.2671)', 4326));
+--
+-- INSERT INTO point_vigilance VALUES(1,1,1,'2019-01-05','2019-01-05','2019-01-05',1,1,NULL,'Point de vigilance de test',ST_GeomFromText('POINT(2.8555 43.2655)', 4326));
+--
+-- INSERT INTO propose VALUES(1,1,1,'2019-01-05',2,10,'Service de test sur le parcours 1');
 
-INSERT INTO point_interet VALUES(1,1,1,1,NULL,NULL,E'Point d\'intérêt de test',ST_GeomFromText('POINT(2.8723 43.2671)', 4326));
-
-INSERT INTO point_vigilance VALUES(1,1,1,'2019-01-05','2019-01-05','2019-01-05',1,1,NULL,'Point de vigilance de test',ST_GeomFromText('POINT(2.8555 43.2655)', 4326));
-
-INSERT INTO propose VALUES(1,1,1,'2019-01-05',2,10,'Service de test sur le parcours 1');
-
-INSERT INTO effectue VALUES(1,1,'2019-01-05',10,5,'Notation de test du parcours 1');
+-- INSERT INTO effectue VALUES(1,1,'2019-01-05',10,5,'Notation de test du parcours 1');
 
 
 --- INITILISATION DES SEQUENCES PAR RAPPORT AU DATASET
 ALTER SEQUENCE membre_id_membre_m_seq RESTART WITH 4;
-ALTER SEQUENCE parcours_id_parcours_p_seq RESTART WITH 4;
-ALTER SEQUENCE point_interet_id_interet_pi_seq RESTART WITH 2;
-ALTER SEQUENCE point_vigilance_id_vigilance_pv_seq RESTART WITH 2;
-ALTER SEQUENCE zone_allure_id_zone_za_seq RESTART WITH 3;
-ALTER SEQUENCE troncon_id_troncon_t_seq RESTART WITH 8;
+-- ALTER SEQUENCE parcours_id_parcours_p_seq RESTART WITH 4;
+-- ALTER SEQUENCE point_interet_id_interet_pi_seq RESTART WITH 2;
+-- ALTER SEQUENCE point_vigilance_id_vigilance_pv_seq RESTART WITH 2;
+-- ALTER SEQUENCE zone_allure_id_zone_za_seq RESTART WITH 3;
+-- ALTER SEQUENCE troncon_id_troncon_t_seq RESTART WITH 8;
 
 /*
 --- REINITILISATION DES SEQUENCES
