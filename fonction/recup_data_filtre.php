@@ -11,11 +11,17 @@
 	$departement = $_POST['departement'];
 
 	// Requête de récupération des parcours
-	$requete = "SELECT * FROM parcours WHERE 1 = 1";
+	$requete = "SELECT * FROM parcours
+							LEFT JOIN (SELECT id_parcours_e, count(*) AS nb_comm FROM effectue GROUP BY id_parcours_e) AS e
+								ON e.id_parcours_e = id_parcours_p
+							WHERE ( SELECT count(*)
+											FROM troncon
+											WHERE id_parcours_t = id_parcours_p
+										) > 0";
 
 	// Ajout des conditions selon les filtres
 	if (!empty($nom)) {
-		$requete .= " AND nom_p LIKE '$nom%'";
+		$requete .= " AND nom_p LIKE '%$nom%'";
 	}
 
 	if (!empty($niveau)) {
@@ -52,16 +58,8 @@
       $liste_parcours[$key]['troncons'][$value2['num_position_t']] = $value2;
     }
 
-		// Requête de récupération du nombre de commentaires
-		$requete_comment = "SELECT count(commentaire_e)
-												FROM effectue
-												WHERE id_parcours_e = ". $value['id_parcours_p'];
-
-		$res_comment = pg_query($bdd, $requete_comment);
-		$nb_comment = pg_fetch_assoc($res_comment)['count'];
-
-		// On ajoute le nombre de commentaires dans le parcours de la liste des parcours
-		$liste_parcours[$key]['comment'] = $nb_comment;
+		// On ajoute le nombre de commentaires du parcours dans la liste des parcours
+		$liste_parcours[$key]['comment'] = $value['nb_comm'];
   }
 
 	// On renvoie le résultat dans un tableau encodé en JSON
