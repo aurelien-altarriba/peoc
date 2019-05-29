@@ -76,28 +76,29 @@ $(document).ready(function() {
 
 	legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'legende'),
-        liste = [
-					['ligne_jaune.png', "Tronçon facile"],
-					['ligne_orange.png', "Tronçon moyen"],
-					['ligne_rouge.png', "Tronçon difficile"],
-					['depart_parcours_4.png', "Départ"],
-					['logo_arrivee_petit.png', "Arrivée"],
-					['pi_1.png', "Point d'interêt"],
-					['pv.png', "Point de vigilance"],
-				];
+	    var div = L.DomUtil.create('div', 'legende'),
+	        liste = [
+						['ligne_jaune.png', "Tronçon facile"],
+						['ligne_orange.png', "Tronçon moyen"],
+						['ligne_rouge.png', "Tronçon difficile"],
+						['zone_allure.png', "Allure sur une zone"],
+						['depart_parcours_4.png', "Départ"],
+						['logo_arrivee_petit.png', "Arrivée"],
+						['pi_1.png', "Point d'interêt"],
+						['pv.png', "Point de vigilance"],
+					];
 
-		div.innerHTML = '<img id="logo_legende" src="/image/logo_legende.png"/>';
+			div.innerHTML = '<img id="logo_legende" src="/image/logo_legende.png"/>';
 
-		liste.forEach((val) => {
-				div.innerHTML += `
-				<div class="ligne_legende">
-					<img src="/image/${val[0]}"/>
-					<h5>${val[1]}</h5>
-				</div>`;
-		});
+			liste.forEach((val) => {
+					div.innerHTML += `
+					<div class="ligne_legende">
+						<img src="/image/${val[0]}"/>
+						<h5>${val[1]}</h5>
+					</div>`;
+			});
 
-    return div;
+	    return div;
 	};
 
 	legend.addTo(map);
@@ -213,7 +214,7 @@ $(document).ready(function() {
   new L.Control.Watermark({ position: 'topleft'}).addTo(map);
 
 	// Charge les données sur la carte
-	getDataZoneAllure('all',null);
+	getDataZoneAllure('all',null,false);
 	getDataTroncon();
 	getDataPoint('I');
 	getDataPoint('V');

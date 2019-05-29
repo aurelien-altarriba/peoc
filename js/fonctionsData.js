@@ -468,7 +468,7 @@ function displayDataTronconEdition(data) {
 
 
 // Récupération des zones allures d'un parcours
-function getDataZoneAllure(mode,id_za) {
+function getDataZoneAllure(mode,id_za,edition=false) {
 	// Récupération des paramètres
 	var url = new URLSearchParams(location.search);
 
@@ -483,7 +483,7 @@ function getDataZoneAllure(mode,id_za) {
 		},
 
 		function(data) {
-			displayDataZoneAllure(data,mode);
+			displayDataZoneAllure(data,mode,edition);
 		}
 	);
 }
@@ -491,7 +491,7 @@ function getDataZoneAllure(mode,id_za) {
 
 
 // Affichage des zones allure sur la carte
-function displayDataZoneAllure(data,mode) {
+function displayDataZoneAllure(data,mode,edition) {
 	// Supprime les zones allure de la carte (variable globale donc au cas où)
 	if (mode=="all"){
 		zone_allure.clearLayers();
@@ -500,15 +500,15 @@ function displayDataZoneAllure(data,mode) {
 	// Récupération des données en JSON
 	var liste_za = JSON.parse(data);
 
-	// Pour chaque tronçons
+	// Pour chaque zone allure
 	$.each(liste_za, function(index, une_zoneAllure) {
 
-		// Tableau contenant les coordonnées du tronçons
+		// Tableau contenant les coordonnées de la zone allure
 		var trace_za = [];
     var type_za;
 		var nom_za;
 
-		// On récupère les coordonnées du troncon
+		// On récupère les coordonnées de la zone allure
 		var coords = JSON.parse(une_zoneAllure['st_asgeojson'])['coordinates'];
 
     if (mode=="all" || mode=="one" ){
@@ -533,7 +533,7 @@ function displayDataZoneAllure(data,mode) {
       couleur = 'grey';
     }
 
-		// Pour chaque coordonnées dans le troncon
+		// Pour chaque coordonnées dans la zone allure
 		$.each(coords, function(index2, ligne) {
 			// On la stocke dans les tableaux
 			trace_za.push([ligne[1], ligne[0]]);
@@ -542,10 +542,20 @@ function displayDataZoneAllure(data,mode) {
 		// Création du polyline du troncon sur la carte
 		var polyline = L.polyline(trace_za, {color: couleur, opacity: 0.5, weight: 20}).bindTooltip(nom_za, {direction: top, permanent: true, opacity: 0.5});
 
-		popup_contenu = `<div class="supprimerZA"><i class="fas fa-trash-alt"><span style="display: none;">${ une_zoneAllure['id_zone_za'] }</span></i></div>`;
+		if (edition == true){
+			//popup_contenu = `<div class="supprimerZA"><i class="fas fa-trash-alt"><span style="display: none;">${ une_zoneAllure['id_zone_za'] }</span></i></div>`;
+			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
+				'<img src="../image/za2.png" width="100px"></img>'+
+				'<h6 style="margin-bottom: 0.2em;">'+
+					une_zoneAllure['nom_ta'] +
+				'</h6>'+
+			'</center>'+
+			'<div class="supprimerZA"><i class="fas fa-trash-alt"><span style="display: none;">'+ une_zoneAllure['id_zone_za'] +'</span></i></div>');
 
-		// Ajoute le contenu HTML dans une popup au marqueur
-		polyline.bindPopup(popup_contenu);
+
+			// Ajoute le contenu HTML dans une popup au marqueur
+			polyline.bindPopup(popup_contenu);
+		}
 
 		// Ajout du polyline à la liste des parcours
 		zone_allure.addLayer(polyline);
