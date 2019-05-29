@@ -65,6 +65,13 @@ $(document).ready(function() {
 		$("#zs_longitude_pv").val(lng);
 	});
 
+	// Échelle
+	L.control.scale(
+		{
+			imperial: false,
+		}
+	).addTo(map);
+
 	var legend = L.control({position: 'topright'});
 
 	legend.onAdd = function (map) {
