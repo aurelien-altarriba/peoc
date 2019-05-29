@@ -47,7 +47,7 @@ function creer_ligne_troncon(id_troncon, troncon, param = false, importFile = fa
 			$('#contenuTroncon')
 				.append(data)
 				.change(function() {
-					actualiser_var_troncon(id_troncon, troncon, false, importFile);
+					actualiser_var_troncon(id_troncon, troncon, importFile);
 				});
 
 			if (param) {
@@ -57,7 +57,7 @@ function creer_ligne_troncon(id_troncon, troncon, param = false, importFile = fa
 				$('#zl_id_niveau_nt'+ id_troncon).val(param['id_niveau_t']);
 			}
 
-			actualiser_var_troncon(id_troncon, troncon, false, importFile);
+			actualiser_var_troncon(id_troncon, troncon, importFile);
 			_pos_troncon++;
 		}
 	)
@@ -187,7 +187,7 @@ $(document).ready(function() {
 		var idTroncon = un_troncon.layer._leaflet_id - 1;
 
 		un_troncon.layer.on('pm:edit', function(e) {
-			actualiser_var_troncon(e.target._leaflet_id - 1, e.target, false, true);
+			actualiser_var_troncon(e.target._leaflet_id - 1, e.target, true);
 		});
 
 		creer_ligne_troncon(idTroncon, un_troncon, false, true);
