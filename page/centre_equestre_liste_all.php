@@ -72,8 +72,10 @@
 							'<td>'. $ligne['mail_ce'] .'</td>'.
 							'<td>'. $ligne['nb_cheval_ce'] .'</td>'.
 							'<td>'. $ligne['nom_m'] .'</td>'.
-							'<td>'. $ligne['url_ce'] .'</td>');
-         }
+							'<td>'. $ligne['url_ce'] .'</td>'.
+						'</tr>'
+					);
+        }
 				?>
 			</tbody>
 		</table>

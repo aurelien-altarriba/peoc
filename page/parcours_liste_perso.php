@@ -21,7 +21,7 @@
 	<!-- HEADER -->
 	<?php
     require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
-    $idc=connect();
+    $idc = connect();
 
 		$id_membre = '';
 		if (isset($_SESSION['membre']['id'])){
@@ -77,28 +77,36 @@
         while($ligne = pg_fetch_assoc($rs)) {
           print(
 						'<tr>'.
-							'<td>'. $ligne['id_parcours_p'] .'</td>');
-					if (!empty($ligne['id_membre_p'])){
+							'<td>'. $ligne['id_parcours_p'] .'</td>'
+					);
+
+					if (!empty($ligne['id_membre_p'])) {
 						print('<td>Cavalier</td>');
 					}
 					else {
 						print('<td>Centre</td>');
 					}
+
 	        print(
-							'<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
-	            '<td>'. $ligne['dt_publication_p'] .'</td>'.
-	            '<td>'. $ligne['nom_d'] .'</td>'.
-	            '<td>'. $ligne['nom_ne'] .'</td>');
-					if ($ligne['autonomie_p'] == TRUE){
+						'<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
+            '<td>'. $ligne['dt_publication_p'] .'</td>'.
+            '<td>'. $ligne['nom_d'] .'</td>'.
+            '<td>'. $ligne['nom_ne'] .'</td>'
+					);
+
+					if ($ligne['autonomie_p'] == TRUE) {
 						print('<td><input type="checkbox" name="cc_auto" value="1" checked></td>');
 					}
 					else {
 						print('<td><input type="checkbox" name="cc_auto" value="1"></td>');
 					}
-	          print('<td>'. $ligne['distance_t'] .'</td>'.
-	            '<td>'. $ligne['duree_t'] .'</td>');
-	        print('<td>'. $ligne['description_p'] .'</td>'.
-					'</tr>');
+
+					print(
+							'<td>'. $ligne['distance_t'] .'</td>'.
+	          	'<td>'. $ligne['duree_t'] .'</td>'.
+	      			'<td>'. $ligne['description_p'] .'</td>'.
+						'</tr>'
+					);
          }
 				?>
 			</tbody>

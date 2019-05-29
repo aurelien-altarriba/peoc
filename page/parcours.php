@@ -227,13 +227,12 @@
 
     // type: "R" global au parcours
     // 			 "L" liste de tous les commentaires
-
     function getData(id, type) {
+
     	// Récupération des commentaires
     	$.post('/fonction/recup_data_commentaire.php',
-    		// Récupération de l'ID du parcours
     		{
-    			id: id,
+    			id: id,    // Récupération de l'ID du parcours
     			type: type
     		},
 
@@ -243,20 +242,17 @@
     	);
     }
 
-
     // Fonction d'affichage des informations cavaliers
     function displayData(data, type) {
+
     	// Récupération des données en JSON
     	var data = JSON.parse(data);
 
-      // données récapitulatives au parcours
+      // Données récapitulatives au parcours
     	if (type == "R") {
         $(".notes").html('');
 
     		$.each(data, function(index, recap) {
-      		//$("#resComment .list-group").append('<li class="list-group-item"> Nombre de note : '+recap.nbnote+' - Note moyenne : '+recap.moynote+' - Durée réelle moyenne : '+recap.dureereelle+'</li>');
-          //$("#tabMoyenne").append('<tr><td>'+recap.nbnote+'</td><td>'+recap.moynote+'</td><td>'+recap.dureereelle+'</td></tr>');
-
           var listeNote = `
             <div class="bloc_note">
               <h4>Notes <span class="badge badge-primary">👤 ${ recap.nbnote }</span></h4>
@@ -288,12 +284,13 @@
 
           $(".note_globale").rate(options_global);
         });
-      // liste des commentaires
-    	} else if (type == "L") {
+    	}
+
+      // Liste des commentaires
+      else if (type == "L") {
         $("#tabComment").html('');
 
     		$.each(data, function(index, com) {
-      		//$("#resComment .list-group").append('<li> Date : '+com.datejour+' - Cavalier : '+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+' - Note : '+com.note_e+' - Durée : '+com.duree_reel_e+' - Commentaire : '+com.commentaire_e+'</li>');
           $("#tabComment").append('<tr><th scope="row"><small>'+(index+1)+'</small></th><td><small>'+com.datejour+'</small></td><td><small>'+com.id_membre_m+' '+com.nom_m+' '+com.prenom_m+'</small></td><td><small>'+com.note_e+'</small></td><td><small>'+com.duree_reel_e+'</small></td><td><small>'+com.commentaire_e+'</small></td></tr>');
     		});
     	}
@@ -349,7 +346,6 @@
         )
       });
     });
-
     </script>
 	</body>
 </html>

@@ -1,13 +1,8 @@
 Une passe sur chaque page pour nettoyer les liens css et js inutiles
 
+// Vérifier enregistrement des images et pas n'importe quel type de fichier.
 
-Serveur de mail.
-Rejouer les scripts bdd pour vérifier que toujours ok
-Installer procédure stockée.
-Vérifier enregistrement des images et pas n'importe quel type de fichier.
-Format des dates en Français
-
-
+Mettre à jour le fichier mapsite.xlsx
 
 
 https://forum.alsacreations.com/topic-5-79482-1-Resolu-Uploader-une-image-avec-ajaxjquery-et-php.html

@@ -2,7 +2,6 @@ $("#contactForm").on("submit", function (event) {
   submitForm();
 });
 
-
 function submitForm(){
     // Initiate Variables With Form Content
     var nom = $("#nom").val();

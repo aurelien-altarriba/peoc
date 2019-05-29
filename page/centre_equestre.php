@@ -1,6 +1,3 @@
-<?php
-	//session_start();
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,9 +26,6 @@
 
 	<div id="contenu">
 		<?php
-			//Test : à commenter
-			//$_SESSION['centre_equestre'] = 1;
-
     	// A récupérer de la page qui appelle
   		$id_membre = '';
     		if (isset($_SESSION['membre']['id'])){
@@ -44,10 +38,10 @@
 
 			//Initialisation des variables
 			$fichier_dossier_dest = $CF['image']['logo'];
-			//$fichier_dossier_dest = '/image/logo/';
 
 			//Statut modification :
 			if (!empty($id_centre)){
+
       	//Récupération des informations du centre en base
 				$sql='SELECT id_centre_ce, nom_ce, adresse_ce, cp_ce, ville_ce, id_departement_ce, nom_d, tel_ce, mail_ce, nb_cheval_ce,url_ce,logo_ce
 							FROM centre_equestre

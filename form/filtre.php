@@ -1,3 +1,4 @@
+<?php $idc = connect(); ?>
 <form name="frm">
 	<!-- Nom -->
 	<div class="form-group">

@@ -18,7 +18,7 @@ function getDataCE(){
 				// On créé le marqueur
 				var marqueur_CE = new L.marker([coord[1], coord[0]], {
 						icon: L.icon({
-							iconUrl: 'image/ce.png',			// URL de l'image
+							iconUrl: 'image/ce.png',				// URL de l'image
 							iconSize: [10, 10],							// Taille de l'image
 							popupAnchor: [0, -5]						// Position d'ouverture de la popup
 						})
@@ -287,8 +287,8 @@ function displayDataTroncon(data) {
 	var marqueur_depart = new L.marker(debut, {
 			icon: L.icon({
 				iconUrl: '/image/depart_parcours_4.png',			// URL de l'image
-				iconSize: [40, 40],												// Taille de l'image
-				popupAnchor: [0, 0]											// Position d'ouverture de la popup
+				iconSize: [40, 40],														// Taille de l'image
+				popupAnchor: [0, 0]														// Position d'ouverture de la popup
 			})
 		}
 	);
@@ -296,8 +296,8 @@ function displayDataTroncon(data) {
 	var marqueur_fin = new L.marker(fin, {
 			icon: L.icon({
 				iconUrl: '/image/logo_arrivee_petit.png',			// URL de l'image
-				iconSize: [30, 30],												// Taille de l'image
-				popupAnchor: [0, 0]											// Position d'ouverture de la popup
+				iconSize: [30, 30],														// Taille de l'image
+				popupAnchor: [0, 0]														// Position d'ouverture de la popup
 			})
 		}
 	);
@@ -371,7 +371,7 @@ function displayDataPoint(data, type) {
 			// On créé le marqueur
 			var marqueur = new L.marker([coord[1], coord[0]], {
 					icon: L.icon({
-						iconUrl: '/image/pv.png',			// URL de l'image
+						iconUrl: '/image/pv.png',				// URL de l'image
 						iconSize: [25, 25],							// Taille de l'image
 						popupAnchor: [0, -10]						// Position d'ouverture de la popup
 					})
@@ -543,7 +543,6 @@ function displayDataZoneAllure(data,mode,edition) {
 		var polyline = L.polyline(trace_za, {color: couleur, opacity: 0.5, weight: 20}).bindTooltip(nom_za, {direction: top, permanent: true, opacity: 0.5});
 
 		if (edition == true){
-			//popup_contenu = `<div class="supprimerZA"><i class="fas fa-trash-alt"><span style="display: none;">${ une_zoneAllure['id_zone_za'] }</span></i></div>`;
 			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
 				'<img src="../image/za2.png" width="100px"></img>'+
 				'<h6 style="margin-bottom: 0.2em;">'+
@@ -559,7 +558,5 @@ function displayDataZoneAllure(data,mode,edition) {
 
 		// Ajout du polyline à la liste des parcours
 		zone_allure.addLayer(polyline);
-		//polyline.openTooltip();
 	});
-
 }

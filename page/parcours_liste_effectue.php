@@ -21,7 +21,7 @@
 	<!-- HEADER -->
 	<?php
     require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
-    $idc=connect();
+    $idc = connect();
 
 		$id_membre = '';
 		if (isset($_SESSION['membre']['id'])){
@@ -65,15 +65,15 @@
         while($ligne = pg_fetch_assoc($rs)) {
           print(
 						'<tr>'.
-							'<td>'. $ligne['id_parcours_p'] .'</td>');
-	        print(
+							'<td>'. $ligne['id_parcours_p'] .'</td>'.
 							'<td><a href="parcours.php?id='. $ligne['id_parcours_p'] .'">'. $ligne['nom_p'] .'</a></td>'.
 		          '<td>'. $ligne['dt_jour_e'] .'</td>'.
 		          '<td>'. $ligne['duree_reel_e'] .'</td>'.
 		          '<td>'. $ligne['note_e'] .'</td>'.
 							'<td>'. $ligne['commentaire_e'] .'</td>'.
-						'</tr>');
-         }
+						'</tr>'
+					);
+        }
 				?>
 			</tbody>
 		</table>

@@ -51,11 +51,7 @@ $(document).ready(function() {
 
 	// SVG à laisser
 	// PARCOURS
-	parcours = L.markerClusterGroup({
-		// iconCreateFunction: function(cluster) {
-		// 	return L.divIcon({ html: svgCluster(cluster), className: 'pointCamembert' });
-		// }
-	});
+	parcours = L.markerClusterGroup();
 
 	// MENU DES CARTES
 	var cartes = {
@@ -94,11 +90,7 @@ $(document).ready(function() {
 	});
 
 	// Échelle
-	L.control.scale(
-		{
-			imperial: false,
-		}
-	).addTo(map);
+	L.control.scale({ imperial: false }).addTo(map);
 
 	// Charge les données sur la carte
 	getDataCE();

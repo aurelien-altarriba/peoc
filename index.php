@@ -30,7 +30,6 @@
 	<!-- HEADER -->
 	<?php
 		require_once($_SERVER['DOCUMENT_ROOT'] ."/include/header.php");
-		$idc = connect();
 	?>
 
 	<div id="contenu">

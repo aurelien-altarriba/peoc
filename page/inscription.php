@@ -1,6 +1,3 @@
-<?php
-	//session_start();
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,12 +28,9 @@
 	<!-- CONTENU -->
 	<div id="contenu">
 		<div>
-  			<?php
+  		<?php
 				$id_membre = ( isset($_SESSION['membre']['id']) ) ? $_SESSION['membre']['id'] : '';
-
 				$fichier_dossier_dest = '/'. $CF['image']['photo'];
-				//$fichier_dossier_dest = '/image/photo/';
-
 				$ligne = null;
 
 				// Statut inscrit : visualisation /modification du profil
