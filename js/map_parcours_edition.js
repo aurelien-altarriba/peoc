@@ -9,8 +9,11 @@ function supprimer_troncon(id) {
 	delete tabTroncon[id];
 }
 
-function actualiser_var_troncon(idTroncon, un_troncon) {
-	if (un_troncon.layer) {
+function actualiser_var_troncon(idTroncon, un_troncon, fileImport = false) {
+	if (fileImport) {
+		var data = un_troncon.layer._layers[idTroncon].getLatLngs();
+	}
+	else if (un_troncon.layer) {
 		var data = un_troncon.layer.getLatLngs();
 	} else {
 		var data = un_troncon.getLatLngs();
@@ -32,7 +35,7 @@ function reset_formulaire() {
 	$("#form_pv")[0].reset();
 }
 
-function creer_ligne_troncon(id_troncon, troncon, param = false) {
+function creer_ligne_troncon(id_troncon, troncon, param = false, importFile = false) {
 
 	// On ajoute un formulaire pour le tronçon
 	$.post('/form/troncon.php',
@@ -44,7 +47,7 @@ function creer_ligne_troncon(id_troncon, troncon, param = false) {
 			$('#contenuTroncon')
 				.append(data)
 				.change(function() {
-					actualiser_var_troncon(id_troncon, troncon);
+					actualiser_var_troncon(id_troncon, troncon, importFile);
 				});
 
 			if (param) {
@@ -54,7 +57,7 @@ function creer_ligne_troncon(id_troncon, troncon, param = false) {
 				$('#zl_id_niveau_nt'+ id_troncon).val(param['id_niveau_t']);
 			}
 
-			actualiser_var_troncon(id_troncon, troncon);
+			actualiser_var_troncon(id_troncon, troncon, importFile);
 			_pos_troncon++;
 		}
 	)
@@ -140,6 +143,27 @@ $(document).ready(function() {
 		removalMode: false,
 	});
 
+	L.Control.FileLayerLoad.LABEL = '<i class="fas fa-folder-open" style="color: #555;"></i>';
+
+	// Import de fichier
+	var loadFile = L.Control.fileLayerLoad({
+    layer: L.geoJson,
+
+    // Add to map after loading
+    addToMap: true,
+
+    // File size limit in kb (20480 = 20Mo)
+    fileSizeLimit: 20480,
+
+    // Restrict accepted file formats (default: .geojson, .json, .kml, and .gpx)
+    formats: [
+      '.geojson',
+      '.kml',
+			'.json',
+			'.gpx',
+    ]
+  }).addTo(map);
+
 	// Objet contenant les coordonnées des troncons
 	tabTroncon = {};
 
@@ -156,6 +180,18 @@ $(document).ready(function() {
 
 		creer_ligne_troncon(idTroncon, un_troncon);
 	});
+
+	// Au chargement d'un fichier
+	loadFile.loader.on('data:loaded', function (un_troncon) {
+    // event.layer gives you access to the layers you just uploaded!
+		var idTroncon = un_troncon.layer._leaflet_id - 1;
+		
+		un_troncon.layer.on('pm:edit', function(e) {
+			actualiser_var_troncon(e.target._leaflet_id - 1, e.target, false, true);
+		});
+
+		creer_ligne_troncon(idTroncon, un_troncon, false, true);
+  });
 
 	// Quand on clique sur le bouton pour enregistrer
 	$('#bt_submit_enregistrer').on('click', function(e) {

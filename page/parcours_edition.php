@@ -21,8 +21,10 @@
 		<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/js/lib/leaflet.js"></script>
+		<script type="text/javascript" src="/js/lib/togeojson.js"></script>
 		<script type="text/javascript" src="/js/lib/leaflet.pm.min.js"></script>
 		<script type="text/javascript" src="/js/lib/leaflet.active-layers.min.js"></script>
+		<script type="text/javascript" src="/js/lib/leaflet.filelayer.js"></script>
 
 		<script type="text/javascript" src="/js/fonctionsData.js"></script>
 		<script type="text/javascript" src="/js/map_parcours_edition.js"></script>

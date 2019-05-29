@@ -27,7 +27,6 @@
 		if (isset($_SESSION['membre']['id'])){
 			$id_membre = $_SESSION['membre']['id'];
 		}
-		print($id_membre);
 
 		$id_centre = '';
 		if (isset($_SESSION['membre']['ce']['id_centre_ce'])){
