@@ -93,6 +93,13 @@ $(document).ready(function() {
 		});
 	});
 
+	// Échelle
+	L.control.scale(
+		{
+			imperial: false,
+		}
+	).addTo(map);
+
 	// Charge les données sur la carte
 	getDataCE();
 	getDataParcoursAll();
