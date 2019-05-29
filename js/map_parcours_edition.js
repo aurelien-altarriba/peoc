@@ -753,7 +753,7 @@ $(document).ready(function() {
 						console.log(data);
 						reset_formulaire();
 
-						getDataZoneAllure('one',data);
+						getDataZoneAllure('one',data,true);
 
 	          // On masque le formulaire
 	          $('#formulaireMarqueur').modal('hide');
@@ -788,7 +788,7 @@ $(document).ready(function() {
 					id_za: id,
 				},
 				success : function(resultat, statut){
-					getDataZoneAllure('all',null);
+					getDataZoneAllure('all',null,true);
 				}
 			});
 		}
@@ -800,7 +800,7 @@ $(document).ready(function() {
 
 
 	// Chargement des données à l'initialisation
-	getDataZoneAllure('all',null);
+	getDataZoneAllure('all',null,true);
 	getDataPoint('V');
 	getDataPoint('I');
 });
