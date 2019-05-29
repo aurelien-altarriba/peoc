@@ -86,8 +86,10 @@
 					  <div class="dropdown-menu" aria-labelledby="dropdown_parcours">
 							<a class="dropdown-item" href="/page/parcours_liste_all.php">Tous les parcours</a>
 							<?php if(isset($_SESSION['membre']['id_membre_m'])) { ?>
+								<?php if(isset($_SESSION['membre']['type'])) { ?>
 						    <a class="dropdown-item" href="/page/parcours_liste_perso.php">Mes parcours</a>
 						    <a class="dropdown-item" href="/page/parcours_edition.php">Créer un parcours</a>
+								<?php } ?>
 						    <a class="dropdown-item" href="/page/parcours_liste_effectue.php">Parcours effectués</a>
 							<?php } ?>
 					  </div>
