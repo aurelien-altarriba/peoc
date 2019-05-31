@@ -144,6 +144,36 @@ $(document).ready(function() {
 
 	L.Control.FileLayerLoad.LABEL = '<i class="fas fa-folder-open" style="color: #555;"></i>';
 
+	var legend = L.control({position: 'topright'});
+
+	legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legende'),
+        liste = [
+					['ligne_jaune.png', "Tronçon facile"],
+					['ligne_orange.png', "Tronçon moyen"],
+					['ligne_rouge.png', "Tronçon difficile"],
+					['zone_allure.png', "Allure sur une zone"],
+					['depart_parcours_4.png', "Départ"],
+					['logo_arrivee_petit.png', "Arrivée"],
+					['pi_1.png', "Point d'interêt"],
+					['pv.png', "Point de vigilance"],
+				];
+
+		div.innerHTML = '<img id="logo_legende" src="/image/logo_legende.png"/>';
+
+		liste.forEach((val) => {
+				div.innerHTML += `
+				<div class="ligne_legende">
+					<img src="/image/${val[0]}"/>
+					<h5>${val[1]}</h5>
+				</div>`;
+		});
+
+    return div;
+	};
+
+	legend.addTo(map);
+
 	// Import de fichier
 	var loadFile = L.Control.fileLayerLoad({
     layer: L.geoJson,
