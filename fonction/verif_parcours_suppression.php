@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 //Connexion BDD
@@ -46,7 +45,8 @@ $rs = pg_query($idc,$sql = "SELECT id_centre_p
                             WHERE id_parcours_p = $id_p");
 $id_centre_p_parcours_selection = pg_fetch_result($rs,0,0);
 
-if ($id_membre == $id_membre_p_parcours_selection || $id_centre_p == $id_centre_p_parcours_selection){
+if ($id_membre == $id_membre_p_parcours_selection || $id_centre_p == $id_centre_p_parcours_selection) {
+  
   //Suppression du parcours
   $sql = "DELETE FROM parcours WHERE id_parcours_p = $id_p";
   $rs = pg_exec($idc,$sql);
