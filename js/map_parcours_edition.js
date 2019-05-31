@@ -192,6 +192,23 @@ $(document).ready(function() {
 		creer_ligne_troncon(idTroncon, un_troncon, false, true);
   });
 
+	// Quand on clique sur le bouton pour supprimer
+	$('#bt_submit_suppression').on('click', function(e) {
+		// Mise à jour du parcours
+		$.post('/fonction/verif_parcours_suppression.php',
+			{
+				zl_id_p: url.get('id'),
+			},
+			function(data) {
+				if (data != '') {
+					alert(data);
+				} else {
+					document.location.href = "/";
+				}
+			}
+		);
+	});
+
 	// Quand on clique sur le bouton pour enregistrer
 	$('#bt_submit_enregistrer').on('click', function(e) {
 
