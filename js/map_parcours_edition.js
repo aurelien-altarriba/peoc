@@ -149,14 +149,10 @@ $(document).ready(function() {
 	legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legende'),
         liste = [
-					['ligne_jaune.png', "Tronçon facile"],
-					['ligne_orange.png', "Tronçon moyen"],
-					['ligne_rouge.png', "Tronçon difficile"],
 					['zone_allure.png', "Allure sur une zone"],
-					['depart_parcours_4.png', "Départ"],
-					['logo_arrivee_petit.png', "Arrivée"],
 					['pi_1.png', "Point d'interêt"],
 					['pv.png', "Point de vigilance"],
+					['za.png', "Créer une zone d'allure"],
 				];
 
 		div.innerHTML = '<img id="logo_legende" src="/image/logo_legende.png"/>';
