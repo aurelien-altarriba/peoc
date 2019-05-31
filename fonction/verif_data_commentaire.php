@@ -6,7 +6,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
 $idc = connect();
 
 // On récupère l'id du membre connecté
-isset($_SESSION['membre']['id']) ? $id_membre = $_SESSION['membre']['id'] : return 0;
+if (isset($_SESSION['membre']['id'])) {
+  $id_membre = $_SESSION['membre']['id'];
+} else {
+  return 0;
+}
 
 // Déclaration des variables $note_e, $duree_reel_e, $commentaire_e
 $id_parcours = pg_escape_string($_POST['id_parcours']);
