@@ -144,6 +144,32 @@ $(document).ready(function() {
 
 	L.Control.FileLayerLoad.LABEL = '<i class="fas fa-folder-open" style="color: #555;"></i>';
 
+	var legend = L.control({position: 'topright'});
+
+	legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legende'),
+        liste = [
+					['zone_allure.png', "Allure sur une zone"],
+					['pi_1.png', "Point d'interêt"],
+					['pv.png', "Point de vigilance"],
+					['za.png', "Créer une zone d'allure"],
+				];
+
+		div.innerHTML = '<img id="logo_legende" src="/image/logo_legende.png"/>';
+
+		liste.forEach((val) => {
+				div.innerHTML += `
+				<div class="ligne_legende">
+					<img src="/image/${val[0]}"/>
+					<h5>${val[1]}</h5>
+				</div>`;
+		});
+
+    return div;
+	};
+
+	legend.addTo(map);
+
 	// Import de fichier
 	var loadFile = L.Control.fileLayerLoad({
     layer: L.geoJson,
@@ -191,6 +217,23 @@ $(document).ready(function() {
 
 		creer_ligne_troncon(idTroncon, un_troncon, false, true);
   });
+
+	// Quand on clique sur le bouton pour supprimer
+	$('#bt_submit_suppression').on('click', function(e) {
+		// Mise à jour du parcours
+		$.post('/fonction/verif_parcours_suppression.php',
+			{
+				zl_id_p: url.get('id'),
+			},
+			function(data) {
+				if (data != '') {
+					alert(data);
+				} else {
+					document.location.href = "/";
+				}
+			}
+		);
+	});
 
 	// Quand on clique sur le bouton pour enregistrer
 	$('#bt_submit_enregistrer').on('click', function(e) {

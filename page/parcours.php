@@ -58,26 +58,48 @@
 				echo('erreur : '. $e);
 			}
 
-			// On récupère les données relatives au parcours
-			try {
-				$res_rel = pg_query_params($bdd,
-				 'SELECT nom_ne, nom_d, nom_m, prenom_m,
-				 	 (SELECT nom_pa
-						FROM pays
-						INNER JOIN membre ON id_membre_m = $1
-						WHERE id_pays_pa = id_pays_m)
-					 AS nom_pa
-					FROM parcours
-					INNER JOIN niveau_equestre ON id_niveau_p = id_niveau_ne
-					INNER JOIN departement ON id_departement_p = id_departement_d
-					INNER JOIN membre ON id_membre_p = id_membre_m
-					WHERE id_parcours_p = $1',
+      // Si c'est un centre équestre
+      if (empty($parcours['id_membre_p'])) {
+        try {
+  				$res_rel = pg_query_params($bdd,
+  				 'SELECT nom_ne, nom_d, nom_ce
+            FROM parcours
+            INNER JOIN niveau_equestre ON id_niveau_p = id_niveau_ne
+            INNER JOIN departement ON id_departement_p = id_departement_d
+            INNER JOIN centre_equestre ON id_centre_ce = $2
+            WHERE id_parcours_p = $1',
+  					array($id_parcours, $parcours['id_centre_p']));
 
-					array($id_parcours));
-				$parcours_rel = pg_fetch_all($res_rel)[0];
-			} catch(Exception $e) {
-				echo('erreur : '. $e);
-			}
+  				$parcours_rel = pg_fetch_all($res_rel)[0];
+  			} catch(Exception $e) {
+  				echo('erreur : '. $e);
+  			}
+      }
+
+      else {
+
+        // On récupère les données relatives au parcours
+        try {
+          $res_rel = pg_query_params($bdd,
+          'SELECT nom_ne, nom_d, nom_m, prenom_m,
+          (SELECT nom_pa
+            FROM pays
+            INNER JOIN membre ON id_membre_m = $1
+            WHERE id_pays_pa = id_pays_m)
+            AS nom_pa
+            FROM parcours
+            INNER JOIN niveau_equestre ON id_niveau_p = id_niveau_ne
+            INNER JOIN departement ON id_departement_p = id_departement_d
+            INNER JOIN membre ON id_membre_p = id_membre_m
+            WHERE id_parcours_p = $1',
+
+            array($id_parcours));
+            $parcours_rel = pg_fetch_all($res_rel)[0];
+          } catch(Exception $e) {
+            echo('erreur : '. $e);
+          }
+      }
+
 
       // On récupère les données des tronçons du parcours
 			try {
@@ -91,20 +113,28 @@
 			} catch(Exception $e) {
 				echo('erreur : '. $e);
 			}
+
+      // On calcule le nom à afficher selon si CE ou CV en créateur
+      $nom = 'inconnu';
+      if (!empty($parcours_rel['nom_ce'])) {
+        $nom = $parcours_rel['nom_ce'];
+      } else {
+        $nom = $parcours_rel['prenom_m'] . ' ' . $parcours_rel['nom_m'];
+      }
 		?>
 
 		<div id="contenu">
 			<div id="colonneGauche">
         <h3><?php echo($parcours['nom_p']) ?></h3>
-				<div class="date">Créé le <?php echo date_format(date_create($parcours['dt_publication_p']), 'd/m/Y'); ?> par <?php echo $parcours_rel['prenom_m'] .' '. $parcours_rel['nom_m']; ?> (<?php echo $parcours_rel['nom_pa']; ?>)</div>
+				<div class="date">Créé le <?php echo date_format(date_create($parcours['dt_publication_p']), 'd/m/Y'); ?> par <?= $nom ?> (<?php echo $parcours_rel['nom_pa'] ?: 'France'; ?>)</div>
 				<div class="autonomie">En autonomie : <span class=<?php echo $parcours['autonomie_p'] ? '"vrai">OUI' : '"faux">NON';?></span></div>
 				<div class="niveau">Niveau : <span class="niveau<?php echo $parcours['id_niveau_p']; ?>"><?php echo $parcours_rel['nom_ne']; ?></span></div>
 				<div class="departement">Département : <b><?php echo $parcours_rel['nom_d']; ?> (<?php echo $parcours['id_departement_p']; ?>)</b></div>
-        <div class="interet">Nombre de points d'intérêt : <b><?php echo $parcours['nb_pi']; ?></b></div>
-        <div class="vigilance">Nombre de points de vigilance : <b><?php echo $parcours['nb_pv']; ?></b></div>
-        <div class="dureeestime">Durée estimée (min) : <b><?php echo $parcours['duree_t']; ?></b></div>
-        <div class="distance">Distance (m) : <b><?php echo $parcours['distance_t']; ?></b></div>
-        <div class="description alert alert-secondary"><?php echo $parcours['description_p']; ?></div>
+        <div class="interet">Nombre de points d'intérêt : <b><?php echo $parcours['nb_pi'] ?: 0; ?></b></div>
+        <div class="vigilance">Nombre de points de vigilance : <b><?php echo $parcours['nb_pv'] ?: 0; ?></b></div>
+        <div class="dureeestime">Durée estimée (min) : <b><?php echo $parcours['duree_t'] ?: 0; ?></b></div>
+        <div class="distance">Distance (m) : <b><?php echo $parcours['distance_t'] ?: 0; ?></b></div>
+        <div class="description alert alert-secondary"><?php echo $parcours['description_p'] ?: 'Aucune description :('; ?></div>
 
         <?php
         // On regarde si l'utilisateur est propriétaire du parcours

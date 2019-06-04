@@ -1,11 +1,7 @@
 <?php
-ini_set('display_errors', 1);
 session_start();
-
 require_once($_SERVER['DOCUMENT_ROOT'] .'/include/config.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
-
-// Connexion à la BDD
 $bdd = connect();
 
 // On récupère l'action à effectuer
@@ -69,12 +65,10 @@ foreach ($listeTroncons as $troncon) {
 
   // Commande pour PostGis
   $commande = "'LINESTRING(";
-
   $virgule = false;
 
   // Pour chaque coordonnée dans le tronçon
   foreach ($troncon->data as $coord) {
-
     if ($virgule) {
       $commande .= ', ';
     } else {

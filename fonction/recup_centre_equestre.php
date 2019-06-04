@@ -2,7 +2,7 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] .'/include/connect.php');
   $bdd = connect();
 
-  // récupération des variables envoyées en POST
+  // Récupération des variables envoyées en POST
   $id_centre = htmlspecialchars($_POST['id_centre']);
   $id_membre = htmlspecialchars($_POST['id_membre']);
 
