@@ -5,6 +5,8 @@ $CF = [
     "point_interet" => "/image/photo_pi/",
     "point_vigilance" => "/image/photo_pv/",
     "photo" => "/image/photo/",
+    "photo_pi" => "/image/photo_pi/",
+    "photo_pv" => "/image/photo_pv/",
     "logo" => "/image/logo/",
   ],
 

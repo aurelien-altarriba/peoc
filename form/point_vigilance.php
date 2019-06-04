@@ -30,13 +30,37 @@
     </select>
   </div>
 
-  <!-- <div class="form-group">
-    <label for="zs_photo_pv">Photo</label>
-    <input type="file" class="form-control-file" id="zs_photo_pv" name="zs_photo_pv">
-  </div> -->
+  <div class="form-group" id="photo_cavalier">
+    <label for="zs_photo_up">Photo</label>
+    <input type="file" class="form-control-file" name="zs_photo_up_pv" id="zs_photo_up_pv">
+  </div>
+
+  <img src="<?php echo($photo_c); ?>" name="zs_photo_pv" id="zs_photo_pv" style="max-width: 300px;" />
 
   <div class="form-group">
     <label for="zs_categorie_pv">Description</label>
     <textarea class="form-control" name="zs_description_pv" id="zs_description_pv" rows="5"></textarea>
   </div>
 </form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+		// Fonction de lecture d'une image importée par input
+		function readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+
+		    reader.onload = function(e) {
+		      $('#zs_photo_pv').attr('src', e.target.result);
+		    }
+
+		    reader.readAsDataURL(input.files[0]);
+		  }
+		}
+
+		$("#zs_photo_up_pv").change(function() {
+		  readURL(this);
+		});
+});
+</script>

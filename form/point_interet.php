@@ -34,7 +34,7 @@
 
       <div class="form-group" id="photo_cavalier">
   	    <label for="zs_photo_up">Photo</label>
-  	    <input type="file" class="form-control-file" name="zs_photo_up" id="zs_photo_up">
+  	    <input type="file" class="form-control-file" name="zs_photo_up_pi" id="zs_photo_up_pi">
   	  </div>
 
   		<img src="<?php echo($photo_c); ?>" name="zs_photo_pi" id="zs_photo_pi" style="max-width: 300px;" />
@@ -62,9 +62,8 @@ $(document).ready(function(){
 		  }
 		}
 
-		$("#zs_photo_up").change(function() {
+		$("#zs_photo_up_pi").change(function() {
 		  readURL(this);
 		});
 });
 </script>
-atom://teletype/portal/7b203bd4-e2c2-4faa-8c09-f98ae9da6021

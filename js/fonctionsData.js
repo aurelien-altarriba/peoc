@@ -335,9 +335,15 @@ function displayDataPoint(data, type) {
 			);
 
 			// On créé le contenu en HTML
-			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
-        '<img src="../image/pi2.png"></img>'+
-        '<h6 style="margin-bottom: 0.2em;">'+
+			var popup_contenu = '<center class="popup_PT" style="margin-top: 2em;">';
+			if (point['photo_pi'] != null) {
+				popup_contenu += '<img src="../image/photo_pi/'+ point['photo_pi'] +'"></img>';
+			}
+			else {
+				popup_contenu += '<img src="../image/pi2.png"></img>';
+			}
+
+      popup_contenu += ('<h6 style="margin-bottom: 0.2em;">'+
           point['nom_pic'] +
         '</h6>'+
         '<div style="margin-top: 0.5em;">'+
@@ -378,9 +384,14 @@ function displayDataPoint(data, type) {
 				}
 			);
 
-			var popup_contenu = ('<center class="popup_PT" style="margin-top: 2em;">'+
-        '<img src="../image/pv2.png" width="100px"></img>'+
-        '<h6 style="margin-bottom: 0.2em;">'+
+			var popup_contenu = '<center class="popup_PT" style="margin-top: 2em;">';
+			if (point['photo_pv'] != null) {
+				popup_contenu += '<img src="../image/photo_pv/'+ point['photo_pv'] +'"></img>';
+			}
+			else {
+				popup_contenu += '<img src="../image/pv2.png"></img>';
+			}
+			popup_contenu += ('<h6 style="margin-bottom: 0.2em;">'+
           point['nom_pvc'] +
         '</h6>'+
         '<div style="margin-top: 0.5em;">'+

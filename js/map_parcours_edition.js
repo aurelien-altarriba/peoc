@@ -32,9 +32,14 @@ function actualiser_var_troncon(idTroncon, un_troncon, fileImport = false) {
 
 // On réinitialise les formulaires
 function reset_formulaire() {
+
 	// On vide le formulaire
 	$("#form_pi")[0].reset();
 	$("#form_pv")[0].reset();
+
+	// On réinitialise les photos
+	$('#zs_photo_pi').attr('src', '');
+	$('#zs_photo_pv').attr('src', '');
 }
 
 // Créé une ligne de formulaire pour un tronçon
@@ -391,21 +396,21 @@ $(document).ready(function() {
 				// Si on modifie le parcours
 				var Parcours = url.get('id');
 
+				var form = $('#form_pi').get(0);
+				var formData = new FormData(form);
+				formData.append('latitude', Latitude);
+				formData.append('longitude', Longitude);
+				formData.append('parcours', Parcours);
+
 				// ENREGISTREMENT DU MARQUEUR VIA AJAX
     		$.ajax({
-          url : '/fonction/verif_point_interet_creation.php',
-          type : 'POST',
-          dataType : 'text',
-          data: {
-          	zl_nom_pic: zl_nom_pic,
-          	zs_url_pi: zs_url_pi,
-          	zs_description_pi: zs_description_pi,
-          	latitude: Latitude,
-          	longitude: Longitude,
-						parcours: Parcours,
-          },
-          success : function(data){
-						console.log(data);
+          url: '/fonction/verif_point_interet_creation.php',
+          type: 'POST',
+          dataType: 'json',
+					data: formData,
+					processData: false,
+					contentType: false,
+          complete: function(data){
 						reset_formulaire();
 
 						getDataPoint('I');
@@ -602,22 +607,21 @@ $(document).ready(function() {
 					// Si on modifie le parcours
 					var Parcours = url.get('id');
 
+					var form = $('#form_pv').get(0);
+					var formData = new FormData(form);
+					formData.append('latitude', Latitude);
+					formData.append('longitude', Longitude);
+					formData.append('parcours', Parcours);
+
 					// ENREGISTREMENT DU POINT DE VIGILANCE VIA AJAX
 		  		$.ajax({
 		        url : '/fonction/verif_point_vigilance_creation.php',
-		        type : 'POST',
-		        dataType : 'text',
-		        data: {
-		        	zs_dt_debut_pv: zs_dt_debut_pv,
-		        	zs_dt_fin_pv: zs_dt_fin_pv,
-		        	zs_categorie_pv: zs_categorie_pv,
-							zs_description_pv: zs_description_pv,
-		        	latitude: Latitude,
-		        	longitude: Longitude,
-							parcours: Parcours,
-		        },
-		        success : function(data){
-							console.log(data);
+						type: 'POST',
+	          dataType: 'json',
+						data: formData,
+						processData: false,
+						contentType: false,
+		        complete : function(data){
 							reset_formulaire();
 
 							getDataPoint('V');
