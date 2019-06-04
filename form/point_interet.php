@@ -32,14 +32,12 @@
         <input type="text" class="form-control" name="zs_url_pi" id="zs_url_pi">
       </div>
 
-      <!--
       <div class="form-group" id="photo_cavalier">
   	    <label for="zs_photo_up">Photo</label>
   	    <input type="file" class="form-control-file" name="zs_photo_up" id="zs_photo_up">
   	  </div>
 
   		<img src="<?php echo($photo_c); ?>" name="zs_photo_pi" id="zs_photo_pi" style="max-width: 300px;" />
-      -->
 
       <div class="form-group">
         <label for="zs_description_pi">Description</label>
@@ -47,7 +45,7 @@
       </div>
   </div>
 </form>
-<!--
+
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -69,4 +67,4 @@ $(document).ready(function(){
 		});
 });
 </script>
--->
+atom://teletype/portal/7b203bd4-e2c2-4faa-8c09-f98ae9da6021
