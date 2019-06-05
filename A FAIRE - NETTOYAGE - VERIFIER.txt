@@ -1,8 +1,0 @@
-Une passe sur chaque page pour nettoyer les liens css et js inutiles
-
-// Vérifier enregistrement des images et pas n'importe quel type de fichier.
-
-Mettre à jour le fichier mapsite.xlsx
-
-
-https://forum.alsacreations.com/topic-5-79482-1-Resolu-Uploader-une-image-avec-ajaxjquery-et-php.html
